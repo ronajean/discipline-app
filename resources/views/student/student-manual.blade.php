@@ -109,8 +109,8 @@
                     </div>
                 </aside>
                 <div class="col-span-5">
-                    <div style="height:38.70em;" class="bg-white border border-indigo-800">
-                        <object data="PLM_Student_Manual_v1.pdf" type="application/pdf" class="w-full h-full"></object>
+                    <div style="height:59em;" class="bg-white border border-indigo-800">
+                        <object data="{{ asset('assets/plm-stud-manual.pdf') }}" type="application/pdf" class="w-full h-full"></object>
                     </div>
                 </div>
             </article>

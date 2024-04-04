@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChairController;
 use App\Http\Controllers\OSDSDeanController;
@@ -27,7 +28,8 @@ Route::get('/', [AuthController::class, 'login']);
 
 
 Route::post('login', [AuthController::class, 'Authlogin']);
-Route::get('logout', [AuthController::class, 'logout']);
+
+#Route::get('logout', [AuthController::class, 'logout']);
  
 
 /*
@@ -82,6 +84,7 @@ Route::get('chair/dashboard', [ChairController::class, 'dashboard'])->name('chai
 
 //College Dean Views
 Route::get('cdean/dashboard', [CDeanController::class, 'dashboard'])->name('cdean.dashboard');
+Route::get('cdean/file-complaint', [CDeanController::class, 'fileComplaint'])->name('cdean.file-complaint');
 
 
 //OSDS Dean Views
@@ -92,3 +95,8 @@ Route::get('odean/dashboard', [OSDSDeanController::class, 'dashboard'])->name('o
 Route::get('staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
 
 
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/login');
+})->name('logout');
+?>

@@ -18,4 +18,13 @@ class CDeanController extends Controller
             // etc.
         ]);
     }
+
+    public function fileComplaint()
+    {
+        return view('cdean.complaint-report', [
+            // 'courses' => $courses,
+            // 'grades' => $grades,
+            // etc.
+        ]);
+    }
 }
