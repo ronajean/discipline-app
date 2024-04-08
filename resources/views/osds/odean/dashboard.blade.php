@@ -189,7 +189,7 @@
                         <button class="w-full text-left p-2 pl-8 hover:bg-indigo-600 hover:text-amber-300">
                             <p class="text-xs lg:text-base">Display and Keyboard</p>
                         </button>
-                        <button class="w-full text-left pl-3 mt-8 py-1.5 px-0.5 lg:p-2 hover:bg-red-300 hover:text-white text-red-300 rounded">
+                        <button class="w-full text-left pl-3 mt-8 py-1.5 px-0.5 lg:p-2 hover:bg-red-300 hover:text-white text-red-300 rounded" >
                             <div class="flex items-center">
                                 <svg class="h-5 w-5" viewBox="0 0 64 64" fill="currentColor">
                                     <path fill-rule="evenodd" d="m34,44h6v12H10V8h30v12h-6v-6h-18v36h18v-6Zm15.24-25l-4.24,4.24,5.76,5.76h-16.76v6h16.76l-5.76,5.76,4.24,4.24,13-13-13-13Z" clip-rule="evenodd"></path>

@@ -55,14 +55,14 @@
                 </div>
                 <!-- PLM -->
                 <div class="border-l border-indigo-300 pl-4 py-1.5 lg:col-span-3">
-                    <img class="hidden lg:block h-12 w-auto selection:bg-transparent" alt="PLM Logo" src="assets/plm-logo--with-header.png"/>
-                    <img class="lg:hidden block h-8 w-8" src="assets/plm-logo-hd.png"/>
+                    <img class="hidden lg:block h-12 w-auto selection:bg-transparent" alt="PLM Logo" src="{{ asset('assets/plm-logo--with-header.png') }}"/>
+                    <img class="lg:hidden block h-8 w-8" src="{{ asset('assets/plm-logo.png') }}"/>
                 </div>
                 <div class="flex flex-row items-center space-x-2 col-span-7 lg:col-span-5 pr-4 lg:px-0 text-center lg:space-x-2 space-x-6">
                     <!-- OSDS -->
-                    <img class="hidden lg:block h-12 w-12" src="assets/osdslogo.png" title="OSDS Logo"/>
+                    <img class="hidden lg:block h-12 w-12" src="{{ asset('assets/osdslogo.png') }}" title="OSDS Logo"/>
                     <h1 class="text-sm lg:text-xl font-light">The Office of Student Development and Services</h1>
-                    <img class="lg:hidden h-8 w-8" src="assets/osdslogo.png"/>
+                    <img class="lg:hidden h-8 w-8" src="{{ asset('assets/osdslogo.png') }}"/>
                 </div>
                 <div class="text-xs lg:text-sm font-light text-right border-l border-indigo-300 col-span-2">
                     <!-- Date and Time -->
@@ -90,7 +90,7 @@
             </header>
             <article class="grid grid-cols-6">
                 <aside class="bg-indigo-800 custom-scroller text-white relative">
-                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='college-dean-dashboard.html'">
+                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('cdean.dashboard') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m56,34h-7v20h-12v-16h-10v16h-12v-20h-7v-4L32,6l9,9v-7h8v15l7,7v4Z" clip-rule="evenodd"></path>
                         </svg>
@@ -116,13 +116,13 @@
                 </aside>
                 <div class="border-l border-b border-indigo-800 h-full bg-white col-span-5 py-4">
                     <div class="flex flex-row justify-evenly flex items-center text-center">
-                        <img class="h-8 w-8 lg:h-14 lg:w-14" src="assets/plm-logo.png"/>
+                        <img class="h-8 w-8 lg:h-14 lg:w-14" src="{{ asset('assets/plm-logo.png') }}"/>
                         <div class="cursor-default">
                             <p class="font-semibold text-xs lg:text-lg">PAMANTASAN NG LUNGSOD NG MAYNILA</p>
                             <p class="text-xs lg:text-sm italic">(University of the City of Manila)</p>
                             <p class="text-xs lg:text-sm font-medium">Intramuros, Manila</p>
                         </div>
-                        <img class="h-8 w-8 lg:h-14 lg:w-14" src="assets/osdslogo.png"/>
+                        <img class="h-8 w-8 lg:h-14 lg:w-14" src="{{ asset('assets/osdslogo.png') }}"/>
                     </div>
                     <div class="cursor-default flex flex-col items-center text-center">
                         <p style="font-family: Aston Script;" class="mt-10 text-xs md:text-sm lg:text-base">Office of Student Development and Services</p>

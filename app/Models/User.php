@@ -10,6 +10,36 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+    
+    public function isStudent()
+    {
+        return $this->user_type == 1;
+    }
+
+    public function isStaff()
+    {
+        return $this->user_type == 2;
+    }
+
+    public function isOdean()
+    {
+        return $this->user_type == 3;
+    }
+
+    public function isChair()
+    {
+        return $this->user_type == 4;
+    }
+
+    public function isCdean()
+    {
+        return $this->user_type == 5;
+    }
+
+    public function isUSO()
+    {
+        return $this->user_type == 6;
+    }
 
     /**
      * The attributes that are mass assignable.

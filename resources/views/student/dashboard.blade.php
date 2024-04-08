@@ -114,7 +114,7 @@
                     </button>
 
                     
-                    <form method="POST" action="{{ route('logout') }}">
+                    <form action="/logout" method="POST">
                         @csrf
                         <button id="logout" class="hover:bg-red-200 hover:text-red-600 active:bg-red-400 active:font-semibold flex flex-row items-center justify-center w-full p-4 space-x-2 mt-52">
                             <svg class="h-5 w-5" viewBox="0 0 64 64" fill="currentColor">
@@ -130,25 +130,26 @@
                 </aside>
                 <div class="col-span-4 pt-4 px-16">
                     <div class="grid grid-cols-4">
+                        
                         <div class="bg-white rounded-xl col-start-2 col-span-2 shadow p-2 border border-indigo-800">
                             <p class="text-center text-3xl font-light tracking-widest">Welcome</p>
-                            <div class="flex justify-center space-x-4">
-                                <div class="text-sm mt-6 text-right">
+                            <div class="text-sm flex flex-row justify-center space-x-6 mt-2">
+                                <div>
                                     <p>Student Number:</p>
-                                    <p>Student Name:</p>
-                                    <p>Course:</p>
-                                    <p>Year Level:</p>
-                                    <p>College:</p>     
+                                    <p>Student Name: </p>
+                                    <p>Course: </p>
                                 </div>
-                                <div class="text-sm mt-6 text-amber-600 selection:text-indigo-600 selection:bg-indigo-50">
-                                    <p>Student Number</p>
-                                    <p>Student Name</p>
-                                    <p>Course</p>
-                                    <p>Year Level</p>
-                                    <p>College</p>
+                                <div class="font-light text-amber-600 selection:text-indigo-600 selection:bg-indigo-50">
+                                    @foreach ($students as $student)
+                                    <p>{{ $student->student_id }}</p>
+                                    <p> {{ $student->first_name }} {{ $student->last_name }}</p>
+                                    <p>{{ $student->course_id }}</p>
+            
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
+
                         <div class="bg-white rounded-2xl shadow-md col-span-4 p-20 border border-indigo-800 mt-12">
                             <!--  -->
                         </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -16,11 +18,13 @@ class StudentController extends Controller
         // Fetch data related to the student from the database
         // For example, you might fetch the student's courses, grades, etc.
 
+        #$students = Student::all();
+        $userId = Auth::user()->id;
+        $students = Student::where('id', $userId)->get();
+
         // Then, pass the data to the view
         return view('student.dashboard', [
-            // 'courses' => $courses,
-            // 'grades' => $grades,
-            // etc.
+            'students' => $students,
         ]);
     }
 

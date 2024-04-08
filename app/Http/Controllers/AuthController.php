@@ -10,7 +10,7 @@ class AuthController extends Controller
     public function login()
     {
         return view('auth.login');
-        
+        /*
         if (Auth::check()) {
             if(Auth::user()->user_type == 1){
                 return redirect('student/dashboard');
@@ -33,7 +33,7 @@ class AuthController extends Controller
             return view('auth.login');
         }
 
-        return view('auth.login');
+        return view('auth.login');*/
     }
 
     public function Authlogin(Request $request)
@@ -43,19 +43,27 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
             
             if(Auth::user()->user_type == 1){
+                session((['userLogin', true]));
                 return redirect('student/dashboard');
             }
             else if(Auth::user()->user_type == 2){
+                session((['userLogin', true]));
                 return redirect('staff/dashboard');
             }
             else if(Auth::user()->user_type == 3){
+                session((['userLogin', true]));
                 return redirect('odean/dashboard');
             }
             else if(Auth::user()->user_type == 4){
+                session((['userLogin', true]));
                 return redirect('chair/dashboard');
             }
             else if(Auth::user()->user_type == 5){
+                session((['userLogin', true]));
                 return redirect('cdean/dashboard');
+            }
+            else if(Auth::user()->user_type == 6){
+                return redirect('uso/dashboard');
             }
         
         }
@@ -67,7 +75,8 @@ class AuthController extends Controller
 
     public function logout()
     {
-        Auth::logout();
-        return redirect('login');
+        #Auth::logout();
+        session()->forget('userLogin');
+        return redirect('/');
     }
 }

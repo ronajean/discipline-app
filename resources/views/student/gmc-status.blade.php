@@ -173,12 +173,16 @@
                         <p class="hidden lg:block">GMC Certificate</p>
                         <p class="lg:hidden text-xs">GMC</p>
                     </button>
-                    <button class="hover:bg-red-200 hover:text-red-600 active:bg-red-400 active:font-semibold flex flex-row items-center justify-center w-full p-4 space-x-2 mt-52" onclick="location.href='login-page.html'">
-                        <svg class="h-5 w-5" viewBox="0 0 64 64" fill="currentColor">
-                            <path fill-rule="evenodd" d="m34,44h6v12H10V8h30v12h-6v-6h-18v36h18v-6Zm15.24-25l-4.24,4.24,5.76,5.76h-16.76v6h16.76l-5.76,5.76,4.24,4.24,13-13-13-13Z" clip-rule="evenodd"></path>
-                        </svg>
-                        <p class="text-xs lg:text-base">Log Out</p>
-                    </button>
+                    <form action="/logout" method="POST">
+                        @csrf
+                        <button class="hover:bg-red-200 hover:text-red-600 active:bg-red-400 active:font-semibold flex flex-row items-center justify-center w-full p-4 space-x-2 mt-52" >
+                            <svg class="h-5 w-5" viewBox="0 0 64 64" fill="currentColor">
+                                <path fill-rule="evenodd" d="m34,44h6v12H10V8h30v12h-6v-6h-18v36h18v-6Zm15.24-25l-4.24,4.24,5.76,5.76h-16.76v6h16.76l-5.76,5.76,4.24,4.24,13-13-13-13Z" clip-rule="evenodd"></path>
+                            </svg>
+                            <p class="text-xs lg:text-base">Log Out</p>
+                        </button>
+                    </form>
+
                     <div class="absolute bottom-1 left-2">
                         <p class="text-xs font-thin text-indigo-600 lg:text-indigo-300">Discipline Module</p>
                     </div>

@@ -14,11 +14,16 @@
         <div class="absolute">
             <div class="bg-white bg-opacity-60 p-10 pt-28 pb-20">
                 <img class="w-16 h-16 mx-auto" alt="PLM Logo" src="https://web2.plm.edu.ph/sfe/images/plmlogo.png">
+                
+                @if(Session::has('error'))
+                    <p class="text-red-500 text-base mt-2 font-bold">{{ Session::get('error') }}</p>
+                @endif
 
-                <form action="/login" method="post">
+                <form action="{{ url('login') }}" method="post">
                     @csrf
                     <p class="tracking-tight my-4 font-bold text-amber-600 text-4xl text-center">Pamantasan ng Lungsod ng Maynila</p>
                     <p class="my-4 font-medium text-xl text-indigo-800 text-center">The Office of Student Development and Services</p>
+                    
                     <!--<div class="w-full my-4">
                         @if ($errors->has('email') || $errors->has('password'))
                             <p class="text-red-500 text-base mt-2 font-bold">INCORRECT EMAIL OR PASSWORD</p>

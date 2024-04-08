@@ -10,7 +10,7 @@
         <style>
             @font-face {
                 font-family: 'Aston Script';
-                src: url("assets/aston-script.woff");
+                src: {{asset('assets/aston-script.woff')}};
             }
             .custom-scroller {
                 &::-webkit-scrollbar {
@@ -55,14 +55,14 @@
                 </div>
                 <!-- PLM -->
                 <div class="border-l border-indigo-300 pl-4 py-1.5 lg:col-span-3">
-                    <img class="hidden lg:block h-12 w-auto selection:bg-transparent" alt="PLM Logo" src="assets/plm-logo--with-header.png"/>
-                    <img class="lg:hidden block h-8 w-8" src="assets/plm-logo-hd.png"/>
+                    <img class="hidden lg:block h-12 w-auto selection:bg-transparent" alt="PLM Logo" src="{{ asset('assets/plm-logo--with-header.png') }}"/>
+                    <img class="lg:hidden block h-8 w-8" src="{{ asset('assets/plm-logo.png') }}"/>
                 </div>
                 <div class="flex flex-row items-center space-x-2 col-span-7 lg:col-span-5 pr-4 lg:px-0 text-center lg:space-x-2 space-x-6">
                     <!-- OSDS -->
-                    <img class="hidden lg:block h-12 w-12" src="assets/osdslogo.png" title="OSDS Logo"/>
+                    <img class="hidden lg:block h-12 w-12" src="{{ asset('assets/osdslogo.png') }}" title="OSDS Logo"/>
                     <h1 class="text-sm lg:text-xl font-light">The Office of Student Development and Services</h1>
-                    <img class="lg:hidden h-8 w-8" src="assets/osdslogo.png"/>
+                    <img class="lg:hidden h-8 w-8" src="{{ asset('assets/osdslogo.png') }}"/>
                 </div>
                 <div class="text-xs lg:text-sm font-light text-right border-l border-indigo-300 col-span-2">
                     <!-- Date and Time -->
@@ -90,25 +90,29 @@
             </header>
             <article class="grid grid-cols-6">
                 <aside class="bg-indigo-800 custom-scroller text-white h-screen relative">
-                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='college-dean-dashboard.html'">
+                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('cdean.dashboard') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m56,34h-7v20h-12v-16h-10v16h-12v-20h-7v-4L32,6l9,9v-7h8v15l7,7v4Z" clip-rule="evenodd"></path>
                         </svg>
                         <p class="text-xs lg:text-base">Home</p>
                     </button>
-                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='college-complaint-report.html'">
+                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('cdean.file-complaint') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m54,10v40h-4l-20-10h-4l4,16h-10l-4-16c-4.94,0-8-3.06-8-8v-4c0-4.94,3.06-8,8-8h14l20-10h4Z" clip-rule="evenodd"></path>
                         </svg>
                         <p class="hidden lg:block">File a Complaint</p>
                         <p class="lg:hidden text-xs">Report</p>
                     </button>
-                    <button class="hover:bg-red-200 hover:text-red-600 active:bg-red-400 active:font-semibold flex flex-row items-center justify-center w-full p-4 space-x-2 mt-64" onclick="location.href='login-page.html'">
-                        <svg class="h-5 w-5" viewBox="0 0 64 64" fill="currentColor">
-                            <path fill-rule="evenodd" d="m34,44h6v12H10V8h30v12h-6v-6h-18v36h18v-6Zm15.24-25l-4.24,4.24,5.76,5.76h-16.76v6h16.76l-5.76,5.76,4.24,4.24,13-13-13-13Z" clip-rule="evenodd"></path>
-                        </svg>
-                        <p class="text-xs lg:text-base">Log Out</p>
-                    </button>
+
+                    <form method="POST" action="/logout">
+                        @csrf
+                        <button class="hover:bg-red-200 hover:text-red-600 active:bg-red-400 active:font-semibold flex flex-row items-center justify-center w-full p-4 space-x-2 mt-64" onclick="location.href='login-page.html'">
+                            <svg class="h-5 w-5" viewBox="0 0 64 64" fill="currentColor">
+                                <path fill-rule="evenodd" d="m34,44h6v12H10V8h30v12h-6v-6h-18v36h18v-6Zm15.24-25l-4.24,4.24,5.76,5.76h-16.76v6h16.76l-5.76,5.76,4.24,4.24,13-13-13-13Z" clip-rule="evenodd"></path>
+                            </svg>
+                            <p class="text-xs lg:text-base">Log Out</p>
+                        </button>
+                    </form>
                     <div class="absolute bottom-1 left-2">
                         <p class="text-xs font-thin text-indigo-300">Discipline Module</p>
                     </div>

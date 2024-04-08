@@ -21,15 +21,21 @@ use App\Http\Controllers\CDeanController;
 Route::get('/', function () {
     return view('student.dashboard');
 });
+
+Route::post('logout', function () {
+    Auth::logout();
+    return redirect('/login');
+  });
 |
 */
 
 Route::get('/', [AuthController::class, 'login']);
+Route::get('/login', [AuthController::class, 'Authlogin'])->name('login');
+
+Route::post('/login', [AuthController::class, 'Authlogin']);
 
 
-Route::post('login', [AuthController::class, 'Authlogin']);
-
-#Route::get('logout', [AuthController::class, 'logout']);
+#Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
  
 
 /*
@@ -97,6 +103,6 @@ Route::get('staff/dashboard', [StaffController::class, 'dashboard'])->name('staf
 
 Route::post('/logout', function () {
     Auth::logout();
-    return redirect('/login');
+    return redirect('/');
 })->name('logout');
 ?>
