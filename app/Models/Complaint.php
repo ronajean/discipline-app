@@ -11,11 +11,11 @@ class Complaint extends Model
 
     public function user()
     {
-        return $this->belongsTo(Complaint::class);
+        return $this->belongsTo(User::class);
     }
 
     public function complainant()
-{
-    return $this->belongsTo(Complainant::class, 'complainant_id');
-}
+    {
+        return $this->belongsTo(Complainant::class);
+    }
 }

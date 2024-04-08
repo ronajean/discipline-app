@@ -21,6 +21,7 @@ class StudentController extends Controller
         #$students = Student::all();
         $userId = Auth::user()->id;
         $students = Student::where('id', $userId)->get();
+        
 
         // Then, pass the data to the view
         return view('student.dashboard', [

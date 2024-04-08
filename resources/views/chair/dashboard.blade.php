@@ -10,7 +10,7 @@
         <style>
             @font-face {
                 font-family: 'Aston Script';
-                src: {{asset('assets/aston-script.woff')}};
+                src: url("assets/aston-script.woff");
             }
             .custom-scroller {
                 &::-webkit-scrollbar {
@@ -38,6 +38,21 @@
                 }
                 &::-webkit-scrollbar-thumb:hover {
                     background: rgb(20, 47, 99);
+                }
+            }
+            td {
+                padding: 6px;
+            }
+            tr {
+
+            }
+
+            @keyframes slide-in {
+                from {
+                    transform: translateY(750px);
+                }
+                to {
+                    transform: translateY(0);
                 }
             }
         </style>
@@ -88,23 +103,29 @@
                     updateDateTime();
                 </script>
             </header>
-            <article class="grid grid-cols-6">
-                <aside class="bg-indigo-800 custom-scroller text-white h-screen relative">
+            <article class="grid grid-cols-6 overflow-y-hidden">
+                <aside class="bg-indigo-800 text-white relative">
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('cdean.dashboard') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m56,34h-7v20h-12v-16h-10v16h-12v-20h-7v-4L32,6l9,9v-7h8v15l7,7v4Z" clip-rule="evenodd"></path>
                         </svg>
-                        <p class="text-xs lg:text-base">Home</p>
+                        <p class="hidden lg:block">Home</p>
+                        <p class="lg:hidden text-xs">Manual</p>
                     </button>
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('cdean.file-complaint') }}'">
+                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M9 2.2V7H4.2l.4-.5 3.9-4 .5-.3Zm2-.2v5a2 2 0 0 1-2 2H4v11c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7ZM8 16c0-.6.4-1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1-5a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"></path>
+                        </svg>
+                        <p class="hidden lg:block">Complaint Report</p>
+                        <p class="lg:hidden text-xs">Report</p>
+                    </button>
+                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='college-complaint-inbox.html'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m54,10v40h-4l-20-10h-4l4,16h-10l-4-16c-4.94,0-8-3.06-8-8v-4c0-4.94,3.06-8,8-8h14l20-10h4Z" clip-rule="evenodd"></path>
                         </svg>
-                        <p class="hidden lg:block">File a Complaint</p>
-                        <p class="lg:hidden text-xs">Report</p>
+                        <p class="text-xs lg:text-base">Inbox</p>
                     </button>
-
-                    <form method="POST" action="/logout">
+                    <form action="/logout" method="POST">
                         @csrf
                         <button class="hover:bg-red-200 hover:text-red-600 active:bg-red-400 active:font-semibold flex flex-row items-center justify-center w-full p-4 space-x-2 mt-64" onclick="location.href='login-page.html'">
                             <svg class="h-5 w-5" viewBox="0 0 64 64" fill="currentColor">
@@ -117,120 +138,59 @@
                         <p class="text-xs font-thin text-indigo-300">Discipline Module</p>
                     </div>
                 </aside>
+                
                 <div class="col-span-5">
                     <div class="bg-white border-b border-indigo-800 py-6 px-4">
                         <p class="text-center text-3xl font-thin tracking-widest">Welcome</p>
                         <div class="text-xs lg:text-sm tracking-widest mt-6 flex justify-center space-x-20">
-                            <div class="text-right ">
-                                <p>Full Name:</p>
-                                <p>Role:</p>
-                                <p>College:</p>
-                                <p>Department:</p>
-                            </div>
-                            <div class="font-light">
-                                <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">Dean Name</p>
-                                <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">College Dean</p>
-                                <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">CISTM</p>
-                                <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">CompScie Dept</p>
-                            </div>
+                                <div class="text-sm text-amber-600 selection:text-indigo-600 selection:bg-indigo-50">
+                               
+                                    <p>Name:</p>
+                                    <p>Role: </p>
+                                    <p>College:</p>
+                                    
+                              
+                                </div>
+                                <div class="font-light">
+                                    @foreach ($employees as $employee )
+                                    <p class="text"> {{ $employee->first_name }} {{ $employee->last_name }}</p>
+                                    <p> {{ $employee->designation }}</p>
+                                    <p> {{ $employee->department }}</p>
+                                    @endforeach
+                                </div>
                         </div>
                     </div>
-                    <div class="bg-white mt-6 border-y border-indigo-800 max-h-96 h-96 py-6 px-4">
-                        <div class="border-b border-indigo-300 pb-1.5">
+                    <div style="animation-name:slide-in; animation-duration:1s;" class="bg-white border-y border-indigo-800 mt-6">
+                        <div class="p-6 pb-1.5">
                             <p class="tracking-widest font-light">Complaints List</p>
                         </div>
-                        <p class="text-xs font-light tracking-widest text-indigo-500">Hover table to inspect the complaint</p>
-                        <div class="custom-scroller-small overflow-y-auto max-h-72">
+                        <p class="text-xs font-light tracking-widest text-indigo-500 ml-3">Hover table to inspect the complaint</p>
+                        <div class="custom-scroller-small overflow-y-auto max-h-96 mx-3">
                             <table class="table table-fixed w-full border border-indigo-300 text-sm font-thin text-indigo-800">
                                 <thead class="bg-indigo-600 text-white text-center">
                                     <tr>
                                         <th class="p-1">Complaint ID</th>
-                                        <th class="p-1">College</th>
-                                        <th class="p-1">Course</th>
+                                        <th class="p-1">Complainant ID</th>
+                                        <th class="p-1">Nature and Cause</th>
+                                        <th class="p-1">Submission Date</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
+                                    @foreach($complaints as $complaint)
+                                        <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
+                                            <td>{{ $complaint->complaint_id }}</td>
+                                            <td>{{ $complaint->complainant_id }}</td>
+                                            <td>{{ $complaint->nature_and_cause }}</td>
+                                            <td>{{ $complaint->submission_date }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
+                                
                             </table>
                         </div>
                     </div>
                 </div>
-            </article>
+            </article>       
         </main>
     </body>
 </html>

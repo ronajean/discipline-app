@@ -86,6 +86,7 @@ Route::get('student/gmc-claim-stub', [StudentController::class, 'gmcClaim'])->na
 
 //Chair Views
 Route::get('chair/dashboard', [ChairController::class, 'dashboard'])->name('chair.dashboard');
+Route::get('chair/file-complaint', [ChairController::class, 'fileComplaint'])->name('chair.file-complaint');
 
 
 //College Dean Views

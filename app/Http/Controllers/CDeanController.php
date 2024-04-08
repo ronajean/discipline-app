@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Complaint;
 use App\Models\Employee;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -15,12 +16,14 @@ class CDeanController extends Controller
         // Fetch data related to the student from the database
         // For example, you might fetch the student's courses, grades, etc.
 
-        $complaints = Complaint::all();
-        $employees = Employee::all();
+        $complaints = Complaint::with('complainant')->get();
+        $userId = Auth::user()->id;
+        $employees = Employee::where('id', $userId)->get();
+        
         #$complainant = Complaint::with('complainant')->get();
 
         // Then, pass the data to the view
-        return view('cdean.dashboard', [
+        return view('cdean.dashboard', compact('complaints'), [
             'employees' => $employees,
             'complaints' => $complaints,
             #'complainant' => $complainant,
