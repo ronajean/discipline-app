@@ -90,7 +90,7 @@
             </header>
             <article class="grid grid-cols-6">
                 <aside class="bg-indigo-800 custom-scroller text-white h-screen relative">
-                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('cdean.dashboard') }}'">
+                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('chair.dashboard') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m56,34h-7v20h-12v-16h-10v16h-12v-20h-7v-4L32,6l9,9v-7h8v15l7,7v4Z" clip-rule="evenodd"></path>
                         </svg>
@@ -121,18 +121,18 @@
                     <div class="bg-white border-b border-indigo-800 py-6 px-4">
                         <p class="text-center text-3xl font-thin tracking-widest">Welcome</p>
                         <div class="text-xs lg:text-sm tracking-widest mt-6 flex justify-center space-x-20">
+                            @foreach ($employees as $employee)
                             <div class="text-right ">
                                 <p>Full Name:</p>
                                 <p>Role:</p>
                                 <p>College:</p>
-                                <p>Department:</p>
                             </div>
                             <div class="font-light">
-                                <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">Dean Name</p>
-                                <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">College Dean</p>
-                                <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">CISTM</p>
-                                <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">CompScie Dept</p>
+                                <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">{{$employee->first_name}} {{$employee->last_name}}</p>
+                                <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">{{$employee->designation}}</p>
+                                <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">{{$employee->department}}</p>
                             </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="bg-white mt-6 border-y border-indigo-800 max-h-96 h-96 py-6 px-4">
@@ -145,87 +145,22 @@
                                 <thead class="bg-indigo-600 text-white text-center">
                                     <tr>
                                         <th class="p-1">Complaint ID</th>
-                                        <th class="p-1">College</th>
-                                        <th class="p-1">Course</th>
+                                        <th class="p-1">Complainant ID</th>
+                                        <th class="p-1">Nature and Cause</th>
+                                        <th class="p-1">Submission Date</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
-                                        <td>238428237</td>
-                                        <td>Engineering</td>
-                                        <td>Computer Science</td>
-                                    </tr>
+                                    @foreach($complaints as $complaint)
+                                        <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
+                                            <td>{{ $complaint->complaint_id }}</td>
+                                            <td>{{ $complaint->complainant_id }}</td>
+                                            <td>{{ $complaint->nature_and_cause }}</td>
+                                            <td>{{ $complaint->submission_date }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
+                                
                             </table>
                         </div>
                     </div>

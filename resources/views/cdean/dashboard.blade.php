@@ -6,7 +6,9 @@
         <title>College Dean Dashboard</title>
         <script src="https:cdn.tailwindcss.com"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
-
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
         <style>
             @font-face {
                 font-family: 'Aston Script';
@@ -86,6 +88,61 @@
                     }
                     setInterval(updateDateTime,1000);
                     updateDateTime();
+
+                    function showComplaintDetails(row) {
+                        // Retrieve the data
+                        const complaintId = row.dataset.complaintId;
+                        const complainantId = row.dataset.complainantId;
+                        const complainantName = row.dataset.complainantName;
+                        const complaineeId = row.dataset.complaineeId;
+                        const complaineeName = row.dataset.complaineeName;
+                        const apprehensionDate = row.dataset.apprehensionDate;
+                        const apprehensionTime = row.dataset.apprehensionTime;
+                        const location = row.dataset.location;
+                        const natureAndCause = row.dataset.natureAndCause;
+                        const submissionDate = row.dataset.submissionDate;
+                        const status = row.dataset.status;
+
+                        // Add it to the modal
+                        const modalBody = document.querySelector('#complaintModal .modal-body');
+                        modalBody.innerHTML = `
+                            <p>Complaint ID: ${complaintId}</p>
+                            <p>Complainant ID: ${complainantId}</p>
+                            <p>Complainant Name: ${complainantName}</p>
+                            <p>Complainee ID: ${complaineeId}</p>
+                            <p>Complainee Name: ${complaineeName}</p>
+                            <p>Apprehension Date: ${apprehensionDate}</p>
+                            <p>Apprehension Time: ${apprehensionTime}</p>
+                            <p>Location: ${location}</p>
+                            <p>Nature and Cause: ${natureAndCause}</p>
+                            <p>Submission Date: ${submissionDate}</p>
+                            <p>Status: ${status}</p>
+                        `;
+
+                        // Show the modal
+                        $('#complaintModal').modal('show');
+                    }
+
+                    function filterCases() {
+                        // Get the search term
+                        const searchTerm = document.querySelector('#searchField').value.toLowerCase();
+
+                        // Get all the table rows
+                        const rows = document.querySelectorAll('tr');
+
+                        // Loop through the rows
+                        for (let i = 0; i < rows.length; i++) {
+                            // Get the row text
+                            const rowText = rows[i].textContent.toLowerCase();
+
+                            // If the row text includes the search term, show the row, otherwise hide it
+                            if (rowText.includes(searchTerm)) {
+                                rows[i].style.display = '';
+                            } else {
+                                rows[i].style.display = 'none';
+                            }
+                        }
+                    }
                 </script>
             </header>
             <article class="grid grid-cols-6">
@@ -117,9 +174,11 @@
                     </div>
                 </aside>
                 <div class="col-span-5">
+                
                     <div>
                         <div class="bg-white border-b border-indigo-800 py-6 px-4">
                             <p class="text-center text-3xl font-thin tracking-widest">Welcome</p>
+                           
                             <div class="text-xs lg:text-sm tracking-widest mt-6 flex justify-center space-x-20">
                                     <div class="text-sm text-amber-600 selection:text-indigo-600 selection:bg-indigo-50">
                                    
@@ -145,23 +204,43 @@
                             <p class="tracking-widest font-light">Complaints List</p>
                         </div>
                         <p class="text-xs font-light tracking-widest text-indigo-500">Hover table to inspect the complaint</p>
+                        <div class="mt-4 mb-4">
+                            <input type="text" id="searchField" placeholder="Search cases..." class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none">
+                            <button onclick="filterCases()" class="bg-blue-500 text-white px-6 py-2 rounded font-medium mx-3 hover:bg-blue-600">Search</button>
+                        </div>
                         <div class="custom-scroller-small overflow-y-auto max-h-72">
                             <table class="table table-fixed w-full border border-indigo-300 text-sm font-thin text-indigo-800">
                                 <thead class="bg-indigo-600 text-white text-center">
                                     <tr>
                                         <th class="p-1">Complaint ID</th>
                                         <th class="p-1">Complainant ID</th>
+                                        <th class="p-1">Complainant Name</th>
                                         <th class="p-1">Nature and Cause</th>
                                         <th class="p-1">Submission Date</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
                                     @foreach($complaints as $complaint)
-                                        <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
+                                                <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" 
+                                                title="Click to see details"
+                                                data-complaint-id="{{ $complaint->complaint_id }}"
+                                                data-complainant-id="{{ $complaint->complainant_id }}"
+                                                data-complainant-name="{{ $complaint->complainant_name }}"
+                                                data-complainee-id="{{ $complaint->complainee_id }}"
+                                                data-complainee-name="{{ $complaint->complainee_name }}"
+                                                data-apprehension-date="{{ $complaint->apprehension_date }}"
+                                                data-apprehension-time="{{ $complaint->apprehension_time }}"
+                                                data-location="{{ $complaint->location }}"
+                                                data-nature-and-cause="{{ $complaint->nature_and_cause }}"
+                                                data-submission-date="{{ $complaint->submission_date }}"
+                                                data-status="{{ $complaint->status }}"
+                                                onclick="showComplaintDetails(this)">
                                             <td>{{ $complaint->complaint_id }}</td>
                                             <td>{{ $complaint->complainant_id }}</td>
+                                            <td>{{ $complaint->complainant_name }}</td>
                                             <td>{{ $complaint->nature_and_cause }}</td>
                                             <td>{{ $complaint->submission_date }}</td>
+                                        </tr>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -172,5 +251,23 @@
                 </div>
             </article>
         </main>
+        <div class="modal fade" id="complaintModal" tabindex="-1" role="dialog" aria-labelledby="complaintModalLabel" aria-hidden="true" class="border border-amber-600 selection:text-indigo-800 text-amber-600 selection:bg-indigo-50 text-sm">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="complaintModalLabel" class="text-2xl font-thin tracking-widest">Complaint Details</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body grid grid-cols-2">
+                  <!-- Complaint details will go here -->
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary border border-amber-600 hover:border-indigo-800 hover:bg-indigo-50 hover:text-indigo-800 active:bg-indigo-200 active:font-semibold p-1.5" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
     </body>
 </html>

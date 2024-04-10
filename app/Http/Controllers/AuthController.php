@@ -63,6 +63,7 @@ class AuthController extends Controller
                 return redirect('cdean/dashboard');
             }
             else if(Auth::user()->user_type == 6){
+                session((['userLogin', true]));
                 return redirect('uso/dashboard');
             }
         

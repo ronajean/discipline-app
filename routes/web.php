@@ -8,6 +8,7 @@ use App\Http\Controllers\OSDSDeanController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\CDeanController;
+use App\Http\Controllers\USOController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,14 +96,19 @@ Route::get('cdean/file-complaint', [CDeanController::class, 'fileComplaint'])->n
 
 //OSDS Dean Views
 Route::get('odean/dashboard', [OSDSDeanController::class, 'dashboard'])->name('odean.dashboard');
+Route::get('odean/addnewcase', [OSDSDeanController::class, 'addnewcase'])->name('odean.addnewcase');
+Route::get('odean/caserecord', [OSDSDeanController::class, 'caserecord'])->name('odean.caserecord');
+Route::get('odean/search', [StudentController::class,'search' ])->name('odean.search');
 
 
 //Staff Views
 Route::get('staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
+
+//USO Views
+Route::get('uso/dashboard', [USOController::class, 'dashboard'])->name('uso.dashboard');
 
 
 Route::post('/logout', function () {
     Auth::logout();
     return redirect('/');
 })->name('logout');
-?>
