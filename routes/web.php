@@ -91,11 +91,15 @@ Route::get('chair/file-complaint', [ChairController::class, 'fileComplaint'])->n
 
 //College Dean Views
 Route::get('cdean/dashboard', [CDeanController::class, 'dashboard'])->name('cdean.dashboard');
-Route::get('cdean/file-complaint', [CDeanController::class, 'fileComplaint'])->name('cdean.file-complaint');
 
 
 //OSDS Dean Views
 Route::get('odean/dashboard', [OSDSDeanController::class, 'dashboard'])->name('odean.dashboard');
+Route::get('odean/addnewcase', [OSDSDeanController::class, 'addnewcase'])->name('odean.addnewcase');
+Route::get('odean/caserecord', [OSDSDeanController::class, 'caserecord'])->name('odean.caserecord');
+Route::get('odean/search', [StudentController::class,'search' ])->name('odean.search');
+
+Route::get('/searchStudents', 'StudentController@search')->name('searchStudents');
 
 
 //Staff Views

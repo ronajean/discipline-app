@@ -28,6 +28,12 @@ class StudentController extends Controller
             'students' => $students,
         ]);
     }
+    
+    public function search(Request $request)
+    {
+        $students = Student::where('name', 'like', '%' . $request->query . '%')->get();
+        return response()->json($students);
+    }
 
     public function complaintReport()
     {
