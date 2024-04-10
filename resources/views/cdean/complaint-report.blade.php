@@ -126,6 +126,26 @@
             transform: scale(1);
             }
         </style>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelector('#searchButton').addEventListener('click', function() {
+                    const complainant_id = document.querySelector('#searchField').value;
+        
+                    fetch(`/complaints/${complainant_id}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Fill the form with the returned data
+                            document.querySelector('#complainantName').textContent = data.complainant_name;
+                            document.querySelector('#complainantId').textContent = data.complainant_id;
+                            document.querySelector('#complaineeName').textContent = data.complainee_name;
+                            document.querySelector('#complaineeId').textContent = data.complainee_id;
+                            document.querySelector('#apprehensionDate').textContent = data.apprehension_date;
+                            document.querySelector('#submissionDate').textContent = data.submission_date;
+                            document.querySelector('#allegation').value = data.nature_and_cause;
+                        });
+                });
+            });
+        </script>
     </head>
     <body class="selection:bg-amber-50 selection:text-amber-600 custom-scroller">
         <main class="tracking-wide min-h-screen bg-indigo-50 overflow-x-hidden cursor-default text-indigo-800">
@@ -171,6 +191,12 @@
                     }
                     setInterval(updateDateTime,1000);
                     updateDateTime();
+
+                    function toggleMenu() {
+                        var menu = document.querySelector("aside");
+                        menu.classList.toggle("hidden");
+                    }
+
                 </script>
             </header>
             <article class="grid grid-cols-6 overflow-y-hidden">
@@ -209,6 +235,17 @@
                     </div>
                 </aside>
                 <div class="col-span-5">
+                    <div class="border-y border-indigo-800 flex flex-row justify-between">
+                        <p class="text-xl ml-20 font-thin py-2">Students</p>
+                        <div class="mr-20 flex items-center">
+                            <input id="searchField" type="search" placeholder="Search students..." class="w-64 placeholder:text-indigo-300 h-full text-amber-600 selection:text-indigo-50 selection:text-indigo-800 focus:outline-none border border-indigo-300 focus:border-indigo-800 px-2 placeholder:text-xs placeholder:tracking-widest text-xs"/>
+                            <button id="searchButton" class="p-3 h-full border border-indigo-300 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200">
+                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+                                </svg>                                      
+                            </button>
+                        </div>
+                    </div>
                     <div class="bg-white py-6">
                         <div class="flex flex-row justify-evenly items-center text-center">
                             <img class="h-8 w-8 lg:h-14 lg:w-14" src="{{ asset('assets/plm-logo.png') }}"/>
@@ -229,95 +266,40 @@
                         <form class="mx-6 lg:mx-20">
                             <div class="mt-4 text-sm">
                                 <div class="grid grid-cols-3 w-full gap-y-2">
-                                    <p class="cursor-default md:hidden">Stud Name:</p>
-                                    <p class="cursor-default hidden md:block">Student Name:</p>
+                                    <p class="cursor-default">Complainant Name:</p>
                                     <div class="col-span-2">
-                                        <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">Juan Luna</p>
+                                        <p id="complainantName" class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
                                     </div>
-                                    <p class="cursor-default">Course:</p>
+                                    <p class="cursor-default">Complainant ID:</p>
                                     <div class="col-span-2">
-                                        <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">Computer Science</p>
+                                        <p id="complainantId" class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
                                     </div>
-                                    <p class="cursor-default">College:</p>
+                                    <p class="cursor-default">Complainee:</p>
                                     <div class="col-span-2">
-                                        <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">College of Information Science, Technology, and Management (CISTM)</p>
+                                        <p id="complaineeName" class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
                                     </div>
-                                    <p class="cursor-default md:hidden">Stud No:</p>
-                                    <p class="cursor-default hidden md:block">Student Number:</p>
+                                    <p class="cursor-default">Comlainee ID:</p>
                                     <div class="col-span-2">
-                                        <p class="w-96 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">0000-00000</p>
+                                        <p id="complaineeId" class="w-96 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
                                     </div>
-                                    <p class="cursor-default">Year & Block:</p>
+                                    <p class="cursor-default">Apprehension Date:</p>
                                     <div class="col-span-2">
-                                        <p class="w-96 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">1/2/3/4/5 - 1/2/3/4/5</p>
+                                        <p id="apprehensionDate" class="w-96 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
                                     </div>
-                                    <p class="cursor-default">Date and Time:</p>
+                                    <p class="cursor-default">Submission Date</p>
                                     <div class="col-span-2">
-                                        <p class="w-96 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">DD/MM/YYYY, 00:00 XX</p>
+                                        <p id="submissionDate" class="w-96 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
                                     </div>
                                     <div class="col-span-3 mt-6">
                                         <p class="text-center text-xs lg:text-sm tracking-widest font-light cursor-default border-x border-t border-indigo-800 p-1">Nature and Cause of Allegation</p>
-                                        <textarea maxlength="500" class="w-full max-h-40 h-24 custom-scroller text-sm font-light px-2 shadow border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible" placeholder="max of 500 characters"></textarea>
+                                        <textarea id="allegation" maxlength="500" class="w-full max-h-40 h-24 custom-scroller text-sm font-light px-2 shadow border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible" placeholder="max of 500 characters"></textarea>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="bg-white">
-                        <div class="border-y border-indigo-800 flex flex-row justify-between">
-                            <p class="text-xl ml-20 font-thin py-2">Students</p>
-                            <div class="mr-20 flex items-center">
-                                <input type="search" placeholder="Search students..." class="w-64 placeholder:text-indigo-300 h-full text-amber-600 selection:text-indigo-50 selection:text-indigo-800 focus:outline-none border border-indigo-300 focus:border-indigo-800 px-2 placeholder:text-xs placeholder:tracking-widest text-xs"/>
-                                <button class="p-3 h-full border border-indigo-300 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200">
-                                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
-                                    </svg>                                      
-                                </button>
-                            </div>
-                        </div>
                         
-                        <form class="mb-6 border-b border-indigo-800">
-                            <table class="table table-auto w-full">
-                                <thead>
-                                    <tr class="text-xs bg-indigo-50">
-                                        <th></th>
-                                        <th>
-                                            <p class="hidden lg:block">Student Number</p>
-                                            <p class="lg:hidden">ID</p>
-                                        </th>
-                                        <th>
-                                            <p class="hidden lg:block">Student Name</p>
-                                            <p class="lg:hidden">Name</p>
-                                        </th>
-                                        <th>
-                                            <p class="hidden lg:block">PLM Email</p>
-                                            <p class="lg:hidden">Email</p>
-                                        </th>
-                                        <th>Year</th>
-                                        <th>Block</th>
-                                        <th>Course</th>
-                                        <th>College</th>
-                                        <th>
-                                            <p class="hidden lg:block">Contact Number</p>
-                                            <p class="lg:hidden">Phone No.</p>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-center selection:bg-transparent text-sm font-light border-b border-indigo-300">
-                                    <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600 active:bg-amber-200">
-                                        <td><input type="checkbox"/></td>
-                                        <td>0000-00000</td>
-                                        <td>Jerome Caladiao</td>
-                                        <td>jerome_caladiao@plm.edu.ph</td>
-                                        <td>3</td>
-                                        <td>1</td>
-                                        <td>BSCS</td>
-                                        <td>CISTM</td>
-                                        <td>0000-000-0000</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
                             <div class="flex justify-end mr-20 py-6 space-x-3">
                                 <button type="button" class="p-2 shadow shadow-indigo-500 rounded-md hover:shadow-amber-600 hover:text-amber-600 hover:bg-amber-50 active:bg-amber-200 active:font-semibold" onclick="location.href='{{ route('cdean.dashboard') }}'">
                                     <p class="text-sm font-light">Escalate</p>

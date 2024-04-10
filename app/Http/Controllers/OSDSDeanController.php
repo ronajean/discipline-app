@@ -32,7 +32,10 @@ class OSDSDeanController extends Controller
 
         public function addnewcase()
         {
-            return view('osds.odean.addnewcase', []);
+            $students = Student::all();
+            return view('osds.odean.addnewcase', [
+                'students' => $students,
+            ]);
         }
 
         public function caserecord()
@@ -40,15 +43,7 @@ class OSDSDeanController extends Controller
             return view('osds.odean.caserecord', []);
         }
 
-        public function searchStudents(Request $request)
-        {
-            $query = $request->input('query');
-            $students = Student::where('student_id', 'LIKE', "%$query%")
-                               ->orWhere('student_name', 'LIKE', "%$query%")
-                               ->get();
-            return response()->json($students);
-        }
-
+       
     }
 
     

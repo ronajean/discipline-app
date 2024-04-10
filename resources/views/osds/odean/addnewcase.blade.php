@@ -7,6 +7,26 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
 
+        <script>
+        
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.querySelector('#searchButton').addEventListener('click', function() {
+                        const student_id = document.querySelector('#searchField').value;
+            
+                        fetch(`/students/${student_id}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // Fill the form with the returned data
+                                document.querySelector('#studentNumber').textContent = data.student_id;
+                                document.querySelector('#studentName').textContent = data.last_name+','+data.first_name+','+data.middle_name;
+                                document.querySelector('#collegeName').textContent = data.college_id;
+                                document.querySelector('#courseId').textContent = data.course_id;
+                            });
+                    });
+            });
+    
+        </script>
+
         <style>
             .custom-scroller {
                 &::-webkit-scrollbar {
@@ -134,13 +154,17 @@
                     </div>
                 </aside>
                 <div class="col-span-5 bg-white">
-                    <header class="border-b border-indigo-800 p-6 pb-1.5 flex flex-row justify-between tracking-widest items-end">
-                        <p class="text-3xl font-thin">Case Information</p>
-                        <div>
-                            <p class="text-lg font-light">Adding a Case Record</p>
-                            <input class="placeholder:text-indigo-300 focus:outline-none border border-indigo-300 focus:border-amber-400 text-xs tracking-widest w-full p-1.5" placeholder="Search students..." onkeypress="handleKeyPress(event)"/>
+                    <div class="border-y border-indigo-800 flex flex-row justify-between">
+                        <p class="text-xl ml-20 font-thin py-2">Adding Case Information</p>
+                        <div class="mr-20 flex items-center">
+                            <input id="searchField" type="search" placeholder="Search students..." class="w-64 placeholder:text-indigo-300 h-full text-amber-600 selection:text-indigo-50 selection:text-indigo-800 focus:outline-none border border-indigo-300 focus:border-indigo-800 px-2 placeholder:text-xs placeholder:tracking-widest text-xs"/>
+                            <button id="searchButton" class="p-3 h-full border border-indigo-300 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200">
+                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+                                </svg>                                      
+                            </button>
                         </div>
-                    </header>
+                    </div>
                     <aside class="relative p-4 text-sm tracking-wider border-b border-indigo-800 pb-1.5 grid grid-cols-12 hover:bg-amber-50 active:bg-amber-200 cursor-pointer selection:bg-transparent">
                         <div id="edit-case" class="hidden absolute z-10 w-full h-full bg-amber-900 backdrop-blur-[1px] bg-opacity-5">
                             <p style="letter-spacing:1em;" class="font-serif text-5xl w-full h-full flex items-center justify-center">Edit</p>
@@ -156,57 +180,16 @@
                             <p>:</p>
                             <p>:</p>
                             <p>:</p>
-                            <p>:</p>
                         </div>
                         <div id="text-boost" class="text-amber-600 selection:bg-indigo-50 selection:text-indigo-800 col-span-9">
-    
+                            <p id="studentNumber"></p>
+                            <p id="studentName"></p>
+                            <p id="collegeName"></p>
+                            <p id="courseId"></p>
                         </div>
                     </aside>
                     <script>
-                        function handleKeyPress(event) {
-                            if (event.key === 'Enter') {
-                                searchStudents();
-                            }
-                        }
-
-                        async function searchStudents() {
-                            const searchQuery = document.getElementById("searchInput").value;
-                            const response = await fetch(`/students/search?query=${encodeURIComponent(searchQuery)}`);
-                            const data = await response.json();
-                            // Call function to update the aside element with the fetched student records
-                            updateAside(data);
-                        }               
-
-                        function updateAside(students) {
-                            const asideElement = document.querySelector('.col-span-5 .aside-student-records');
-                            asideElement.innerHTML = ''; // Clear previous content
-                            students.forEach(student => {
-                                const studentDiv = document.createElement('div');
-
-                                const studentId = document.createElement('p');
-                                studentId.textContent = `Student ID: ${student.student_id}`;
-                                studentDiv.appendChild(studentId);
-
-                                const lastName = document.createElement('p');
-                                lastName.textContent = `Last Name: ${student.last_name}`;
-                                studentDiv.appendChild(lastName);
-
-                                const firstName = document.createElement('p');
-                                firstName.textContent = `First Name: ${student.first_name}`;
-                                studentDiv.appendChild(firstName);
-
-                                const courseId = document.createElement('p');
-                                courseId.textContent = `Course ID: ${student.course_id}`;
-                                studentDiv.appendChild(courseId);
-
-                                const plmEmail = document.createElement('p');
-                                plmEmail.textContent = `PLM Email: ${student.plm_email}`;
-                                studentDiv.appendChild(plmEmail);
-
-                                asideElement.appendChild(studentDiv);
-                            });
-                        }
-
+                        
                         function letterBoost() {
                             document.getElementById("text-boost").classList.add("font-semibold");
                         }
