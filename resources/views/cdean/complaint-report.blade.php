@@ -135,6 +135,7 @@
                         .then(response => response.json())
                         .then(data => {
                             // Fill the form with the returned data
+                            document.querySelector('#complaintId').textContent = data.complaint_id;
                             document.querySelector('#complainantName').textContent = data.complainant_name;
                             document.querySelector('#complainantId').textContent = data.complainant_id;
                             document.querySelector('#complaineeName').textContent = data.complainee_name;
@@ -266,6 +267,10 @@
                         <form class="mx-6 lg:mx-20">
                             <div class="mt-4 text-sm">
                                 <div class="grid grid-cols-3 w-full gap-y-2">
+                                    <p class="cursor-default">Complaint ID:</p>
+                                    <div class="col-span-2">
+                                        <p id="complaintId" class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
+                                    </div>
                                     <p class="cursor-default">Complainant Name:</p>
                                     <div class="col-span-2">
                                         <p id="complainantName" class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>

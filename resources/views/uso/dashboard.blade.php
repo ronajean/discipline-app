@@ -130,6 +130,58 @@
                 }
               }
         </style>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                     const studentIdInput = document.querySelector('#student-id-input');
+     
+                     studentIdInput.addEventListener('keydown', function(event) {
+                         if (event.key === 'Enter') {
+                             event.preventDefault();
+     
+                             const student_id = this.value;
+                             console.log('Student ID:', student_id); // Log student_id for debugging
+     
+                             fetch(`/students/${student_id}`)
+                                 .then(response => {
+                                     console.log('Response:', response); // Log response for debugging
+                                     return response.json();
+                                 })
+                                 .then(data => {
+                                     console.log('Data:', data); // Log data for debugging
+                                     document.querySelector('#studentName').value = data.last_name + ',' + data.first_name + (data.middle_name ? ' ' + data.middle_name : '');
+                                     document.querySelector('#yearAndBlock').value = data.Year + '-' + data.Block;
+                                     document.querySelector('#collegeName').value = data.college_id;
+                                     document.querySelector('#courseName').value = data.course_id;
+                                 })
+                                 .catch(error => {
+                                     console.error('Fetch error:', error); // Log any fetch errors
+                                 });
+                         }
+                     });
+     
+                     document.querySelector('#fileReportButton').addEventListener('click', function(event) {
+                         event.preventDefault();
+     
+                         const formData = new FormData(document.querySelector('#violationForm'));
+     
+                         fetch('{{ route("report") }}', {
+                             method: 'POST',
+                             headers: {
+                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                             },
+                             body: formData
+                         })
+                         .then(response => response.json())
+                         .then(data => {
+                             console.log('Data:', data);
+                             // Handle successful form submission
+                         })
+                         .catch(error => {
+                             console.error('Form submission error:', error);
+                         });
+                     });
+                 });
+             </script>
     </head>
     <body class="selection:bg-amber-50 selection:text-amber-600 custom-scroller">
         <main class="tracking-wide min-h-screen bg-indigo-50 overflow-x-hidden cursor-default text-indigo-800">
@@ -320,6 +372,8 @@
                     </div>  
                 </div>
             </div>
+            <form id="violationForm">
+                @csrf
             <div class="mt-4 border-t border-slate-300">
                 <div class="flex flex-col bg-white rounded-lg shadow mx-2 md:mx-5 lg:mx-8 2xl:mx-16">
                     <div class="hidden lg:block text-right text-xs font-thin lg:font-light mr-32 my-2">
@@ -348,28 +402,28 @@
                             <div class="grid lg:grid-cols-2 lg:space-x-16 mt-4">
                                 <div class="text-xs lg:text-base tracking-widest space-y-2">
                                     <div class="flex flex-row justify-between items-center w-full">
-                                        <p class="cursor-default md:hidden">Stud Name:</p>
-                                        <p class="cursor-default hidden md:block">Student Name:</p>
-                                        <input type="text" class="text-sm w-64 sm:w-72 2xl:w-96 p-2 border border-indigo-300 focus:outline-none focus:border-indigo-800 text-amber-600 selection:text-indigo-800 placeholder:text-indigo-300 selection:bg-indigo-50" placeholder="Juan Luna"/>
+                                        <p class="cursor-default md:hidden">Stud No:</p>
+                                        <p class="cursor-default hidden md:block">Student Number:</p>
+                                        <input id="student-id-input" type="text" class="text-sm w-64 sm:w-72 2xl:w-96 p-2 border border-indigo-300 focus:outline-none focus:border-indigo-800 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50 placeholder:text-indigo-300" placeholder="0000-00000"/>
                                     </div>
                                     <div class="flex flex-row justify-between items-center w-full">
-                                        <p class="cursor-default">Course:</p>
-                                        <input type="text" class="text-sm w-64 sm:w-72 2xl:w-96 p-2 border border-indigo-300 focus:outline-none focus:border-indigo-800 text-amber-600 selection:text-indigo-800 placeholder:text-indigo-300 selection:bg-indigo-50" placeholder="Computer Science"/>
+                                        <p class="cursor-default md:hidden">Stud Name:</p>
+                                        <p class="cursor-default hidden md:block">Student Name:</p>
+                                        <input id="studentName" type="text" class="text-sm w-64 sm:w-72 2xl:w-96 p-2 border border-indigo-300 focus:outline-none focus:border-indigo-800 text-amber-600 selection:text-indigo-800 placeholder:text-indigo-300 selection:bg-indigo-50" placeholder="Juan Luna"/>
                                     </div>
                                     <div class="flex flex-row justify-between items-center w-full">
                                         <p class="cursor-default">College:</p>
-                                        <input type="text" class="text-sm w-64 sm:w-72 2xl:w-96 p-2 border border-indigo-300 focus:outline-none focus:border-indigo-800 text-amber-600 selection:text-indigo-800 placeholder:text-indigo-300 selection:bg-indigo-50" placeholder="CISTM"/>
+                                        <input id="collegeName" type="text" class="text-sm w-64 sm:w-72 2xl:w-96 p-2 border border-indigo-300 focus:outline-none focus:border-indigo-800 text-amber-600 selection:text-indigo-800 placeholder:text-indigo-300 selection:bg-indigo-50" placeholder="CISTM"/>
                                     </div>
                                 </div>
                                 <div class="mt-2 lg:mt-0 text-xs lg:text-base space-y-2 tracking-widest">
                                     <div class="flex flex-row justify-between items-center w-full">
-                                        <p class="cursor-default md:hidden">Stud No:</p>
-                                        <p class="cursor-default hidden md:block">Student Number:</p>
-                                        <input type="text" class="text-sm w-64 sm:w-72 2xl:w-96 p-2 border border-indigo-300 focus:outline-none focus:border-indigo-800 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50 placeholder:text-indigo-300" placeholder="0000-00000"/>
+                                        <p class="cursor-default">Course:</p>
+                                        <input id="courseName" type="text" class="text-sm w-64 sm:w-72 2xl:w-96 p-2 border border-indigo-300 focus:outline-none focus:border-indigo-800 text-amber-600 selection:text-indigo-800 placeholder:text-indigo-300 selection:bg-indigo-50" placeholder="Computer Science"/>
                                     </div>
                                     <div class="flex flex-row justify-between items-center w-full">
                                         <p class="cursor-default">Year & Block:</p>
-                                        <input type="text" class="text-sm w-64 sm:w-72 2xl:w-96 p-2 border border-indigo-300 focus:outline-none focus:border-indigo-800 text-amber-600 selection:text-indigo-800 placeholder:text-indigo-300 selection:bg-indigo-50" placeholder="1/2/3/4/5 - 1/2/3/4/5"/>
+                                        <input id="yearAndBlock" type="text" class="text-sm w-64 sm:w-72 2xl:w-96 p-2 border border-indigo-300 focus:outline-none focus:border-indigo-800 text-amber-600 selection:text-indigo-800 placeholder:text-indigo-300 selection:bg-indigo-50" placeholder="1/2/3/4/5 - 1/2/3/4/5"/>
                                     </div>
                                     <div class="flex flex-row justify-between items-center w-full">
                                         <p class="cursor-default">Date and Time:</p>
@@ -763,7 +817,7 @@
                     <p class="text-center font-semibold text-xs lg:text-base">THIS FORM MUST BE ACCOMPLISHED IN DUPLICATE COPIES <br class="md:hidden">(OSDS AND STUDENT).</p>
                 </div>
                 <div class="flex justify-center my-8" x-data="{isOpen3:false}">
-                    <button class="p-3 bg-white shadow border-slate-300 border-2 rounded-md hover:border-amber-600 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200 active:font-semibold" @click="isOpen3 = !isOpen3">
+                    <button id="fileReportButton" class="p-3 bg-white shadow border-slate-300 border-2 rounded-md hover:border-amber-600 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200 active:font-semibold" @click="isOpen3 = !isOpen3">
                         <p class="text-sm lg:text-lg">File Report</p>
                     </button>
                     <div x-show="isOpen3" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 bg-black bg-opacity-50 selection:text-indigo-800">
@@ -779,6 +833,7 @@
                     </div>
                 </div>
             </div>
+            </form>
         </main>
         <script>
             var inputs1 = document.querySelectorAll('.inputfile1');

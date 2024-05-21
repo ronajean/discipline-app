@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Course;
-
+use App\Models\College;
 class Student extends Model
 {
     use HasFactory;
@@ -13,6 +13,13 @@ class Student extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+
+
+    public function college()
+    {
+        return $this->belongsTo(College::class, 'college_id');
     }
 
     public function course()

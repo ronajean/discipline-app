@@ -9,8 +9,11 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\CDeanController;
 use App\Http\Controllers\USOController;
+use App\Http\Controllers\ViolationsController;
+use App\Http\Controllers\NewCaseController;
 use App\Models\Complaint;
 use App\Models\Student;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -101,6 +104,7 @@ Route::get('/complaints/{complainant_id}', function ($complainant_id) {
 
 //OSDS Dean Views
 Route::get('odean/dashboard', [OSDSDeanController::class, 'dashboard'])->name('odean.dashboard');
+Route::get('odean/admin', [OSDSDeanController::class, 'admin'])->name('odean.admin');
 Route::get('odean/addnewcase', [OSDSDeanController::class, 'addnewcase'])->name('odean.addnewcase');
 Route::get('odean/caserecord', [OSDSDeanController::class, 'caserecord'])->name('odean.caserecord');
 Route::get('odean/search', [StudentController::class,'search' ])->name('odean.search');
@@ -109,12 +113,15 @@ Route::get('/students/{student_id}', function ($student_id) {
     return response()->json($students);
 });
 
-
 //Staff Views
 Route::get('staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
 
 //USO Views
 Route::get('uso/dashboard', [USOController::class, 'dashboard'])->name('uso.dashboard');
+
+//data storing
+Route::post('/report', [ViolationsController::class, 'report'])->name('report');
+Route::post('/new_case', [NewCaseController::class, 'store'])->name('new_case');
 
 
 Route::post('/logout', function () {

@@ -146,28 +146,28 @@
                         <table class="table table-fixed w-full">
                             <thead class="bg-indigo-50 text-xs">
                                 <tr>
-                                    <th>Student ID</th>
-                                    <th>Year and Block</th>
-                                    <th>Offense</th>
-                                    <th>Student Contact Number</th>
-                                    <th>Reference Record</th>
+                                    <th>Record ID</th>
+                                    <th>Student No</th>
+                                    <th>Offense Type</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>College</th>
+                                    <th>Course</th>
                                 </tr>
                             </thead>
                             <tbody id="case-record" class="text-center text-sm font-thin">
-                                @foreach($violations as $violation)
                                 <tr class="hover:bg-amber-50 hover:text-amber-600 cursor-pointer active:bg-amber-200 active:font-semibold selection:bg-transparent">
-                                    <td>{{ $violation->student_id }}</td>
-                                    <td>{{ $violation->year }} - {{ $violation->block }}</td>
-                                    <td>{{ $violation->offense }}</td>
-                                    <td>{{ $violation->student_contact_number }}</td>
-                                    <td>{{ $violation->reference_record }}</td>
+                                    <td>0000-0000-0000</td>
+                                    <td>0000-00000</td>
+                                    <td>Type 0000</td>
+                                    <td>DD/MM/YYYY</td>
+                                    <td>--</td>
+                                    <td>CISTM</td>
+                                    <td>BSCS</td>
                                 </tr>
-                                @endforeach
                             </tbody>
                         </table>
-                    </div>
-                </div>
-                
+                        <div>
                             <button class="p-2 shadow shadow-indigo-500 rounded-md font-light text-sm hover:bg-amber-50 hover:text-amber-600 hover:shadow-amber-600 active:bg-amber-200 active:font-semibold" 
                                     onclick="location.href='{{ route('odean.addnewcase') }}'">
                                 <p>Add</p>
