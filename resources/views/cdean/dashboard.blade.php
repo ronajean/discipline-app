@@ -146,7 +146,7 @@
                 </script>
             </header>
             <article class="grid grid-cols-6">
-                <aside class="bg-indigo-800 custom-scroller text-white h-screen relative">
+                <aside class="bg-indigo-800 custom-scroller text-white relative">
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('cdean.dashboard') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m56,34h-7v20h-12v-16h-10v16h-12v-20h-7v-4L32,6l9,9v-7h8v15l7,7v4Z" clip-rule="evenodd"></path>
@@ -174,79 +174,76 @@
                     </div>
                 </aside>
                 <div class="col-span-5">
-                
-                    <div>
-                        <div class="bg-white border-b border-indigo-800 py-6 px-4">
-                            <p class="text-center text-3xl font-thin tracking-widest">Welcome</p>
-                           
-                            <div class="text-xs lg:text-sm tracking-widest mt-6 flex justify-center space-x-20">
-                                    <div class="text-sm text-amber-600 selection:text-indigo-600 selection:bg-indigo-50">
-                                   
-                                        <p>Dean Name:</p>
-                                        <p>Role: </p>
-                                        <p>College:</p>
-                                  
-                                    </div>
-                                    <div class="font-light">
-                                        @foreach ($employees as $employee )
-                                        <p class="text"> {{ $employee->first_name }} {{ $employee->last_name }}</p>
-                                        <p> {{ $employee->designation }}</p>
-                                        <p> {{ $employee->department }}</p>
-                                        @endforeach
-                                    </div>
+                <div class="bg-white border-b border-indigo-800 py-6 px-4">
+                    <p class="text-center text-3xl font-thin tracking-widest">Welcome</p>
+                    
+                    <div class="text-xs lg:text-sm tracking-widest mt-6 flex justify-center space-x-20">
+                            <div class="text-sm text-amber-600 selection:text-indigo-600 selection:bg-indigo-50">
+                            
+                                <p>Dean Name:</p>
+                                <p>Role: </p>
+                                <p>College:</p>
+                            
                             </div>
+                            <div class="font-light">
+                                @foreach ($employees as $employee )
+                                <p class="text"> {{ $employee->first_name }} {{ $employee->last_name }}</p>
+                                <p> {{ $employee->designation }}</p>
+                                <p> {{ $employee->department }}</p>
+                                @endforeach
+                            </div>
+                    </div>
+                </div>
+                 <div style="animation-name:slide-in; animation-duration:1s;" class="bg-white min-h-96 border-y border-indigo-800 mt-6 p-6">
+                    <div class="flex tracking-widest justify-between mb-6">
+                        <div>
+                            <p class="text-xl font-sans font-light">Complaints List</p>
+                            <p class="text-xs font-sans font-thin">Hover table to inspect the complaint</p>
+                        </div>
+                        <div class="mr-20 flex items-center">
+                            <input id="searchField" type="search" placeholder="Search students..." class="w-64 placeholder:text-indigo-300 h-full text-amber-600 selection:text-indigo-50 selection:text-indigo-800 focus:outline-none border border-indigo-300 focus:border-indigo-800 px-2 placeholder:text-xs placeholder:tracking-widest text-xs"/>
+                            <button id="searchButton" class="p-3 h-full border border-indigo-300 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200" onclick="filterCases()">
+                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+                                </svg>                                      
+                            </button>
                         </div>
                     </div>
-                    
-                 <div style="animation-name:slide-in; animation-duration:1s;" class="bg-white border-y border-indigo-800 mt-6">
-                    <div class="bg-white mt-6 border-y border-indigo-800 max-h-96 h-96 py-6 px-4">
-                        <div class="border-b border-indigo-300 pb-1.5">
-                            <p class="tracking-widest font-light">Complaints List</p>
-                        </div>
-                        <p class="text-xs font-light tracking-widest text-indigo-500">Hover table to inspect the complaint</p>
-                        <div class="mt-4 mb-4">
-                            <input type="text" id="searchField" placeholder="Search cases..." class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none">
-                            <button onclick="filterCases()" class="bg-blue-500 text-white px-6 py-2 rounded font-medium mx-3 hover:bg-blue-600">Search</button>
-                        </div>
-                        <div class="custom-scroller-small overflow-y-auto max-h-72">
-                            <table class="table table-fixed w-full border border-indigo-300 text-sm font-thin text-indigo-800">
-                                <thead class="bg-indigo-600 text-white text-center">
-                                    <tr>
-                                        <th class="p-1">Complaint ID</th>
-                                        <th class="p-1">Complainant ID</th>
-                                        <th class="p-1">Complainant Name</th>
-                                        <th class="p-1">Nature and Cause</th>
-                                        <th class="p-1">Submission Date</th>
+                    <div class="custom-scroller-small max-h-96 overflow-y-auto">
+                        <label class="bg-indigo-600 text-white grid grid-cols-5 m-0">
+                            <p class="p-1 text-center">Complaint ID</p>
+                            <p class="p-1 text-center">Complainant ID</p>
+                            <p class="p-1 text-center">Complainant Name</p>
+                            <p class="p-1 text-center">Nature and Cause</p>
+                            <p class="p-1 text-center">Submission Date</p>
+                        </label>
+                        <table class="table table-fixed w-full border border-indigo-300 text-sm font-thin text-indigo-800">
+                            <tbody class="text-center">
+                                @foreach($complaints as $complaint)
+                                            <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" 
+                                            title="Click to see details"
+                                            data-complaint-id="{{ $complaint->complaint_id }}"
+                                            data-complainant-id="{{ $complaint->complainant_id }}"
+                                            data-complainant-name="{{ $complaint->complainant_name }}"
+                                            data-complainee-id="{{ $complaint->complainee_id }}"
+                                            data-complainee-name="{{ $complaint->complainee_name }}"
+                                            data-apprehension-date="{{ $complaint->apprehension_date }}"
+                                            data-apprehension-time="{{ $complaint->apprehension_time }}"
+                                            data-location="{{ $complaint->location }}"
+                                            data-nature-and-cause="{{ $complaint->nature_and_cause }}"
+                                            data-submission-date="{{ $complaint->submission_date }}"
+                                            data-status="{{ $complaint->status }}"
+                                            onclick="showComplaintDetails(this)">
+                                        <td>{{ $complaint->complaint_id }}</td>
+                                        <td>{{ $complaint->complainant_id }}</td>
+                                        <td>{{ $complaint->complainant_name }}</td>
+                                        <td>{{ $complaint->nature_and_cause }}</td>
+                                        <td>{{ $complaint->submission_date }}</td>
                                     </tr>
-                                </thead>
-                                <tbody class="text-center">
-                                    @foreach($complaints as $complaint)
-                                                <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" 
-                                                title="Click to see details"
-                                                data-complaint-id="{{ $complaint->complaint_id }}"
-                                                data-complainant-id="{{ $complaint->complainant_id }}"
-                                                data-complainant-name="{{ $complaint->complainant_name }}"
-                                                data-complainee-id="{{ $complaint->complainee_id }}"
-                                                data-complainee-name="{{ $complaint->complainee_name }}"
-                                                data-apprehension-date="{{ $complaint->apprehension_date }}"
-                                                data-apprehension-time="{{ $complaint->apprehension_time }}"
-                                                data-location="{{ $complaint->location }}"
-                                                data-nature-and-cause="{{ $complaint->nature_and_cause }}"
-                                                data-submission-date="{{ $complaint->submission_date }}"
-                                                data-status="{{ $complaint->status }}"
-                                                onclick="showComplaintDetails(this)">
-                                            <td>{{ $complaint->complaint_id }}</td>
-                                            <td>{{ $complaint->complainant_id }}</td>
-                                            <td>{{ $complaint->complainant_name }}</td>
-                                            <td>{{ $complaint->nature_and_cause }}</td>
-                                            <td>{{ $complaint->submission_date }}</td>
-                                        </tr>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                                
-                            </table>
-                        </div>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </article>

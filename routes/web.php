@@ -8,6 +8,12 @@ use App\Http\Controllers\OSDSDeanController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\CDeanController;
+use App\Http\Controllers\USOController;
+use App\Http\Controllers\ViolationsController;
+use App\Http\Controllers\NewCaseController;
+use App\Models\Complaint;
+use App\Models\Student;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -91,23 +97,35 @@ Route::get('chair/file-complaint', [ChairController::class, 'fileComplaint'])->n
 
 //College Dean Views
 Route::get('cdean/dashboard', [CDeanController::class, 'dashboard'])->name('cdean.dashboard');
-
+Route::get('cdean/file-complaint', [CDeanController::class, 'fileComplaint'])->name('cdean.file-complaint');
+Route::get('/complaints/{complainant_id}', function ($complainant_id) {
+    $complaints = Complaint::where('complainant_id', $complainant_id)->first();
+    return response()->json($complaints);
+});
 
 //OSDS Dean Views
 Route::get('odean/dashboard', [OSDSDeanController::class, 'dashboard'])->name('odean.dashboard');
+Route::get('odean/admin', [OSDSDeanController::class, 'admin'])->name('odean.admin');
 Route::get('odean/addnewcase', [OSDSDeanController::class, 'addnewcase'])->name('odean.addnewcase');
 Route::get('odean/caserecord', [OSDSDeanController::class, 'caserecord'])->name('odean.caserecord');
 Route::get('odean/search', [StudentController::class,'search' ])->name('odean.search');
-
-Route::get('/searchStudents', 'StudentController@search')->name('searchStudents');
-
+Route::get('/students/{student_id}', function ($student_id) {
+    $students = Student::where('student_id', $student_id)->first();
+    return response()->json($students);
+});
 
 //Staff Views
 Route::get('staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
+
+//USO Views
+Route::get('uso/dashboard', [USOController::class, 'dashboard'])->name('uso.dashboard');
+
+//data storing
+Route::post('/report', [ViolationsController::class, 'report'])->name('report');
+Route::post('/new_case', [NewCaseController::class, 'store'])->name('new_case');
 
 
 Route::post('/logout', function () {
     Auth::logout();
     return redirect('/');
 })->name('logout');
-?>

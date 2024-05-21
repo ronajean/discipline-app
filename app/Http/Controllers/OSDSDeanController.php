@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\Employee;
+use App\Models\Violation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -26,21 +27,30 @@ class OSDSDeanController extends Controller
 
     public function addnewcase()
         {
-            return view('osds.odean.addnewcase', []);
-        }
+        $students = Student::all();
+        return view('osds.odean.addnewcase', [
+            'students' => $students,
+        ]);
+    }
 
-        public function caserecord()
-        {
-            return view('osds.odean.caserecord', []);
-        }
+    public function caserecord()
+    {
+        $violations = Violation::select('student_id', 'year', 'block', 'offense', 'student_contact_number', 'reference_record')
+            ->get();
 
-        public function searchStudents(Request $request)
-        {
-            $query = $request->input('query');
-            $students = Student::where('student_id', 'LIKE', "%$query%")
-                               ->orWhere('student_name', 'LIKE', "%$query%")
-                               ->get();
-            return response()->json($students);
-        }
+        return view('osds.odean.caserecord', [
+            'violations' => $violations
+        ]);
+    }
+
+    public function admin()
+    {
+        $userId = Auth::user()->id;
+        $employees = Employee::where('designation', 'OSDS')->get();
+
+        return view('osds.odean.admin', [
+            'employees' => $employees
+        ]);
+    }
+ 
 }
-

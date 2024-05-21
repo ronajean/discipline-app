@@ -27,126 +27,20 @@
                 }
             }
             input::-webkit-inner-spin-button,
-            input::-webkit-outer-spin-button,
-            input::-webkit-search-cancel-button {
+            input::-webkit-outer-spin-button {
                 -webkit-appearance: none;
                 margin: 0;
             }
 
-            th {
-                padding:6px;
-            }
-            td {
-                padding:3px;
-            }
-            
-            :root {
-                --form-control-color: rgb(85, 39, 255);
-                --form-control-amber-color: #d3910d;
-            }
+            @keyframes slide-in {
+                from {
 
-            .form-control {
-            font-family: system-ui, sans-serif;
-            font-size: 2rem;
-            font-weight: bold;
-            line-height: 1.1;
-            display: grid;
-            grid-template-columns: 1em auto;
-            }
-            .form-control-amber {
-            font-family: system-ui, sans-serif;
-            font-size: 2rem;
-            font-weight: bold;
-            line-height: 1.1;
-            display: grid;
-            grid-template-columns: 1em auto;
-            }
-            
-            input[name="amber"] {
-            -webkit-appearance: none;
-            appearance: none;
-            background-color: var(--form-background);
-            margin: 0;
-            
-            font: inherit;
-            color: currentColor;
-            width: 0.95em;
-            height: 0.95em;
-            border: 0.09em solid rgb(0, 34, 100);
-            border-radius: 0.15em;
-            transform: translateY(-0.075em);
-            
-            display: grid;
-            place-content: center;
-            cursor: pointer;
-            }
-            input[name="indigo"] {
-            -webkit-appearance: none;
-            appearance: none;
-            background-color: var(--form-background);
-            margin: 0;
-            
-            font: inherit;
-            color: currentColor;
-            width: 0.65em;
-            height: 0.65em;
-            border: 0.05em solid rgb(0, 34, 100);
-            border-radius: 0.15em;
-            transform: translateY(-0.075em);
-            
-            display: grid;
-            place-content: center;
-            cursor: pointer;
-            }
-            
-            input[name="amber"]::before {
-            content: "";
-            width: 0.62em;
-            height: 0.60em;
-            transform: scale(0);
-            transform-origin: center;
-            transition: 20ms transform ease-in-out;
-            box-shadow: inset 1em 1em var(--form-control-amber-color);
-            /* Windows High Contrast Mode */
-            background-color: CanvasText;
-            }
-            input[name="indigo"]::before {
-            content: "";
-            width: 0.42em;
-            height: 0.40em;
-            transform: scale(0);
-            transform-origin: center;
-            transition: 120ms transform ease-in-out;
-            box-shadow: inset 1em 1em var(--form-control-color);
-            /* Windows High Contrast Mode */
-            background-color: CanvasText;
-            }
-            
-            input[type="checkbox"]:checked::before {
-            transform: scale(1);
+                }
+                to {
+
+                }
             }
         </style>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                document.querySelector('#searchButton').addEventListener('click', function() {
-                    const complainant_id = document.querySelector('#searchField').value;
-        
-                    fetch(`/complaints/${complainant_id}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            // Fill the form with the returned data
-                            document.querySelector('#complaintId').textContent = data.complaint_id;
-                            document.querySelector('#complainantName').textContent = data.complainant_name;
-                            document.querySelector('#complainantId').textContent = data.complainant_id;
-                            document.querySelector('#complaineeName').textContent = data.complainee_name;
-                            document.querySelector('#complaineeId').textContent = data.complainee_id;
-                            document.querySelector('#apprehensionDate').textContent = data.apprehension_date;
-                            document.querySelector('#submissionDate').textContent = data.submission_date;
-                            document.querySelector('#allegation').value = data.nature_and_cause;
-                        });
-                });
-            });
-        </script>
     </head>
     <body class="selection:bg-amber-50 selection:text-amber-600 custom-scroller">
         <main class="tracking-wide min-h-screen bg-indigo-50 overflow-x-hidden cursor-default text-indigo-800">
@@ -192,16 +86,10 @@
                     }
                     setInterval(updateDateTime,1000);
                     updateDateTime();
-
-                    function toggleMenu() {
-                        var menu = document.querySelector("aside");
-                        menu.classList.toggle("hidden");
-                    }
-
                 </script>
             </header>
-            <article class="grid grid-cols-6 overflow-y-hidden">
-                <aside class="bg-indigo-800 text-white relative">
+            <article class="grid grid-cols-6">
+                <aside class="bg-indigo-800 custom-scroller text-white relative">
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('cdean.dashboard') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m56,34h-7v20h-12v-16h-10v16h-12v-20h-7v-4L32,6l9,9v-7h8v15l7,7v4Z" clip-rule="evenodd"></path>
@@ -209,28 +97,19 @@
                         <p class="hidden lg:block">Home</p>
                         <p class="lg:hidden text-xs">Manual</p>
                     </button>
-                    <button class="text-amber-600 bg-amber-300 font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='college-complaint-report.html'">
-                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd" d="M9 2.2V7H4.2l.4-.5 3.9-4 .5-.3Zm2-.2v5a2 2 0 0 1-2 2H4v11c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7ZM8 16c0-.6.4-1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1-5a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"></path>
-                        </svg>
-                        <p class="hidden lg:block">Complaint Report</p>
-                        <p class="lg:hidden text-xs">Report</p>
-                    </button>
-                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='college-complaint-inbox.html'">
+                    <button class="bg-amber-300 text-amber-600 font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m54,10v40h-4l-20-10h-4l4,16h-10l-4-16c-4.94,0-8-3.06-8-8v-4c0-4.94,3.06-8,8-8h14l20-10h4Z" clip-rule="evenodd"></path>
                         </svg>
-                        <p class="text-xs lg:text-base">Inbox</p>
+                        <p class="hidden lg:block">File a Complaint</p>
+                        <p class="lg:hidden text-xs">Report</p>
                     </button>
-                    <form action="/logout" method="POST">
-                        @csrf
                     <button class="hover:bg-red-200 hover:text-red-600 active:bg-red-400 active:font-semibold flex flex-row items-center justify-center w-full p-4 space-x-2 mt-64" onclick="location.href='login-page.html'">
                         <svg class="h-5 w-5" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m34,44h6v12H10V8h30v12h-6v-6h-18v36h18v-6Zm15.24-25l-4.24,4.24,5.76,5.76h-16.76v6h16.76l-5.76,5.76,4.24,4.24,13-13-13-13Z" clip-rule="evenodd"></path>
                         </svg>
                         <p class="text-xs lg:text-base">Log Out</p>
                     </button>
-                    </form>
                     <div class="absolute bottom-1 left-2">
                         <p class="text-xs font-thin text-indigo-300">Discipline Module</p>
                     </div>

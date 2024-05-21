@@ -57,17 +57,17 @@
                 </div>
                 <!-- PLM -->
                 <div class="border-l border-indigo-300 pl-4 py-2.5 lg:col-span-2">
-                    <img class="hidden lg:block h-10 w-auto selection:bg-transparent" alt="PLM Logo" src="{{ asset('assets/plm-logo--with-header.png') }}"/>
-                    <img class="lg:hidden block h-8 w-8" src="{{ asset('assets/plm-logo.png') }}"/>
+                    <img class="hidden lg:block h-10 w-auto selection:bg-transparent" alt="PLM Logo" src="assets/plm-logo--with-header.png"/>
+                    <img class="lg:hidden block h-8 w-8" src="assets/plm-logo-hd.png"/>
                 </div>
                 <div class="flex flex-row items-center space-x-2 col-span-5 lg:col-span-4 pr-4 lg:px-0 text-center lg:space-x-2 space-x-6">
                     <!-- OSDS -->
-                    <img class="hidden lg:block h-10 w-10" src="{{ asset('assets/osdslogo.png') }}"/>
+                    <img class="hidden lg:block h-10 w-10" src="assets/osdslogo.png"/>
                     <div class="flex flex-col">
                         <h1 class="text-sm font-light">The Office of Student Development and Services</h1>
                         <input type="text" placeholder="Search anything..." class="focus:outline-none rounded border border-indigo-500 text-xs p-1 placeholder:text-indigo-300 px-2 focus:border-indigo-800"/>
                     </div>
-                    <img class="lg:hidden h-8 w-8" src="{{ asset('assets/osdslogo.png') }}"/>
+                    <img class="lg:hidden h-8 w-8" src="assets/osdslogo.png"/>
                 </div>
                 <div class="col-span-2 flex flex-row justify-end space-x-4 items-end">
                     <button class="transition-colors duration-300 transform rounded-full border-4 border-transparent hover:border-4 text-indigo-500 hover:text-amber-600 hover:border-amber-300 hover:bg-amber-300 focus:outline-none">
@@ -238,7 +238,8 @@
                         </svg>
                         <p>Reports</p>
                     </button>
-                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2">
+                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2"
+                            onclick="location.href='{{ route('odean.admin') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m56,10.83l-4.22,6.49c-2.72,4.18-4.88,6.85-8.41,10.38l-10.3,10.3-7.07-7.07,10.3-10.3c3.53-3.53,6.19-5.69,10.38-8.41l6.49-4.22,2.83,2.83Zm-32.39,23.37l6.2,6.2-5.8,11.61h-4.44c-2.37,0-3.98.67-5.66,2.34l-1.66,1.66-4.24-4.24,1.66-1.66c1.68-1.68,2.34-3.29,2.34-5.66v-4.44l11.61-5.8Zm-.61,9.8c0-1.66-1.34-3-3-3s-3,1.34-3,3,1.34,3,3,3,3-1.34,3-3Z" clip-rule="evenodd"></path>
                         </svg>
@@ -253,7 +254,7 @@
                     </button>
                     <form action="/logout" method="POST">
                         @csrf
-                    <button class="hover:bg-red-200 hover:text-red-600 active:bg-red-400 active:font-semibold flex flex-row items-center justify-center w-full p-4 space-x-2 mt-20">
+                    <button class="hover:bg-red-200 hover:text-red-600 active:bg-red-400 active:font-semibold flex flex-row items-center justify-center w-full p-4 space-x-2 mt-20" onclick="location.href='login-page.html'">
                         <svg class="h-5 w-5" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m34,44h6v12H10V8h30v12h-6v-6h-18v36h18v-6Zm15.24-25l-4.24,4.24,5.76,5.76h-16.76v6h16.76l-5.76,5.76,4.24,4.24,13-13-13-13Z" clip-rule="evenodd"></path>
                         </svg>

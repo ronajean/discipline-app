@@ -19,12 +19,15 @@ class ChairController extends Controller
         $complaints = Complaint::all(); 
 
         // Then, pass the data to the view
+        
+        /*$complaints = Complaint::all();
+        $userId = Auth::user()->id;
+        $employees = Employee::where('id', $userId)->get();*/
+
+        // Then, pass the data to the view
         return view('chair.dashboard', [
             'employees' => $employees,
             'complaints' => $complaints,
-            // 'courses' => $courses,
-            // 'grades' => $grades,
-            // etc.
         ]);
     }
 
