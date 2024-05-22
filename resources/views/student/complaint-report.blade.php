@@ -95,8 +95,8 @@
                 </script>
             </header>
             <article class="grid grid-cols-6">
-                <aside class="bg-indigo-800 text-white h-screen relative">
-                    <button class="text-amber-600 bg-amber-300 font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('student.complaint-report') }}'">
+                <aside class="bg-indigo-800 custom-scroller text-white h-screen relative">
+                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('student.complaint-report') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m54,10v40h-4l-20-10h-4l4,16h-10l-4-16c-4.94,0-8-3.06-8-8v-4c0-4.94,3.06-8,8-8h14l20-10h4Z" clip-rule="evenodd"></path>
                         </svg>
@@ -117,12 +117,18 @@
                         <p class="hidden lg:block">GMC Certificate</p>
                         <p class="lg:hidden text-xs">GMC</p>
                     </button>
-                    <button class="hover:bg-red-200 hover:text-red-600 active:bg-red-400 active:font-semibold flex flex-row items-center justify-center w-full p-4 space-x-2 mt-52" onclick="location.href='login-page.html'">
-                        <svg class="h-5 w-5" viewBox="0 0 64 64" fill="currentColor">
-                            <path fill-rule="evenodd" d="m34,44h6v12H10V8h30v12h-6v-6h-18v36h18v-6Zm15.24-25l-4.24,4.24,5.76,5.76h-16.76v6h16.76l-5.76,5.76,4.24,4.24,13-13-13-13Z" clip-rule="evenodd"></path>
-                        </svg>
-                        <p class="text-xs lg:text-base">Log Out</p>
-                    </button>
+
+                    
+                    <form action="/logout" method="POST">
+                        @csrf
+                        <button id="logout" class="hover:bg-red-200 hover:text-red-600 active:bg-red-400 active:font-semibold flex flex-row items-center justify-center w-full p-4 space-x-2 mt-52">
+                            <svg class="h-5 w-5" viewBox="0 0 64 64" fill="currentColor">
+                                <path fill-rule="evenodd" d="m34,44h6v12H10V8h30v12h-6v-6h-18v36h18v-6Zm15.24-25l-4.24,4.24,5.76,5.76h-16.76v6h16.76l-5.76,5.76,4.24,4.24,13-13-13-13Z" clip-rule="evenodd"></path>
+                            </svg>
+                            <p class="text-xs lg:text-base">Log Out</p>
+                        </button>
+                    </form>
+        
                     <div class="absolute bottom-1 left-2">
                         <p class="text-xs font-thin text-indigo-300">Discipline Module</p>
                     </div>
