@@ -31,11 +31,19 @@ class ChairController extends Controller
         ]);
     }
 
+    public function inbox(){
+        return view('chair.inbox');
+    }
+
     public function fileComplaint()
     {
-        #$complaints = Complaint::all(); // Assuming 'Complaint' is your model name
+        $complaints = Complaint::all();
         return view('chair.complaint-report', [
-            #'complaints' => $complaints,
+            'complaints' => $complaints,
+            // 'courses' => $courses,
+            // 'grades' => $grades,
+            // etc.
         ]);
     }
+
 }

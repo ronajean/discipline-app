@@ -96,12 +96,18 @@
                         </svg>
                         <p class="text-xs lg:text-base">Home</p>
                     </button>
-                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('cdean.file-complaint') }}'">
+                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('chair.file-complaint') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m54,10v40h-4l-20-10h-4l4,16h-10l-4-16c-4.94,0-8-3.06-8-8v-4c0-4.94,3.06-8,8-8h14l20-10h4Z" clip-rule="evenodd"></path>
                         </svg>
                         <p class="hidden lg:block">File a Complaint</p>
                         <p class="lg:hidden text-xs">Report</p>
+                    </button>
+                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('chair.inbox') }}'">
+                        <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
+                            <path fill-rule="evenodd" d="m54,10v40h-4l-20-10h-4l4,16h-10l-4-16c-4.94,0-8-3.06-8-8v-4c0-4.94,3.06-8,8-8h14l20-10h4Z" clip-rule="evenodd"></path>
+                        </svg>
+                        <p class="text-xs lg:text-base">Inbox</p>
                     </button>
 
                     <form method="POST" action="/logout">
@@ -154,6 +160,7 @@
                                     @foreach($complaints as $complaint)
                                         <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
                                             <td>{{ $complaint->complaint_id }}</td>
+                                            
                                             <td>{{ $complaint->complainant_id }}</td>
                                             <td>{{ $complaint->nature_and_cause }}</td>
                                             <td>{{ $complaint->submission_date }}</td>

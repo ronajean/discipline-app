@@ -87,12 +87,14 @@ Route::get('student/gmc-status', [StudentController::class, 'gmcStatus'])->name(
 Route::get('student/gmc-payment', [StudentController::class, 'gmcPayment'])->name('student.gmc-payment');
 Route::get('student/gmc-request', [StudentController::class, 'gmcRequest'])->name('student.gmc-request');
 Route::get('student/gmc-claim-stub', [StudentController::class, 'gmcClaim'])->name('student.gmc-claim-stub');
-
+Route::post('/gmrcrequest', [StudentController::class, 'storeGmcRequest'])->name('gmrcrequest.store');
 
 
 //Chair Views
 Route::get('chair/dashboard', [ChairController::class, 'dashboard'])->name('chair.dashboard');
+Route::get('chair/inbox', [ChairController::class, 'inbox'])->name('chair.inbox');
 Route::get('chair/file-complaint', [ChairController::class, 'fileComplaint'])->name('chair.file-complaint');
+
 
 
 //College Dean Views
@@ -116,6 +118,13 @@ Route::get('/students/{student_id}', function ($student_id) {
 
 //Staff Views
 Route::get('staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
+Route::get('staff/addnewcase', [StaffController::class, 'addnewcase'])->name('staff.addnewcase');
+Route::get('staff/caserecord', [StaffController::class, 'caserecord'])->name('staff.caserecord');
+Route::get('staff/search', [StaffController::class,'search' ])->name('staff.search');
+Route::get('/students/{student_id}', function ($student_id) {
+    $students = Student::where('student_id', $student_id)->first();
+    return response()->json($students);
+});
 
 //USO Views
 Route::get('uso/dashboard', [USOController::class, 'dashboard'])->name('uso.dashboard');

@@ -199,12 +199,15 @@
                         <p class="hidden lg:block">GMC Certificate</p>
                         <p class="lg:hidden text-xs">GMC</p>
                     </button>
-                    <button class="hover:bg-red-200 hover:text-red-600 active:bg-red-400 active:font-semibold flex flex-row items-center justify-center w-full p-4 space-x-2 mt-52" onclick="location.href='login-page.html'">
-                        <svg class="h-5 w-5" viewBox="0 0 64 64" fill="currentColor">
-                            <path fill-rule="evenodd" d="m34,44h6v12H10V8h30v12h-6v-6h-18v36h18v-6Zm15.24-25l-4.24,4.24,5.76,5.76h-16.76v6h16.76l-5.76,5.76,4.24,4.24,13-13-13-13Z" clip-rule="evenodd"></path>
-                        </svg>
-                        <p class="text-xs lg:text-base">Log Out</p>
-                    </button>
+                    <form action="/logout" method="POST">
+                        @csrf
+                        <button id="logout" class="hover:bg-red-200 hover:text-red-600 active:bg-red-400 active:font-semibold flex flex-row items-center justify-center w-full p-4 space-x-2 mt-52">
+                            <svg class="h-5 w-5" viewBox="0 0 64 64" fill="currentColor">
+                                <path fill-rule="evenodd" d="m34,44h6v12H10V8h30v12h-6v-6h-18v36h18v-6Zm15.24-25l-4.24,4.24,5.76,5.76h-16.76v6h16.76l-5.76,5.76,4.24,4.24,13-13-13-13Z" clip-rule="evenodd"></path>
+                            </svg>
+                            <p class="text-xs lg:text-base">Log Out</p>
+                        </button>
+                    </form>
                     <div class="absolute bottom-1 left-2">
                         <p class="text-xs font-thin text-indigo-300">Discipline Module</p>
                     </div>
@@ -232,10 +235,11 @@
                         <p>Certificate of Good Moral Character (GMC)</p>
                         <p class="font-medium">REQUEST FORM</p>
                     </div>
-
-                    <form class="mx-4 lg:ml-20 text-xs lg:text-sm grid grid-cols-2">
+                    @foreach ($students as $student)
+                    <form method="POST" action="{{ route('gmrcrequest.store') }}" class="mx-4 lg:ml-20 text-xs lg:text-sm grid grid-cols-2">
+                        @csrf
                         <div class="flex flex-row items-center">
-                            <p class="font-medium">Tentative Date Release</p>
+                            <p class="font-medium">Date of Request</p>
                             <span class="mx-6">:</span>
                             <div class="lg:mx-4">
                                 <div class="relative lg:space-x-8 py-4">
@@ -245,24 +249,20 @@
                             </div>
                         </div>
                         <div class="flex flex-row items-center">
-                            <p class="font-medium mr-12 lg:mr-16">Date of Filing</p>
-                            <div class="flex justify-evenly items-center ml-1.5 lg:ml-2.5 lg:space-x-8 lg:pl-0.5">
-                                <span class="mx-2">:</span>
-                                <p class="font-thin tracking-widest lg:w-64">DD/MM/YYYY</p>
-                            </div>
+                            
                         </div>
                         <div class="flex flex-row items-center">
                             <p class="font-medium mr-6 lg:mr-12">Student Number</p>
                             <div class="flex justify-evenly items-center ml-1.5 lg:ml-1 px-1 lg:space-x-8">
                                 <span class="mx-2">:</span>
-                                <p class="font-thin tracking-widest lg:w-64">0000-00000</p>
+                                <p class="font-thin tracking-widest lg:w-64">{{ $student->student_number }}</p>
                             </div>
                         </div>
                         <div class="flex flex-row items-center">
                             <p class="font-medium mr-10 lg:mr-14">Student Name</p>
                             <div class="flex justify-evenly items-center ml-1.5 lg:ml-1 px-1 lg:space-x-8">
                                 <span class="mx-2 ml-3.5">:</span>
-                                <p class="font-thin tracking-widest lg:w-64">Jerome Z. Caladiao</p>
+                                <p class="font-thin tracking-widest lg:w-64">{{ $student->first_name }} {{ $student->last_name }}</p>
                             </div>
                         </div>
                     </form>
@@ -272,51 +272,28 @@
                                 <p class="font-medium mr-28 lg:mr-80">Gender</p>
                                 <div class="flex justify-evenly ml-1.5 lg:ml-12 lg:space-x-8">
                                     <span class="mx-2">:</span>
-                                    <p class="font-thin tracking-widest">Male/Female/Others</p>
+                                    <p class="font-thin tracking-widest">{{ $student->gender }}</p>
                                 </div>
                             </div>
                             <div class="flex flex-row items-center">
                                 <p class="font-medium mr-28 lg:mr-80">Status</p>
                                 <div class="flex justify-evenly ml-3 lg:ml-14 lg:space-x-8">
                                     <span class="mx-2">:</span>
-                                    <p class="font-thin tracking-widest">Single/Engaged/Married</p>
-                                </div>
-                            </div>
-                            <div class="flex flex-row items-center">
-                                <p class="lg:hidden font-medium mr-1.5">Maiden Name (for female)</p>
-                                <p class="hidden lg:block font-medium">Complete Maiden Name (for married women)</p>
-                                <div class="flex justify-evenly lg:ml-28 lg:space-x-8">
-                                    <span class="mx-2 lg:ml-1.5">:</span>
-                                    <p class="font-thin tracking-widest">[for Female only]</p>
-                                </div>
-                            </div>
-                            <div class="flex flex-row items-center">
-                                <p class="font-medium mr-1 lg:mr-56">Date of Graduation at PLM</p>
-                                <div class="flex justify-evenly lg:ml-3 lg:space-x-8">
-                                    <span class="mx-2">:</span>
-                                    <p class="font-thin tracking-widest">DD/MM/YYYY</p>
-                                </div>
-                            </div>
-                            <div class="flex flex-row items-center">
-                                <p class="lg:hidden font-medium mr-7">Inclusive Years at PLM</p>
-                                <p class="hidden lg:block font-medium mr-12">Inclusive Years of Stay at PLM (1st and last enrollment)</p>
-                                <div class="flex justify-evenly ml-1 lg:ml-0.5 lg:space-x-8">
-                                    <span class="mx-2">:</span>
-                                    <p class="font-thin tracking-widest">1/2/3/4/5</p>
+                                    <p class="font-thin tracking-widest">{{ $student->status }}</p>
                                 </div>
                             </div>
                             <div class="flex flex-row items-center">
                                 <p class="font-medium mr-16 lg:mr-72">Degree Program</p>
                                 <div class="flex justify-evenly ml-0.5 lg:ml-4 lg:space-x-8">
                                     <span class="mx-2 lg:ml-2.5">:</span>
-                                    <p class="font-thin tracking-widest truncate">BSCS Bachelor of Science in Computer Science/Other</p>
+                                    <p class="font-thin tracking-widest truncate">{{ $student->course_id }}</p>
                                 </div>
                             </div>
                             <div class="flex flex-row items-center">
                                 <p class="font-medium lg:mr-56">College (please type in full)</p>
                                 <div class="flex justify-evenly lg:ml-2 lg:space-x-8">
                                     <span class="mx-2">:</span>
-                                    <p class="font-thin tracking-widest truncate">College of Information Science, Technology and Management/Other</p>
+                                    <p class="font-thin tracking-widest truncate">{{ $student->college_id }}</p>
                                 </div>
                             </div>
                             <div class="flex flex-row items-center">
@@ -368,7 +345,7 @@
                         </div>
                     </div>
                     <div class="mx-2 lg:mx-20 flex justify-end" x-data="{isOpen1:false}">
-                        <button type="button" class="p-2 disabled:cursor-not-allowed disabled:text-indigo-200 disabled:bg-indigo-50 disabled:font-light disabled:shadow-indigo-50 hover:bg-amber-50 hover:text-amber-600 rounded shadow-sm shadow-indigo-600 hover:shadow-amber-600 active:bg-amber-300 font-light lg:font-semibold" @click="isOpen1 = !isOpen1">
+                        <button type="submit" class="p-2 disabled:cursor-not-allowed disabled:text-indigo-200 disabled:bg-indigo-50 disabled:font-light disabled:shadow-indigo-50 hover:bg-amber-50 hover:text-amber-600 rounded shadow-sm shadow-indigo-600 hover:shadow-amber-600 active:bg-amber-300 font-light lg:font-semibold">
                             <p>Confirm</p>
                         </button>
                         <div x-show="isOpen1" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 bg-black bg-opacity-50 selection:text-indigo-800">
@@ -379,6 +356,7 @@
                                     <button class="hover:text-indigo-800 p-2 rounded-xl border border-amber-600 hover:border-indigo-800 hover:bg-indigo-50" onclick="location.href='{{ route('student.gmc-status') }}'">
                                         <p>Go Back</p>
                                     </button>
+                    @endforeach
                                 </div>
                             </div>
                         </div>
