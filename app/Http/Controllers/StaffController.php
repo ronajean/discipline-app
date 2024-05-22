@@ -21,4 +21,22 @@ class StaffController extends Controller
             'employees' => $employees,
         ]);
     }
+
+    public function addnewcase()
+    {
+        $students = Student::all();
+        return view('staff.addnewcase', [
+            'students' => $students,
+        ]);
+    }
+
+    public function caserecord()
+    {
+        $violations = Violation::select('student_id', 'year', 'block', 'offense', 'student_contact_number', 'reference_record')
+            ->get();
+
+        return view('staff.caserecord', [
+            'violations' => $violations
+        ]);
+    }
 }

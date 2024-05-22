@@ -25,4 +25,20 @@ class ChairController extends Controller
             'complaints' => $complaints,
         ]);
     }
+
+    public function inbox(){
+        return view('chair.inbox');
+    }
+
+    public function fileComplaint()
+    {
+        $complaints = Complaint::all();
+        return view('chair.complaint-report', [
+            'complaints' => $complaints,
+            // 'courses' => $courses,
+            // 'grades' => $grades,
+            // etc.
+        ]);
+    }
+
 }
