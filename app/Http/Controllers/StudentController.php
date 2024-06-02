@@ -41,9 +41,11 @@ class StudentController extends Controller
     {
         // Fetch data related to the student from the database
         // For example, you might fetch the student's courses, grades, etc.
+        
 
         // Then, pass the data to the view
         return view('student.complaint-report', [
+            
             // 'courses' => $courses,
             // 'grades' => $grades,
             // etc.
@@ -54,9 +56,12 @@ class StudentController extends Controller
     {
         // Fetch data related to the student from the database
         // For example, you might fetch the student's courses, grades, etc.
+        $userId = Auth::user()->id;
+        $students = Student::where('id', $userId)->get();
 
         // Then, pass the data to the view
         return view('student.complaint-form', [
+            'students' => $students,
             // 'courses' => $courses,
             // 'grades' => $grades,
             // etc.

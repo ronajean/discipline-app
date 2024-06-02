@@ -11,6 +11,7 @@ use App\Http\Controllers\CDeanController;
 use App\Http\Controllers\USOController;
 use App\Http\Controllers\ViolationsController;
 use App\Http\Controllers\NewCaseController;
+use App\Http\Controllers\ComplaintController;
 use App\Models\Complaint;
 use App\Models\Student;
 
@@ -88,6 +89,9 @@ Route::get('student/gmc-payment', [StudentController::class, 'gmcPayment'])->nam
 Route::get('student/gmc-request', [StudentController::class, 'gmcRequest'])->name('student.gmc-request');
 Route::get('student/gmc-claim-stub', [StudentController::class, 'gmcClaim'])->name('student.gmc-claim-stub');
 Route::post('/gmrcrequest', [StudentController::class, 'storeGmcRequest'])->name('gmrcrequest.store');
+
+Route::post('/complaints/store', [ComplaintController::class, 'store'])->name('complaints.store');
+
 
 
 //Chair Views

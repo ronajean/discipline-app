@@ -78,7 +78,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
                         </svg>                      
                     </button>
-                    <button class="flex flex-row hover:bg-amber-50 hover:text-amber-600 lg:px-8 active:bg-amber-300 active:font-semibold p-2 rounded" onclick="location.href='plm-student-dashboard.html'">
+                    <button class="flex flex-row hover:bg-amber-50 hover:text-amber-600 lg:px-8 active:bg-amber-300 active:font-semibold p-2 rounded" onclick="location.href='{{ route('student.dashboard') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m56,34h-7v20h-12v-16h-10v16h-12v-20h-7v-4L32,6l9,9v-7h8v15l7,7v4Z" clip-rule="evenodd"></path>
                         </svg>
@@ -164,53 +164,67 @@
                     <div class="col-span-5">
                         <header class="bg-white flex flex-row justify-between items-end px-4 py-6">
                             <p class="text-3xl font-thin tracking-widest">Student Complaint</p>
-                            <button class="p-2 rounded border border-indigo-800 hover:border-amber-600 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200 active:font-semibold" onclick="location.href='student-complaint-report.html'">
+                            <button class="p-2 rounded border border-indigo-800 hover:border-amber-600 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200 active:font-semibold" onclick="location.href='{{ route('student.complaint-report') }}'">
                                 <p class="text-sm">Go back</p>
                             </button>
                         </header>
                         <aside class="bg-white p-4 space-y-4 border-b border-indigo-800">
                             <div class="flex items-end">
-                                <div class="grid grid-cols-6 text-sm gap-2">
-                                    <p>Student Number:</p>
-                                    <p class="text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">101101101</p>
-                                    <p class="col-start-1">Student Name:</p>
-                                    <p class="text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">Jerome Caladiao</p>
-                                    <p class="col-start-1">Date & Time Sent:</p>
-                                    <p class="text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">DD/MM/YY, 00:00 XX</p>
-                                </div>
-                            </div>
-                            <div class="text-sm space-y-4">
-                                <div class="grid grid-cols-12">
-                                    <p class="col-span-3">Date and Time Happened:</p>
-                                    <div class="flex flex-row col-span-5">
-                                        <input type="date" placeholder="DD/MM/YYYY, 00:00 XX" class="w-full border placeholder:text-indigo-300 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50 tracking-widest border-indigo-300 focus:border-indigo-800 p-2 focus:outline-none"/>
-                                        <input type="time" placeholder="DD/MM/YYYY, 00:00 XX" class="w-full border placeholder:text-indigo-300 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50 tracking-widest border-indigo-300 focus:border-indigo-800 p-2 focus:outline-none"/>
+                                
+
+                                <div class="text-sm flex flex-row justify-center space-x-6 mt-2">
+                                    <div>
+                                        <p>Student Number:</p>
+                                        <p>Student Name: </p>
+                                        <p>Course: </p>
+                                    </div>
+                                    <div class="font-light text-amber-600 selection:text-indigo-600 selection:bg-indigo-50">
+                                        @foreach ($students as $student)
+                                        <p>{{ $student->student_no }}</p>
+                                        <p> {{ $student->first_name }} {{ $student->last_name }}</p>
+                                        <p>{{ $student->course_id }}</p>
+                
+                                        @endforeach
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-12">
-                                    <p class="col-span-3">Location:</p>
-                                    <input type="text" placeholder="Location" class="col-span-5 placeholder:text-indigo-300 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50 tracking-widest w-full border border-indigo-300 focus:border-indigo-800 p-2 focus:outline-none"/>
-                                </div>
-                                <div class="grid grid-cols-12">
-                                    <p class="col-span-3">Description (if necessary):</p>
-                                    <textarea type="text" maxlength="500" class="border border-indigo-300 placeholder:text-indigo-300 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50 tracking-widest focus:border-indigo-800 p-2 min-h-40 max-h-48 w-full col-span-5 focus:outline-none" title="hold & drag lower-right corner of the box to adjust its size" placeholder="Be direct as possible. (max of 500 characters)"></textarea>
-                                </div>
                             </div>
-                            <div x-data="{isOpen15:false}" class="flex justify-end pr-4 pb-4">
-                                <button @click="isOpen15 = !isOpen15" id="proceed" type="button" class="p-2 disabled:cursor-not-allowed disabled:text-indigo-200 disabled:bg-indigo-50 disabled:font-light disabled:shadow-indigo-50 hover:bg-amber-50 hover:text-amber-600 rounded shadow-sm shadow-indigo-600 hover:shadow-amber-600 active:bg-amber-300 font-semibold" title="Send">
-                                    <p>Send</p>
-                                </button>
-                                <div x-show="isOpen15" class="fixed inset-0 z-10 bg-black bg-opacity-50 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">
-                                    <div class="relative top-1/3 bg-white mx-auto max-w-sm p-4 rounded shadow-md border border-amber-600">
-                                        <p class="border-b border-amber-300 font-thin text-2xl tracking-widest">Sent</p>
-                                        <p class="pt-6 font-light">Your complaint is successfully sent.<br>We will look upon the complaint.</p>
-                                        <div class="mt-3 flex justify-end">
-                                            <button class="p-1.5 border border-amber-600 hover:border-indigo-800 hover:bg-indigo-50 hover:text-indigo-800 active:bg-indigo-200 active:font-semibold" onclick="location.href='student-complaint-report.html'">
-                                                <p class="text-xs">Go back</p>
-                                            </button>
+
+                            @if(session('success'))
+                                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                                    <strong class="font-bold">Success!</strong>
+                                    <span class="block sm:inline">{{ session('success') }}</span>
+                                </div>
+                            @endif
+                            
+                            <form action="{{ route('complaints.store') }}" method="POST" class="text-sm space-y-4">
+                                @csrf
+                                <input type="hidden" name="student_no" value="{{ $student->student_no }}">
+                                <input type="hidden" name="first_name" value="{{ $student->first_name }}">
+                                <input type="hidden" name="last_name" value="{{ $student->last_name }}">
+                                <input type="hidden" name="middle_name" value="{{ $student->middle_name }}">
+
+                                <div class="text-sm space-y-4">
+                                    <div class="grid grid-cols-12">
+                                        <p class="col-span-3">Date and Time Happened:</p>
+                                        <div class="flex flex-row col-span-5">
+                                            <input type="date" name="date" placeholder="DD/MM/YYYY, 00:00 XX" class="w-full border placeholder:text-indigo-300 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50 tracking-widest border-indigo-300 focus:border-indigo-800 p-2 focus:outline-none"/>
+                                            <input type="time" name="time" placeholder="DD/MM/YYYY, 00:00 XX" class="w-full border placeholder:text-indigo-300 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50 tracking-widest border-indigo-300 focus:border-indigo-800 p-2 focus:outline-none"/>
                                         </div>
                                     </div>
+                                    <div class="grid grid-cols-12">
+                                        <p class="col-span-3">Location:</p>
+                                        <input type="text" name="location" placeholder="Location" class="col-span-5 placeholder:text-indigo-300 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50 tracking-widest w-full border border-indigo-300 focus:border-indigo-800 p-2 focus:outline-none"/>
+                                    </div>
+                                    <div class="grid grid-cols-12">
+                                        <p class="col-span-3">Description:</p>
+                                        <textarea type="text" name="description" maxlength="500" class="border border-indigo-300 placeholder:text-indigo-300 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50 tracking-widest focus:border-indigo-800 p-2 min-h-40 max-h-48 w-full col-span-5 focus:outline-none" title="hold & drag lower-right corner of the box to adjust its size" placeholder="Be direct as possible. (max of 500 characters)"></textarea>
+                                    </div>
                                 </div>
+                                <div x-data="{isOpen15:false}" class="flex justify-end pr-4 pb-4">
+                                    <button @click="isOpen15 = !isOpen15" id="proceed" type="submit" class="p-2 disabled:cursor-not-allowed disabled:text-indigo-200 disabled:bg-indigo-50 disabled:font-light disabled:shadow-indigo-50 hover:bg-amber-50 hover:text-amber-600 rounded shadow-sm shadow-indigo-600 hover:shadow-amber-600 active:bg-amber-300 font-semibold" title="Send">
+                                        <p>Send</p>
+                                    </button>
+                            </form>
                             </div>
                         </aside>
                     </div>
