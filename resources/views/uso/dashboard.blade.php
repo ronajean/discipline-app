@@ -188,14 +188,14 @@
             <header class="flex flex-row bg-white grid grid-cols-12 items-center border-b border-indigo-800 pl-1 pr-6">
                 <!-- PLM -->
                 <div class="pl-4 py-1.5 lg:col-span-4">
-                    <img class="hidden lg:block h-12 w-auto selection:bg-transparent" alt="PLM Logo" src="assets/plm-logo--with-header.png"/>
-                    <img class="lg:hidden block h-8 w-8" src="assets/plm-logo-hd.png"/>
+                    <img class="hidden lg:block h-12 w-auto selection:bg-transparent" alt="PLM Logo" src="{{ asset('assets/plm-logo--with-header.png') }}"/>
+                    <img class="lg:hidden block h-8 w-8" src="{{ asset('assets/plm-logo.png') }}"/>
                 </div>
                 <div class="flex flex-row items-center space-x-2 col-span-8 lg:col-span-6 pr-4 lg:px-0 text-center lg:space-x-2 space-x-6">
                     <!-- OSDS -->
-                    <img class="hidden lg:block h-12 w-12" src="assets/osdslogo.png" title="OSDS Logo"/>
+                    <img class="hidden lg:block h-12 w-12" src="{{ asset('assets/osdslogo.png') }}" title="OSDS Logo"/>
                     <h1 class="text-sm lg:text-xl font-light">The Office of Student Development and Services</h1>
-                    <img class="lg:hidden h-8 w-8" src="assets/osdslogo.png"/>
+                    <img class="lg:hidden h-8 w-8" src="{{ asset('assets/osdslogo.png') }}"/>
                 </div>
                 <div class="text-xs lg:text-sm font-light text-right col-span-2">
                     <!-- Date and Time -->
@@ -382,13 +382,13 @@
                     </div>
                     <div class="mt-10 lg:mt-0">
                         <div class="flex flex-row justify-evenly flex items-center text-center">
-                            <img class="h-10 w-10 lg:h-20 lg:w-20" src="assets/plm-logo.png"/>
+                            <img class="h-10 w-10 lg:h-20 lg:w-20" src="{{ asset('assets/plm-logo.png') }}"/>
                             <div class="cursor-default">
                                 <p class="font-semibold text-xs lg:text-lg">PAMANTASAN NG LUNGSOD NG MAYNILA</p>
                                 <p class="text-xs lg:text-sm italic">(University of the City of Manila)</p>
                                 <p class="text-xs lg:text-sm font-medium">Intramuros, Manila</p>
                             </div>
-                            <img class="h-10 w-10 lg:h-20 lg:w-20" src="assets/osdslogo.png"/>
+                            <img class="h-10 w-10 lg:h-20 lg:w-20" src="{{ asset('assets/osdslogo.png') }}"/>
                         </div>
                         <div class="cursor-default flex flex-col items-center text-center">
                             <p style="font-family: Aston Script;" class="mt-10 text-xs md:text-sm lg:text-base">Office of Student Development and Services</p>

@@ -30,10 +30,10 @@
                     <div class="flex flex-col lg:items-center lg:justify-center lg:flex-row lg:space-x-56">
                         <div class="flex items-center flex-row justify-evenly">
                             <div class="hidden lg:block sm:w-96 xl:w-80 2xl:w-96 sm:mx-auto lg:m-0 sm:ml-2">
-                                <img class="h-16 w-auto selection:bg-transparent" alt="PLM Logo" src="https://plm.edu.ph/images/ui/plm-logo--with-header.png"/>
+                                <img class="h-16 w-auto selection:bg-transparent" alt="PLM Logo" src="{{ asset('assets/plm-logo--with-header.png') }}"/>
                             </div>
                             <div class="lg:hidden block">
-                                <img class="h-10 w-10 lg:h-16 lg:w-16" src="https://web2.plm.edu.ph/sfe/images/plmlogo.png"/>
+                                <img class="h-10 w-10 lg:h-16 lg:w-16" src="{{ asset('assets/plm-logo.png') }}"/>
                             </div>
                             <div class="relative sm:w-96 xl:w-80 2xl:w-96 sm:mx-auto lg:m-0">
                                 <h1 class="flex items-center pl-2 mt-2 text-xs font-semibold text-indigo-800 text-gray-600 dark:text-gray-300 lg:mt-0 cursor-default">The Office of Student Development and Services</h1>
@@ -421,7 +421,7 @@
             
             <div id="logo" class="relative flex justify-end gap-x-1 lg:gap-x-4 opacity-50">
                 <p class="text-xs text-indigo-800 font-light lg:font-medium cursor-default">Discipline Module</p>
-                <img class="h-4 w-4 lg:h-6 lg:w-6" src="https://web2.plm.edu.ph/sfe/images/plmlogo.png"/>
+                <img class="h-4 w-4 lg:h-6 lg:w-6" src="{{ asset('assets/plm-logo.png') }}"/>
             </div>
         </main>
     </body>

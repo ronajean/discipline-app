@@ -57,17 +57,19 @@
                 </div>
                 <!-- PLM -->
                 <div class="border-l border-indigo-300 pl-4 py-2.5 lg:col-span-2">
-                    <img class="hidden lg:block h-10 w-auto selection:bg-transparent" alt="PLM Logo" src="assets/plm-logo--with-header.png"/>
-                    <img class="lg:hidden block h-8 w-8" src="assets/plm-logo-hd.png"/>
+                    <img class="hidden lg:block h-10 w-auto selection:bg-transparent" alt="PLM Logo" src="{{ asset('assets/plm-logo--with-header.png') }}"/>
+                    <img class="lg:hidden block h-8 w-8" src="{{ asset('assets/plm-logo.png') }}"/>
                 </div>
                 <div class="flex flex-row items-center space-x-2 col-span-5 lg:col-span-4 pr-4 lg:px-0 text-center lg:space-x-2 space-x-6">
                     <!-- OSDS -->
-                    <img class="hidden lg:block h-10 w-10" src="assets/osdslogo.png"/>
+                    <img class="hidden lg:block h-10 w-10" src="{{ asset('assets/osdslogo.png') }}
+"/>
                     <div class="flex flex-col">
                         <h1 class="text-sm font-light">The Office of Student Development and Services</h1>
                         <input type="text" placeholder="Search anything..." class="focus:outline-none rounded border border-indigo-500 text-xs p-1 placeholder:text-indigo-300 px-2 focus:border-indigo-800"/>
                     </div>
-                    <img class="lg:hidden h-8 w-8" src="assets/osdslogo.png"/>
+                    <img class="lg:hidden h-8 w-8" src="{{ asset('assets/osdslogo.png') }}
+"/>
                 </div>
                 <div class="col-span-2 flex flex-row justify-end space-x-4 items-end">
                     <button class="transition-colors duration-300 transform rounded-full border-4 border-transparent hover:border-4 text-indigo-500 hover:text-amber-600 hover:border-amber-300 hover:bg-amber-300 focus:outline-none">

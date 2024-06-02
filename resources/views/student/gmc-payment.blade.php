@@ -249,10 +249,10 @@
                                 <form class="flex flex-col">
                                     <input type="text" placeholder="Card number" class="h-16 px-4 focus:outline-none border border-indigo-300 rounded placeholder:text-indigo-400 placeholder:font-light placeholder:text-sm tracking-widest focus:border-indigo-600 text-amber-600 selection:bg-indigo-50 selection:text-indigo-600 mt-6"/>
                                     <div class="flex flex-row items-center space-x-2 justify-end">
-                                        <img src="assets/visa-logo.png" class="w-auto h-2"/>
-                                        <img src="assets/mastercard-logo.png" class="w-auto h-4"/>
-                                        <img src="assets/unionpay-logo.png" class="w-auto h-4"/>
-                                        <img src="assets/americanexpress-logo.png" class="w-auto h-6"/>
+                                        <img src="{{ asset('assets/visa-logo.png') }}" class="w-auto h-2"/>
+                                        <img src="{{ asset('assets/mastercard-logo.png') }}" class="w-auto h-4"/>
+                                        <img src="{{ asset('assets/unionpay-logo.png') }}" class="w-auto h-4"/>
+                                        <img src="{{ asset('assets/americanexpress-logo.png') }}" class="w-auto h-6"/>
                                     </div>
                                     <input type="text" placeholder="Expiration date" class="h-16 px-4 focus:outline-none border border-indigo-300 rounded placeholder:text-indigo-400 placeholder:font-light placeholder:text-sm tracking-widest focus:border-indigo-600 text-amber-600 selection:bg-indigo-50 selection:text-indigo-600 mt-6"/>
                                     <p class="text-right text-indigo-600 text-xs font-thin">MM/YY</p>
