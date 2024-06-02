@@ -177,7 +177,7 @@
                 </script>
             </header>
             <article class="grid grid-cols-6">
-                <aside class="bg-indigo-800 custom-scroller text-white relative">
+                <aside class="bg-indigo-800 custom-scroller text-white h-screen relative">
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('student.complaint-report') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m54,10v40h-4l-20-10h-4l4,16h-10l-4-16c-4.94,0-8-3.06-8-8v-4c0-4.94,3.06-8,8-8h14l20-10h4Z" clip-rule="evenodd"></path>
@@ -192,13 +192,15 @@
                         <p class="hidden lg:block">Student Manual</p>
                         <p class="lg:hidden text-xs">Manual</p>
                     </button>
-                    <button class="bg-amber-300 font-semibold text-amber-600 flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href = '{{ route('student.gmc-status') }}'"'>
+                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('student.gmc-status') }}'">
                         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd" d="M9 2.2V7H4.2l.4-.5 3.9-4 .5-.3Zm2-.2v5a2 2 0 0 1-2 2H4v11c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7ZM8 16c0-.6.4-1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1-5a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"></path>
                         </svg>
                         <p class="hidden lg:block">GMC Certificate</p>
                         <p class="lg:hidden text-xs">GMC</p>
                     </button>
+
+                    
                     <form action="/logout" method="POST">
                         @csrf
                         <button id="logout" class="hover:bg-red-200 hover:text-red-600 active:bg-red-400 active:font-semibold flex flex-row items-center justify-center w-full p-4 space-x-2 mt-52">
@@ -208,6 +210,7 @@
                             <p class="text-xs lg:text-base">Log Out</p>
                         </button>
                     </form>
+        
                     <div class="absolute bottom-1 left-2">
                         <p class="text-xs font-thin text-indigo-300">Discipline Module</p>
                     </div>

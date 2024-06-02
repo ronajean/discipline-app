@@ -86,6 +86,61 @@
                     }
                     setInterval(updateDateTime,1000);
                     updateDateTime();
+
+                    function showComplaintDetails(row) {
+                        // Retrieve the data
+                        const complaintId = row.dataset.complaintId;
+                        const complainantId = row.dataset.complainantId;
+                        const complainantName = row.dataset.complainantName;
+                        const complaineeId = row.dataset.complaineeId;
+                        const complaineeName = row.dataset.complaineeName;
+                        const apprehensionDate = row.dataset.apprehensionDate;
+                        const apprehensionTime = row.dataset.apprehensionTime;
+                        const location = row.dataset.location;
+                        const natureAndCause = row.dataset.natureAndCause;
+                        const submissionDate = row.dataset.submissionDate;
+                        const status = row.dataset.status;
+
+                        // Add it to the modal
+                        const modalBody = document.querySelector('#complaintModal .modal-body');
+                        modalBody.innerHTML = `
+                            <p>Complaint ID: ${complaintId}</p>
+                            <p>Complainant ID: ${complainantId}</p>
+                            <p>Complainant Name: ${complainantName}</p>
+                            <p>Complainee ID: ${complaineeId}</p>
+                            <p>Complainee Name: ${complaineeName}</p>
+                            <p>Apprehension Date: ${apprehensionDate}</p>
+                            <p>Apprehension Time: ${apprehensionTime}</p>
+                            <p>Location: ${location}</p>
+                            <p>Nature and Cause: ${natureAndCause}</p>
+                            <p>Submission Date: ${submissionDate}</p>
+                            <p>Status: ${status}</p>
+                        `;
+
+                        // Show the modal
+                        $('#complaintModal').modal('show');
+                    }
+
+                    function filterCases() {
+                        // Get the search term
+                        const searchTerm = document.querySelector('#searchField').value.toLowerCase();
+
+                        // Get all the table rows
+                        const rows = document.querySelectorAll('tr');
+
+                        // Loop through the rows
+                        for (let i = 0; i < rows.length; i++) {
+                            // Get the row text
+                            const rowText = rows[i].textContent.toLowerCase();
+
+                            // If the row text includes the search term, show the row, otherwise hide it
+                            if (rowText.includes(searchTerm)) {
+                                rows[i].style.display = '';
+                            } else {
+                                rows[i].style.display = 'none';
+                            }
+                        }
+                    }
                 </script>
             </header>
             <article class="grid grid-cols-6">
@@ -126,53 +181,95 @@
                 <div class="col-span-5">
                     <div class="bg-white border-b border-indigo-800 py-6 px-4">
                         <p class="text-center text-3xl font-thin tracking-widest">Welcome</p>
+                        
                         <div class="text-xs lg:text-sm tracking-widest mt-6 flex justify-center space-x-20">
-                            @foreach ($employees as $employee)
-                            <div class="text-right ">
-                                <p>Full Name:</p>
-                                <p>Role:</p>
-                                <p>College:</p>
-                            </div>
-                            <div class="font-light">
-                                <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">{{$employee->first_name}} {{$employee->last_name}}</p>
-                                <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">{{$employee->designation}}</p>
-                                <p class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">{{$employee->department}}</p>
-                            </div>
-                            @endforeach
+                                <div class="text-sm text-amber-600 selection:text-indigo-600 selection:bg-indigo-50">
+                                
+                                    <p>Dean Name:</p>
+                                    <p>Role: </p>
+                                    <p>College:</p>
+                                
+                                </div>
+                                <div class="font-light">
+                                    @foreach ($employees as $employee )
+                                    <p class="text"> {{ $employee->first_name }} {{ $employee->last_name }}</p>
+                                    <p> {{ $employee->designation }}</p>
+                                    <p> {{ $employee->department }}</p>
+                                    @endforeach
+                                </div>
                         </div>
                     </div>
-                    <div class="bg-white mt-6 border-y border-indigo-800 max-h-96 h-96 py-6 px-4">
-                        <div class="border-b border-indigo-300 pb-1.5">
-                            <p class="tracking-widest font-light">Complaints List</p>
+                     <div style="animation-name:slide-in; animation-duration:1s;" class="bg-white min-h-96 border-y border-indigo-800 mt-6 p-6">
+                        <div class="flex tracking-widest justify-between mb-6">
+                            <div>
+                                <p class="text-xl font-sans font-light">Complaints List</p>
+                                <p class="text-xs font-sans font-thin">Hover table to inspect the complaint</p>
+                            </div>
+                            <div class="mr-20 flex items-center">
+                                <input id="searchField" type="search" placeholder="Search students..." class="w-64 placeholder:text-indigo-300 h-full text-amber-600 selection:text-indigo-50 selection:text-indigo-800 focus:outline-none border border-indigo-300 focus:border-indigo-800 px-2 placeholder:text-xs placeholder:tracking-widest text-xs"/>
+                                <button id="searchButton" class="p-3 h-full border border-indigo-300 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200" onclick="filterCases()">
+                                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+                                    </svg>                                      
+                                </button>
+                            </div>
                         </div>
-                        <p class="text-xs font-light tracking-widest text-indigo-500">Hover table to inspect the complaint</p>
-                        <div class="custom-scroller-small overflow-y-auto max-h-72">
+                        <div class="custom-scroller-small max-h-96 overflow-y-auto">
+                            <label class="bg-indigo-600 text-white grid grid-cols-5 m-0">
+                                <p class="p-1 text-center">Complaint ID</p>
+                                <p class="p-1 text-center">Complainant ID</p>
+                                <p class="p-1 text-center">Complainant Name</p>
+                                <p class="p-1 text-center">Nature and Cause</p>
+                                <p class="p-1 text-center">Submission Date</p>
+                            </label>
                             <table class="table table-fixed w-full border border-indigo-300 text-sm font-thin text-indigo-800">
-                                <thead class="bg-indigo-600 text-white text-center">
-                                    <tr>
-                                        <th class="p-1">Complaint ID</th>
-                                        <th class="p-1">Complainant ID</th>
-                                        <th class="p-1">Nature and Cause</th>
-                                        <th class="p-1">Submission Date</th>
-                                    </tr>
-                                </thead>
                                 <tbody class="text-center">
                                     @foreach($complaints as $complaint)
-                                        <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" title="Click to see details">
+                                                <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" 
+                                                title="Click to see details"
+                                                data-complaint-id="{{ $complaint->complaint_id }}"
+                                                data-complainant-id="{{ $complaint->complainant_id }}"
+                                                data-complainant-name="{{ $complaint->complainant_name }}"
+                                                data-complainee-id="{{ $complaint->complainee_id }}"
+                                                data-complainee-name="{{ $complaint->complainee_name }}"
+                                                data-apprehension-date="{{ $complaint->apprehension_date }}"
+                                                data-apprehension-time="{{ $complaint->apprehension_time }}"
+                                                data-location="{{ $complaint->location }}"
+                                                data-nature-and-cause="{{ $complaint->nature_and_cause }}"
+                                                data-submission-date="{{ $complaint->submission_date }}"
+                                                data-status="{{ $complaint->status }}"
+                                                onclick="showComplaintDetails(this)">
                                             <td>{{ $complaint->complaint_id }}</td>
-                                            
                                             <td>{{ $complaint->complainant_id }}</td>
+                                            <td>{{ $complaint->complainant_name }}</td>
                                             <td>{{ $complaint->nature_and_cause }}</td>
                                             <td>{{ $complaint->submission_date }}</td>
                                         </tr>
+                                        </tr>
                                     @endforeach
                                 </tbody>
-                                
                             </table>
                         </div>
                     </div>
+                </article>
+            </main>
+            <div class="modal fade" id="complaintModal" tabindex="-1" role="dialog" aria-labelledby="complaintModalLabel" aria-hidden="true" class="border border-amber-600 selection:text-indigo-800 text-amber-600 selection:bg-indigo-50 text-sm">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="complaintModalLabel" class="text-2xl font-thin tracking-widest">Complaint Details</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body grid grid-cols-2">
+                      <!-- Complaint details will go here -->
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary border border-amber-600 hover:border-indigo-800 hover:bg-indigo-50 hover:text-indigo-800 active:bg-indigo-200 active:font-semibold p-1.5" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
                 </div>
-            </article>
-        </main>
-    </body>
-</html>
+              </div>
+        </body>
+    </html>
