@@ -1,3 +1,6 @@
+Updates to keyboard shortcuts … 
+On Thursday, 1 August 2024, Drive keyboard shortcuts will be updated to give you first-letter navigation.Learn more
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -126,26 +129,6 @@
             transform: scale(1);
             }
         </style>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                document.querySelector('#searchButton').addEventListener('click', function() {
-                    const complainant_id = document.querySelector('#searchField').value;
-        
-                    fetch(`/complaints/${complainant_id}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            // Fill the form with the returned data
-                            document.querySelector('#complaintId').textContent = data.complaint_id;
-                            document.querySelector('#complainantName').textContent = data.complainant_name;
-                            document.querySelector('#complainantId').textContent = data.complainant_id;
-                            document.querySelector('#complaineeName').textContent = data.complainee_name;
-                            document.querySelector('#complaineeId').textContent = data.complainee_id;
-                            document.querySelector('#submissionDate').textContent = data.submission_date;
-                            document.querySelector('#allegation').value = data.nature_and_cause;
-                        });
-                });
-            });
-        </script>
     </head>
     <body class="selection:bg-amber-50 selection:text-amber-600 custom-scroller">
         <main class="tracking-wide min-h-screen bg-indigo-50 overflow-x-hidden cursor-default text-indigo-800">
@@ -194,7 +177,7 @@
                 </script>
             </header>
             <article class="grid grid-cols-6 overflow-y-hidden">
-                <aside class="bg-indigo-800 custom-scroller text-white h-screen relative">
+                <aside class="bg-indigo-800 text-white relative">
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('chair.dashboard') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m56,34h-7v20h-12v-16h-10v16h-12v-20h-7v-4L32,6l9,9v-7h8v15l7,7v4Z" clip-rule="evenodd"></path>
@@ -236,23 +219,12 @@
                     </div>
                 </aside>
                 <div class="col-span-5">
-                    <div class="border-y border-indigo-800 flex flex-row justify-end">
-                        <!-- <p class="text-xl ml-20 font-thin py-2">Complaint Report</p> -->
-                        <div class="mr-20 flex items-center">
-                            <input id="searchField" type="search" placeholder="Search students..." class="w-64 placeholder:text-indigo-300 h-full text-amber-600 selection:text-indigo-50 selection:text-indigo-800 focus:outline-none border border-indigo-300 focus:border-indigo-800 px-2 placeholder:text-xs placeholder:tracking-widest text-xs"/>
-                            <button id="searchButton" class="p-3 h-full border border-indigo-300 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200">
-                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
-                                </svg>                                      
-                            </button>
-                        </div>
-                    </div>
                     <div class="bg-white pb-20">
                         <form class="p-8">
                             <div class="flex flex-row justify-between items-end border-b border-indigo-200 pb-2">
-                                <p class="text-lg font-thin">Complaint Report</p>
-                                <p id="complaintId" class="text-3xl font-thin">
-                                  
+                                <p class="text-3xl font-thin">File a Complaint</p>
+                                <p class="text-xl font-thin">
+                                    <span class="text-xs font-thin">[This is auto-generated]</span>
                                     0000-0000-0000
                                 </p>
                             </div>
@@ -260,45 +232,40 @@
                                 <div class="grid grid-cols-4">
                                     <p>Complainant ID</p>
                                     <p>:</p>
-                                    <p id="complainantId" type="text" class="col-span-2 text-sm font-light text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">
-                                        Complainant ID
-                        
-                                    </p>
+                                    <input type="text" placeholder="Enter complainant ID" class="col-span-2 w-full h-10 text-sm font-light px-2 shadow border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible"/>
                                 </div>
                                 <div class="grid grid-cols-4">
                                     <p>Complainant Name</p>
                                     <p>:</p>
-                                    <p id="complainantName" type="text" class="col-span-2 text-sm font-light text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">
+                                    <p type="text" class="col-span-2 text-sm font-light text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">
                                         Complainant Name
-                                
+                                        <span>[This is auto-generated]</span>
                                     </p>
                                 </div>
                                 <div class="bg-indigo-100 w-11/12 mx-auto" style="padding:0.5px;"></div>
                                 <div class="grid grid-cols-4">
                                     <p>Complainee ID</p>
                                     <p>:</p>
-                                    <p id="complaineeId" type="text" class="col-span-2 text-sm font-light text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">
-                                        Complainee ID
-                                    </p>
+                                    <input type="text" placeholder="Enter complainee ID" class="col-span-2 w-full h-10 text-sm font-light px-2 shadow border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible"/>
                                 </div>
                                 <div class="grid grid-cols-4">
                                     <p>Complainee Name</p>
                                     <p>:</p>
-                                    <p id="complaineeName" type="text" class="col-span-2 text-sm font-light text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">
+                                    <p type="text" class="col-span-2 text-sm font-light text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">
                                         Complainee Name
+                                        <span>[This is auto-generated]</span>
                                     </p>
                                 </div>
                                 <div class="bg-indigo-100 w-11/12 mx-auto" style="padding:0.5px;"></div>
                                 <div class="flex flex-row justify-end space-x-20 py-8 items-end">
                                     <p class="text-xs">Date Submitted</p>
-                                    <p id="submissionDate" class="text-lg font-thin">MM/DD/YYYY</p>
+                                    <p class="text-lg font-thin">MM/DD/YYYY</p>
                                 </div>
                                 <div class="space-y-3">
                                     <p class="text-2xl font-thin">Nature and Cause of Allegation</p>
-                                    <p id="allegation" class="text-right text-sm text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">This is the full description of the Nature and Cause of Allegation based on the inputted students</p>
+                                    <textarea id="allegation" maxlength="500" class="w-full max-h-40 h-24 custom-scroller text-sm font-light p-2 shadow-lg border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible" placeholder="max of 500 characters"></textarea>
                                 </div>
-
-                                <div class="flex justify-end mr-20 py-6 space-x-3">
+                                <div class="flex justify-end py-6 space-x-6">
                                     <button type="button" class="p-2 shadow shadow-indigo-500 rounded-md hover:shadow-amber-600 hover:text-amber-600 hover:bg-amber-50 active:bg-amber-200 active:font-semibold" onclick="location.href='{{ route('cdean.dashboard') }}'">
                                         <p class="text-sm font-light">Escalate</p>
                                     </button>

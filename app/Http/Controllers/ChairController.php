@@ -33,6 +33,17 @@ class ChairController extends Controller
     public function fileComplaint()
     {
         $complaints = Complaint::all();
+        return view('chair.file-complaint', [
+            'complaints' => $complaints,
+            // 'courses' => $courses,
+            // 'grades' => $grades,
+            // etc.
+        ]);
+    }
+
+    public function complaintReport()
+    {
+        $complaints = Complaint::all();
         return view('chair.complaint-report', [
             'complaints' => $complaints,
             // 'courses' => $courses,

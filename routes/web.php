@@ -94,6 +94,7 @@ Route::post('/gmrcrequest', [StudentController::class, 'storeGmcRequest'])->name
 Route::get('chair/dashboard', [ChairController::class, 'dashboard'])->name('chair.dashboard');
 Route::get('chair/inbox', [ChairController::class, 'inbox'])->name('chair.inbox');
 Route::get('chair/file-complaint', [ChairController::class, 'fileComplaint'])->name('chair.file-complaint');
+Route::get('chair/complaint-report', [ChairController::class, 'complaintReport'])->name('chair.complaint-report');
 
 
 
