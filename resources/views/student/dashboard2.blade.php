@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
-        <title>PLM Student Manual</title>
+        <title>PLM Student OSDS Dashboard</title>
         <script src="https://cdn.tailwindcss.com"></script>
 
         <style>
@@ -19,6 +19,20 @@
                 }
                 &::-webkit-scrollbar-thumb:hover {
                     background: rgb(0, 34, 100);
+                }
+            }
+            .custom-scroller-small {
+                &::-webkit-scrollbar {
+                    width: 12px;
+                }
+                &::-webkit-scrollbar-track {
+                    box-shadow: inset 0 0 3px grey;
+                }
+                &::-webkit-scrollbar-thumb {
+                    background: rgb(114, 116, 243);
+                }
+                &::-webkit-scrollbar-thumb:hover {
+                    background: rgb(20, 47, 99);
                 }
             }
         </style>
@@ -76,13 +90,7 @@
                 </script>
             </header>
             <article class="grid grid-cols-6">
-                <aside style="animation-name:slide-in; animation-duration:0.5s;" class="bg-indigo-800 custom-scroller text-white h-screen relative">
-                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('student.dashboard') }}'">
-                        <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
-                            <path fill-rule="evenodd" d="m56,34h-7v20h-12v-16h-10v16h-12v-20h-7v-4L32,6l9,9v-7h8v15l7,7v4Z" clip-rule="evenodd"></path>
-                        </svg>
-                        <p class="text-xs lg:text-base">Home</p>
-                    </button>
+                <aside class="bg-indigo-800 custom-scroller text-white h-screen relative">
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('student.complaint-report') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m54,10v40h-4l-20-10h-4l4,16h-10l-4-16c-4.94,0-8-3.06-8-8v-4c0-4.94,3.06-8,8-8h14l20-10h4Z" clip-rule="evenodd"></path>
@@ -120,9 +128,69 @@
                         <p class="text-xs font-thin text-indigo-300">Discipline Module</p>
                     </div>
                 </aside>
-                <div class="col-span-5">
-                    <div style="height:59em;" class="bg-white border border-indigo-800">
-                        <object data="{{ asset('assets/plm-stud-manual.pdf') }}" type="application/pdf" class="w-full h-full"></object>
+                <div class="col-span-4 pt-4 px-16">
+                    <div class="grid grid-cols-4">
+                        
+                        <div class="bg-white rounded-xl col-start-2 col-span-2 shadow p-2 border border-indigo-800">
+                            <p class="text-center text-3xl font-light tracking-widest">Welcome</p>
+                            <div class="text-sm flex flex-row justify-center space-x-6 mt-2">
+                                <div>
+                                    <p>Student Number:</p>
+                                    <p>Student Name: </p>
+                                    <p>Course: </p>
+                                    <p>Year Level:</p>
+                                    <p>College: </p>
+                                </div>
+                                <div class="font-light text-amber-600 selection:text-indigo-600 selection:bg-indigo-50">
+                                    @foreach ($students as $student)
+                                    <p>{{ $student->student_no }}</p>
+                                    <p> {{ $student->first_name }} {{ $student->last_name }}</p>
+                                    <p>{{ $student->course_id }}</p>
+            
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl shadow-md col-span-4 p-20 border border-indigo-800 mt-12">
+                            <!--  -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-start-6 pt-4 pr-4">
+                    <div class="bg-white rounded-md shadow border border-indigo-800 custom-scroller-small max-h-96 overflow-y-auto">
+                        <div class="flex flex-row justify-center border-b border-indigo-300 p-2">
+                            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z"/>
+                            </svg>                          
+                            <p>Notifications</p>
+                        </div>
+                        <div class="font-light text-sm pb-4 tracking-widest">
+                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
+                                <p>Notification</p>
+                            </button>
+                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
+                                <p>Notification</p>
+                            </button>
+                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
+                                <p>Notification</p>
+                            </button>
+                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
+                                <p>Notification</p>
+                            </button>
+                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
+                                <p>Notification</p>
+                            </button>
+                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
+                                <p>Notification</p>
+                            </button>
+                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
+                                <p>Notification</p>
+                            </button>
+                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
+                                <p>Notification</p>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </article>

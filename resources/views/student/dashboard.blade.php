@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <title>PLM Student OSDS Dashboard</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.10/dist/cdn.min.js"></script>
 
         <style>
             .custom-scroller {
@@ -35,6 +36,15 @@
                     background: rgb(20, 47, 99);
                 }
             }
+
+            @keyframes slide-in {
+                from {
+                    transform: translateX(-250px);
+                }
+                to {
+                    transform: translateX(0px);
+                }
+            }
         </style>
     </head>
     <body class="selection:bg-amber-50 selection:text-amber-600 custom-scroller">
@@ -57,11 +67,11 @@
                 <!-- PLM -->
                 <div class="border-l border-indigo-300 pl-4 py-1.5 lg:col-span-3">
                     <img class="hidden lg:block h-12 w-auto selection:bg-transparent" alt="PLM Logo" src="{{ asset('assets/plm-logo--with-header.png') }}"/>
-                    <img class="lg:hidden block h-8 w-8" src="{{ asset('assets/plm-logo.png') }}"/> 
+                    <img class="lg:hidden block h-8 w-8" src="{{ asset('assets/plm-logo.png') }}"/>
                 </div>
                 <div class="flex flex-row items-center space-x-2 col-span-7 lg:col-span-5 pr-4 lg:px-0 text-center lg:space-x-2 space-x-6">
                     <!-- OSDS -->
-                    <img class="hidden lg:block h-12 w-12" src="{{ asset('assets/osdslogo.png') }}"/>
+                    <img class="hidden lg:block h-12 w-12" src="{{ asset('assets/osdslogo.png') }}" title="OSDS Logo"/>
                     <h1 class="text-sm lg:text-xl font-light">The Office of Student Development and Services</h1>
                     <img class="lg:hidden h-8 w-8" src="{{ asset('assets/osdslogo.png') }}"/>
                 </div>
@@ -90,7 +100,13 @@
                 </script>
             </header>
             <article class="grid grid-cols-6">
-                <aside class="bg-indigo-800 custom-scroller text-white h-screen relative">
+                <aside style="animation-name:slide-in; animation-duration:0.5s;" class="bg-indigo-800 custom-scroller text-white h-screen relative">
+                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('student.dashboard') }}'">
+                        <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
+                            <path fill-rule="evenodd" d="m56,34h-7v20h-12v-16h-10v16h-12v-20h-7v-4L32,6l9,9v-7h8v15l7,7v4Z" clip-rule="evenodd"></path>
+                        </svg>
+                        <p class="text-xs lg:text-base">Home</p>
+                    </button>
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('student.complaint-report') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m54,10v40h-4l-20-10h-4l4,16h-10l-4-16c-4.94,0-8-3.06-8-8v-4c0-4.94,3.06-8,8-8h14l20-10h4Z" clip-rule="evenodd"></path>
@@ -105,15 +121,38 @@
                         <p class="hidden lg:block">Student Manual</p>
                         <p class="lg:hidden text-xs">Manual</p>
                     </button>
-                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('student.gmc-status') }}'">
-                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd" d="M9 2.2V7H4.2l.4-.5 3.9-4 .5-.3Zm2-.2v5a2 2 0 0 1-2 2H4v11c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7ZM8 16c0-.6.4-1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1-5a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"></path>
-                        </svg>
-                        <p class="hidden lg:block">GMC Certificate</p>
-                        <p class="lg:hidden text-xs">GMC</p>
-                    </button>
-
-                    
+                    <div x-data="{gmcOptions:false}">
+                        <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" @click="gmcOptions = !gmcOptions">
+                            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" d="M9 2.2V7H4.2l.4-.5 3.9-4 .5-.3Zm2-.2v5a2 2 0 0 1-2 2H4v11c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7ZM8 16c0-.6.4-1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1-5a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"></path>
+                            </svg>
+                            <p class="hidden lg:block">GMC Certificate</p>
+                            <p class="lg:hidden text-xs">GMC</p>
+                        </button>
+                        <div x-show="gmcOptions" class="fixed inset-0 z-10 bg-black bg-opacity-50 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800"  @click="gmcOptions = false">
+                            <div class="relative top-1/4 mx-auto flex flex-row justify-evenly">
+                                <button type="button" onclick="location.href='{{ route('student.gmc-request') }}'" class="bg-white p-20 rounded shadow-md border border-amber-600 hover:bg-amber-50 hover:text-indigo-600 active:text-indigo-800 active:bg-amber-200 active:border-indigo-800 active:font-normal text-2xl font-light space-y-4 items-center flex flex-col">
+                                    <p>Request for GMC Certificate</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="w-20 h-20" id="_x32_" viewBox="0 0 512 512" xml:space="preserve" webcrx="">
+                                        <g>
+                                            <rect x="114.087" y="148.892" fill="currentColor" width="157.906" height="26.318"/>
+                                            <rect x="114.087" y="245.39" fill="currentColor" width="157.906" height="26.318"/>
+                                            <rect x="114.087" y="341.888" fill="currentColor" width="96.498" height="26.318"/>
+                                            <path fill="currentColor" d="M454.95,86.619c-78.157,10.768-159.83,199.833-196.664,267.692c-9.252,17.049,12.264,31.278,21.786,14.958   c6.862-11.728,44.291-85.601,44.291-85.601c40.77,1.345,55.806-27.123,39.511-44.805c54.794,1.131,81.952-29.025,66.412-47.324   c16.345,5.175,30.498,1.713,51.521-9.749C526.664,157.321,524.573,75.421,454.95,86.619z"/>
+                                            <path fill="currentColor" d="M350.998,307.03V443.15c0,4.034-3.29,7.316-7.316,7.324H42.407c-4.027-0.008-7.308-3.29-7.316-7.324v-374.3   c0.009-4.036,3.29-7.316,7.316-7.325h301.275c4.027,0.009,7.316,3.29,7.316,7.325v67.961c11.48-15.463,23.147-29.144,35.09-40.504   V68.851c-0.018-23.431-18.967-42.398-42.407-42.416H42.407C18.976,26.453,0.009,45.42,0,68.851v374.3   c0.009,23.431,18.976,42.398,42.407,42.414h301.275c23.44-0.016,42.389-18.984,42.407-42.414V284.704   C377.967,295.404,365.87,303.114,350.998,307.03z"/>
+                                        </g>
+                                    </svg>
+                                </button>
+                                <button type="button" onclick="location.href='{{ route('student.gmc-status') }}'" class="bg-white p-20 rounded shadow-md border border-amber-600 hover:bg-amber-50 hover:text-indigo-600 active:text-indigo-800 active:bg-amber-200 active:border-indigo-800 active:font-normal text-2xl font-light space-y-4 items-center flex flex-col">
+                                    <p>View GMC Status</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20" viewBox="0 0 24 24" fill="none" webcrx="">
+                                        <circle cx="17" cy="8" r="4" fill="currentColor"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15 8C15 6.89543 15.8954 6 17 6C18.1046 6 19 6.89543 19 8H15ZM11 8C11 7.29873 11.1203 6.62556 11.3414 6H5C4.44772 6 4 6.44772 4 7C4 7.55228 4.44772 8 5 8H11ZM11.8027 11C12.2671 11.8028 12.9121 12.488 13.6822 13H5C4.44772 13 4 12.5523 4 12C4 11.4477 4.44772 11 5 11H11.8027ZM5 16C4.44772 16 4 16.4477 4 17C4 17.5523 4.44772 18 5 18H19C19.5523 18 20 17.5523 20 17C20 16.4477 19.5523 16 19 16H5Z" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <form action="/logout" method="POST">
                         @csrf
                         <button id="logout" class="hover:bg-red-200 hover:text-red-600 active:bg-red-400 active:font-semibold flex flex-row items-center justify-center w-full p-4 space-x-2 mt-52">
@@ -123,72 +162,57 @@
                             <p class="text-xs lg:text-base">Log Out</p>
                         </button>
                     </form>
-        
                     <div class="absolute bottom-1 left-2">
                         <p class="text-xs font-thin text-indigo-300">Discipline Module</p>
                     </div>
                 </aside>
-                <div class="col-span-4 pt-4 px-16">
-                    <div class="grid grid-cols-4">
-                        
-                        <div class="bg-white rounded-xl col-start-2 col-span-2 shadow p-2 border border-indigo-800">
-                            <p class="text-center text-3xl font-light tracking-widest">Welcome</p>
-                            <div class="text-sm flex flex-row justify-center space-x-6 mt-2">
-                                <div>
-                                    <p>Student Number:</p>
-                                    <p>Student Name: </p>
-                                    <p>Course: </p>
-                                </div>
-                                <div class="font-light text-amber-600 selection:text-indigo-600 selection:bg-indigo-50">
-                                    @foreach ($students as $student)
-                                    <p>{{ $student->student_no }}</p>
-                                    <p> {{ $student->first_name }} {{ $student->last_name }}</p>
-                                    <p>{{ $student->course_id }}</p>
-            
-                                    @endforeach
-                                </div>
+                <div class="col-span-5 bg-white border-l border-indigo-800 border-b">
+                    
+                    <div class="bg-white rounded-xl col-start-2 col-span-2 shadow p-2 border border-indigo-800">
+                        <p class="text-center text-3xl font-light tracking-widest">Welcome</p>
+                        <div class="text-sm flex flex-row justify-center space-x-6 mt-2">
+                            <div>
+                                <p class="col-start-1 col-span-2 text-base">Student Number:</p>
+                                <p class="col-start-1 col-span-2 text-base">Student Name:</p>
+                                <p class="col-start-1 col-span-2 text-base">Course: </p>
+                                <p class="col-start-1 col-span-2 text-base">Year Level:</p>
+                                <p class="col-start-1 col-span-2 text-base">College: </p>
+                            </div>
+                            <div class="font-light text-amber-600 selection:text-indigo-600 selection:bg-indigo-50">
+                                @foreach ($students as $student)
+                                <p>{{ $student->student_no }}</p>
+                                <p> {{ $student->first_name }} {{ $student->last_name }}</p>
+                                <p>{{ $student->course_id }}</p>
+        
+                                @endforeach
                             </div>
                         </div>
-
-                        <div class="bg-white rounded-2xl shadow-md col-span-4 p-20 border border-indigo-800 mt-12">
-                            <!--  -->
-                        </div>
                     </div>
-                </div>
-                <div class="col-start-6 pt-4 pr-4">
-                    <div class="bg-white rounded-md shadow border border-indigo-800 custom-scroller-small max-h-96 overflow-y-auto">
-                        <div class="flex flex-row justify-center border-b border-indigo-300 p-2">
-                            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z"/>
-                            </svg>                          
-                            <p>Notifications</p>
-                        </div>
-                        <div class="font-light text-sm pb-4 tracking-widest">
-                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
-                                <p>Notification</p>
-                            </button>
-                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
-                                <p>Notification</p>
-                            </button>
-                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
-                                <p>Notification</p>
-                            </button>
-                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
-                                <p>Notification</p>
-                            </button>
-                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
-                                <p>Notification</p>
-                            </button>
-                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
-                                <p>Notification</p>
-                            </button>
-                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
-                                <p>Notification</p>
-                            </button>
-                            <button class="hover:bg-amber-50 hover:text-amber-600 flex flex-row items-center justify-center w-full p-3 mt-4 space-x-2">
-                                <p>Notification</p>
-                            </button>
-                        </div>
+                    <div class="font-light text-sm tracking-widest custom-scroller-small max-h-96 overflow-y-auto mt-6">
+                        <button class="bg-indigo-50 hover:bg-amber-50 hover:text-amber-600 items-center max-h-20 truncate w-full p-3 mt-4 space-x-2 active:bg-amber-200 active:font-semibold">
+                            <p>Notification</p>
+                        </button>
+                        <button class="bg-indigo-50 hover:bg-amber-50 hover:text-amber-600 items-center max-h-20 truncate w-full p-3 mt-4 space-x-2 active:bg-amber-200 active:font-semibold">
+                            <p>Notification</p>
+                        </button>
+                        <button class="bg-indigo-50 hover:bg-amber-50 hover:text-amber-600 items-center max-h-20 truncate w-full p-3 mt-4 space-x-2 active:bg-amber-200 active:font-semibold">
+                            <p>Notification</p>
+                        </button>
+                        <button class="bg-indigo-50 hover:bg-amber-50 hover:text-amber-600 items-center max-h-20 truncate w-full p-3 mt-4 space-x-2 active:bg-amber-200 active:font-semibold">
+                            <p>Notification</p>
+                        </button>
+                        <button class="bg-indigo-50 hover:bg-amber-50 hover:text-amber-600 items-center max-h-20 truncate w-full p-3 mt-4 space-x-2 active:bg-amber-200 active:font-semibold">
+                            <p>Notification</p>
+                        </button>
+                        <button class="bg-indigo-50 hover:bg-amber-50 hover:text-amber-600 items-center max-h-20 truncate w-full p-3 mt-4 space-x-2 active:bg-amber-200 active:font-semibold">
+                            <p>Notification</p>
+                        </button>
+                        <button class="bg-indigo-50 hover:bg-amber-50 hover:text-amber-600 items-center max-h-20 truncate w-full p-3 mt-4 space-x-2 active:bg-amber-200 active:font-semibold">
+                            <p>Notification</p>
+                        </button>
+                        <button class="bg-indigo-50 hover:bg-amber-50 hover:text-amber-600 items-center max-h-20 truncate w-full p-3 mt-4 space-x-2 active:bg-amber-200 active:font-semibold">
+                            <p>Notification</p>
+                        </button>
                     </div>
                 </div>
             </article>
