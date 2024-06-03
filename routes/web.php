@@ -129,8 +129,10 @@ Route::get('/students/{student_id}', function ($student_id) {
 //USO Views
 Route::get('uso/dashboard', [USOController::class, 'dashboard'])->name('uso.dashboard');
 
+
+
 //data storing
-Route::post('/report', [ViolationsController::class, 'report'])->name('report');
+Route::post('/violations/store', [ViolationsController::class, 'store'])->name('violations.store');
 Route::post('/new_case', [NewCaseController::class, 'store'])->name('new_case');
 
 

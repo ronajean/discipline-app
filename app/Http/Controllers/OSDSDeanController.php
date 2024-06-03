@@ -30,7 +30,7 @@ class OSDSDeanController extends Controller
 
     public function caserecord()
     {
-        $violations = Violation::select('student_id', 'year', 'block', 'offense', 'student_contact_number', 'reference_record')
+        $violations = Violation::select('student_id', 'year', 'block', 'offense', 'student_contact_number',)
             ->get();
 
         return view('osds.odean.caserecord', [
