@@ -247,13 +247,9 @@
                     </div>
                 </aside>
                 <div class="relative bg-white pb-10 col-span-5 space-y-6 lg:space-y-10">
-                    <div class="absolute top-2 right-2">
-                        <button class="p-2 border border-indigo-800 hover:border-amber-600 hover:bg-amber-50 hover:text-amber-600" onclick="location.href='{{ route('student.gmc-status') }}'">
-                            <p>Go Back</p>
-                        </button>
-                    </div>
+                    
 
-                    <div class="flex items-center justify-center space-x-4 lg:space-x-20">
+                    <!--<div class="flex items-center justify-center space-x-4 lg:space-x-20">
                         <img class="w-10 h-10 lg:w-20 lg:h-20 selection:bg-transparent" src="{{ asset('assets/plm-logo.png') }}"/>
                         <div class="text-center text-xs lg:text-sm">
                             <p class="font-medium">Republic of the Philippines</p>
@@ -268,7 +264,16 @@
                     <div class="text-center text-xs lg:text-base">
                         <p>Certificate of Good Moral Character (GMC)</p>
                         <p class="font-medium">REQUEST FORM</p>
-                    </div>
+                    </div>-->
+
+                    <header class="bg-white flex flex-row justify-between items-end px-4 py-6">
+                        <p class="text-3xl font-thick tracking-widest font-medium">REQUEST FORM: Certificate of Good Moral Character (GMC)</p>
+                        <button class="p-2 rounded border border-indigo-800 hover:border-amber-600 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200 active:font-semibold" onclick="location.href='{{ route('student.gmc-status') }}'">
+                            <p class="text-sm">Go back</p>
+                        </button>
+                    </header>
+
+                    
                     @foreach ($students as $student)
                     <form method="POST" action="{{ route('gmrcrequest.store') }}" class="mx-4 lg:ml-20 text-xs lg:text-sm grid grid-cols-2">
                         @csrf
