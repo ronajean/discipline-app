@@ -274,65 +274,90 @@
                     </header>
 
                     
+
+                    <script>
+                        function previewImage() {
+                            var file = document.getElementById("file").files[0];
+                            if (file) {
+                                var reader = new FileReader();
+                                reader.onload = function(e) {
+                                    var img = document.getElementById("preview");
+                                    img.src = e.target.result;
+                                    img.style.display = "block"; // Make the image visible
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        }
+
+                    </script>
+
+                    @if(session('success'))
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                        <strong class="font-bold">Success!</strong>
+                        <span class="block sm:inline">{{ session('success') }}</span>
+                    </div>
+                    @endif
+                        
+
+                    
                     @foreach ($students as $student)
-                    <form method="POST" action="{{ route('gmrcrequest.store') }}" class="mx-4 lg:ml-20 text-xs lg:text-sm grid grid-cols-2">
+                    @foreach($courses as $course)
+                    @foreach($colleges as $college)
+                    <form method="POST" action="{{ route('gmcrequest.store') }}" >
                         @csrf
-                        <div class="flex flex-row items-center">
-                            <p class="font-medium">Date of Request</p>
-                            <span class="mx-6">:</span>
-                            <div class="lg:mx-4">
-                                <div class="relative lg:space-x-8 py-4">
-                                    <input type="date" class="lg:w-64 tracking-widest p-2 border border-indigo-300 px-2 focus:outline-none"/>
-                                    <p class="absolute right-0 bottom-0 text-xs font-thin text-indigo-500">Appoint your date</p>
+                        <div class="mx-4 lg:ml-20">
+                            
+                            <input type="hidden" name="transaction_no" value="123456">
+
+                            <input type="hidden" name="student_no" value="{{ $student->student_no }}">
+                            <input type="hidden" name="degree_program_id" value="{{ $course->degree_program_id }}">
+                            <input type="hidden" name="college_id" value="{{ $college->college_id }}">
+                            
+                            <div class="flex flex-row items-center">
+                                <p class="font-medium mr-6 lg:mr-12">Student Number</p>
+                                <div class="flex justify-evenly items-center ml-1.5 lg:ml-1 px-1 lg:space-x-8">
+                                    <span class="mx-2">:</span>
+                                    <p class="tracking-widest lg:w-64">{{ $student->student_no }}</p>
                                 </div>
                             </div>
+                            <div class="flex flex-row items-center">
+                                <p class="font-medium mr-10 lg:mr-14">Student Name</p>
+                                <div class="flex justify-evenly items-center ml-1.5 lg:ml-1 px-1 lg:space-x-8">
+                                    <span class="mx-2 ml-3.5">:</span>
+                                    <p class="tracking-widest lg:w-64">{{ $student->first_name }} {{ $student->last_name }}</p>
+                                </div>
+                            </div>                        
                         </div>
-                        <div class="flex flex-row items-center">
-                            
-                        </div>
-                        <div class="flex flex-row items-center">
-                            <p class="font-medium mr-6 lg:mr-12">Student Number</p>
-                            <div class="flex justify-evenly items-center ml-1.5 lg:ml-1 px-1 lg:space-x-8">
-                                <span class="mx-2">:</span>
-                                <p class="font-thin tracking-widest lg:w-64">{{ $student->student_no }}</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-row items-center">
-                            <p class="font-medium mr-10 lg:mr-14">Student Name</p>
-                            <div class="flex justify-evenly items-center ml-1.5 lg:ml-1 px-1 lg:space-x-8">
-                                <span class="mx-2 ml-3.5">:</span>
-                                <p class="font-thin tracking-widest lg:w-64">{{ $student->first_name }} {{ $student->last_name }}</p>
-                            </div>
-                        </div>
-                    </form>
-                    <form>
+
+                        <div class="mx-4 lg:ml-20 space-y-2 text-xs lg:text-sm"></div>
+
                         <div class="mx-4 lg:ml-20 space-y-2 text-xs lg:text-sm">
                             <div class="flex flex-row items-center">
                                 <p class="font-medium mr-28 lg:mr-80">Gender</p>
                                 <div class="flex justify-evenly ml-1.5 lg:ml-12 lg:space-x-8">
                                     <span class="mx-2">:</span>
-                                    <p class="font-thin tracking-widest">{{ $student->biological_sex_id }}</p>
+                                    <p class="tracking-widest">{{ $student->biological_sex_id }}</p>
                                 </div>
                             </div>
                             <div class="flex flex-row items-center">
                                 <p class="font-medium mr-28 lg:mr-80">Status</p>
                                 <div class="flex justify-evenly ml-3 lg:ml-14 lg:space-x-8">
                                     <span class="mx-2">:</span>
-                                    <p class="font-thin tracking-widest">{{ $student->status }}</p>
+                                    <p class="tracking-widest">{{ $student->registration_status_id }}</p>
                                 </div>
                             </div>
                             <div class="flex flex-row items-center">
                                 <p class="font-medium mr-16 lg:mr-72">Degree Program</p>
                                 <div class="flex justify-evenly ml-0.5 lg:ml-4 lg:space-x-8">
                                     <span class="mx-2 lg:ml-2.5">:</span>
-                                    <p class="font-thin tracking-widest truncate">{{ $student->course_id }}</p>
+                                    <p class="tracking-widest truncate">{{ $course->course_name }} ({{ $course->degree_program_id }})</p>
                                 </div>
                             </div>
                             <div class="flex flex-row items-center">
-                                <p class="font-medium lg:mr-56">College (please type in full)</p>
-                                <div class="flex justify-evenly lg:ml-2 lg:space-x-8">
-                                    <span class="mx-2">:</span>
-                                    <p class="font-thin tracking-widest truncate">{{ $student->college_id }}</p>
+                                <p class="font-medium lg:mr-56">College</p>
+                                <div class="flex justify-evenly ml-3 lg:ml-4 lg:space-x-8">
+                                    <span class="mx-24">:</span>
+                                    <p class="tracking-widest truncate">{{ $college->college_name }} ({{ $college->college_id }})</p>
                                 </div>
                             </div>
                             <div class="flex flex-row items-center">
@@ -340,42 +365,53 @@
                                 <p class="hidden lg:block font-medium mr-24">Contact Number/Landline/Cell Phone Number</p>
                                 <div class="flex justify-evenly items-center lg:ml-2.5 lg:space-x-8">
                                     <span class="mx-2">:</span>
-                                    <input type="number" class="lg:w-96 tracking-widest p-2 border border-indigo-300 px-2 focus:outline-none"/>
+                                    <input name="contact_no" type="number" class="lg:w-96 tracking-widest p-2 border border-indigo-300 px-2 focus:outline-none"/>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                    @endforeach
-                    <form class="mx-4 lg:ml-20">
-                        <div class="flex flex-row items-center text-xs lg:text-sm">
-                            <p class="lg:hidden font-medium mr-28">Purpose</p>
-                            <p class="hidden lg:block font-medium mr-32">Purpose for Securing a Certificate of GMC</p>
-                            <div class="flex justify-evenly items-center lg:ml-2 lg:space-x-8">
-                                <span class="mx-2">:</span>
-                                <textarea maxlength="500" class="lg:w-96 border border-indigo-300 focus:border-indigo-800 p-2 min-h-20 col-span-5 focus:outline-none" title="hold & drag lower-right corner of the box to adjust its size" placeholder="Be direct as possible. (max of 500 characters)"></textarea>
+
+                        <div class="mx-4 lg:ml-20">
+                            <div class="flex flex-row items-center text-xs lg:text-sm">
+                                <p class="lg:hidden font-medium mr-28">Purpose</p>
+                                <p class="hidden lg:block font-medium mr-32">Purpose for Securing a Certificate of GMC</p>
+                                <div class="flex justify-evenly items-center lg:ml-2 lg:space-x-8">
+                                    <span class="mx-2">:</span>
+                                    <textarea name="purpose" maxlength="500" class="lg:w-96 border border-indigo-300 focus:border-indigo-800 p-2 min-h-20 col-span-5 focus:outline-none" title="hold & drag lower-right corner of the box to adjust its size" placeholder="Be direct as possible. (max of 500 characters)"></textarea>
+                                </div>
                             </div>
+
                         </div>
-                    </form>
-                    <form>
+
                         <div class="flex flex-row lg:items-center text-xs lg:text-base mx-4 space-x-2 lg:mx-20 lg:space-x-4">
                             <label class="form-control-amber hover:lg:bg-amber-50 transform scale-50 lg:scale-100">
                                 <input type="checkbox" name="amber" class="outline-none"/>
                             </label>
                             <p class="text-justify italic">I hereby authorize the Office of the Student Development and Service (OSDS) to collect and obtain information, personal and academic records, in accordan with the Data Privacy Act and its Implementing Rules and Regulation as requirement for the processing of the certificate of Good Moral Charater (GMC).</p>
                         </div>
-                        <div class="flex justify-center lg:justify-end">
-                            <div class="flex flex-col items-center lg:mr-20">
-                                <div class="border-b border-indigo-800 w-96 flex justify-center pb-1.5">
-                                    <input type="file" name="file" id="file" class="w-0 h-0 opacity-0 overflow-hidden absolute -z-10"/>
-                                    <label for="file" class="text-indigo-300 border border-dashed p-6 px-20 border-indigo-400 p-2 hover:bg-amber-50 hover:border-amber-600 hover:text-amber-600 active:bg-amber-200 active:font-semibold cursor-pointer" title="E-signature of requestor">
-                                        <p class="font-thin tracking-widest">Choose a File</p>
-                                    </label>
-                                </div>
-                                <p class="lg:hidden text-xs font-light">Signature of Requestor</p>
-                                <p class="hidden lg:block text-sm font-light">Signature of Requestor/ Authorized Representative</p>
-                            </div>    
+
+                        
+                        
+
+                        <div class="mx-2 lg:mx-20 flex justify-end" x-data="{isOpen1:false}">
+                            <button type="submit" class="p-2 disabled:cursor-not-allowed disabled:text-indigo-200 disabled:bg-indigo-50 disabled:font-light disabled:shadow-indigo-50 hover:bg-amber-50 hover:text-amber-600 rounded shadow-sm shadow-indigo-600 hover:shadow-amber-600 active:bg-amber-300 font-light lg:font-semibold">
+                                <p>Confirm (Proceed to Payment)</p>
+                            </button>
+                            
                         </div>
+
+
+
                     </form>
+
+                    
+                    @endforeach
+                    @endforeach
+                    @endforeach
+                    
+                        
+                        
+                    
+                    
                     <div class="text-xs font-light mx-2 lg:mx-20 text-justify">
                         <p>Note:</p>
                         <p>1. Claimant must present two(2) valid Identification Cards (IDs) while authorized representatives must bring with them of authorization aside from the two(2) valid IDs for purposes of filing and securing the GMC Certificate.</p>
@@ -384,22 +420,7 @@
                             <p class="ml-2 font-thin tracking-widest text-amber-600 border-b border-indigo-800 px-4">DD/MM/YYYY</p>
                         </div>
                     </div>
-                    <div class="mx-2 lg:mx-20 flex justify-end" x-data="{isOpen1:false}">
-                        <button type="submit" class="p-2 disabled:cursor-not-allowed disabled:text-indigo-200 disabled:bg-indigo-50 disabled:font-light disabled:shadow-indigo-50 hover:bg-amber-50 hover:text-amber-600 rounded shadow-sm shadow-indigo-600 hover:shadow-amber-600 active:bg-amber-300 font-light lg:font-semibold">
-                            <p>Confirm</p>
-                        </button>
-                        <div x-show="isOpen1" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 bg-black bg-opacity-50 selection:text-indigo-800">
-                            <div class="fixed top-1/3 inset-0 bottom-1/3 bg-white p-4 mx-auto max-w-sm rounded shadow-md border border-amber-600">
-                                <p class="font-thin text-2xl tracking-widest border-b border-amber-300">Sent</p>
-                                <p class="font-light pt-6">Your GMC Request successfully sent.<br>Kindly wait for the next process.</p>
-                                <div class="w-full flex justify-end">
-                                    <button class="hover:text-indigo-800 p-2 rounded-xl border border-amber-600 hover:border-indigo-800 hover:bg-indigo-50" onclick="location.href='{{ route('student.gmc-payment') }}'">
-                                        <p>Proceed to Payment</p>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </article>
         </main>

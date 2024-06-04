@@ -6,6 +6,7 @@
         <title>PLM Student OSDS Dashboard</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.10/dist/cdn.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
         <style>
             .custom-scroller {
@@ -45,6 +46,9 @@
                     transform: translateX(0px);
                 }
             }
+            body {
+                font-family: 'Roboto', sans-serif;
+            }
         </style>
     </head>
     <body class="selection:bg-amber-50 selection:text-amber-600 custom-scroller">
@@ -72,7 +76,7 @@
                 <div class="flex flex-row items-center space-x-2 col-span-7 lg:col-span-5 pr-4 lg:px-0 text-center lg:space-x-2 space-x-6">
                     <!-- OSDS -->
                     <img class="hidden lg:block h-12 w-12" src="{{ asset('assets/osdslogo.png') }}" title="OSDS Logo"/>
-                    <h1 class="text-sm lg:text-xl font-light">The Office of Student Development and Services</h1>
+                    <h1 class="text-sm lg:text-xl font-light" style="font-family:Georgia,'Times New Roman', Times, serif">The Office of Student Development and Services</h1>
                     <img class="lg:hidden h-8 w-8" src="{{ asset('assets/osdslogo.png') }}"/>
                 </div>
                 <div class="text-xs lg:text-sm font-light text-right border-l border-indigo-300 col-span-2">
@@ -169,21 +173,25 @@
                 <div class="col-span-5 bg-white border-l border-indigo-800 border-b">
                     
                     <div class="bg-white rounded-xl col-start-2 col-span-2 shadow p-2 border border-indigo-800">
-                        <p class="text-center text-3xl font-light tracking-widest">Welcome</p>
+                        <p class="text-center text-4xl font-light tracking-widest" style="font-family:'Times New Roman', Times, serif">Welcome</p>
                         <div class="text-sm flex flex-row justify-center space-x-6 mt-2">
                             <div>
                                 <p class="col-start-1 col-span-2 text-base">Student Number:</p>
                                 <p class="col-start-1 col-span-2 text-base">Student Name:</p>
                                 <p class="col-start-1 col-span-2 text-base">Course: </p>
-                                <p class="col-start-1 col-span-2 text-base">Year Level:</p>
                                 <p class="col-start-1 col-span-2 text-base">College: </p>
                             </div>
                             <div class="font-light text-amber-600 selection:text-indigo-600 selection:bg-indigo-50">
                                 @foreach ($students as $student)
+                                @foreach($courses as $course)
+                                @foreach($colleges as $college)
                                 <p>{{ $student->student_no }}</p>
                                 <p> {{ $student->first_name }} {{ $student->last_name }}</p>
-                                <p>{{ $student->course_id }}</p>
+                                <p>{{ $course->course_name }}</p>
+                                <p>{{ $college->college_name }}</p>
         
+                                @endforeach
+                                @endforeach
                                 @endforeach
                             </div>
                         </div>

@@ -12,6 +12,7 @@ use App\Http\Controllers\USOController;
 use App\Http\Controllers\ViolationsController;
 use App\Http\Controllers\NewCaseController;
 use App\Http\Controllers\ComplaintController;
+use App\Http\Controllers\GmcrequestController;
 use App\Models\Complaint;
 use App\Models\Student;
 
@@ -88,7 +89,13 @@ Route::get('student/gmc-status', [StudentController::class, 'gmcStatus'])->name(
 Route::get('student/gmc-payment', [StudentController::class, 'gmcPayment'])->name('student.gmc-payment');
 Route::get('student/gmc-request', [StudentController::class, 'gmcRequest'])->name('student.gmc-request');
 Route::get('student/gmc-claim-stub', [StudentController::class, 'gmcClaim'])->name('student.gmc-claim-stub');
-Route::post('/gmrcrequest', [StudentController::class, 'storeGmcRequest'])->name('gmrcrequest.store');
+
+Route::post('/gmrcrequest', [GmcrequestController::class, 'storeGmcRequest'])->name('gmcrequest.store');
+Route::post('/gmc-process-payment-gcash', [GmcrequestController::class, 'processGmcPayment_GCash'])->name('gmc-payment-gcash.process');
+Route::post('/gmc-process-payment-card', [GmcrequestController::class, 'processGmcPayment_Card'])->name('gmc-payment-card.process');
+Route::post('/gmc-process-payment-onsite', [GmcrequestController::class, 'processGmcPayment_OnSite'])->name('gmc-payment-onsite.process');
+
+
 
 Route::post('/complaints/store', [ComplaintController::class, 'store'])->name('complaints.store');
 

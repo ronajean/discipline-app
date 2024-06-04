@@ -205,10 +205,12 @@
                                     </div>
                                     <div class="font-light text-amber-600 selection:text-indigo-600 selection:bg-indigo-50">
                                         @foreach ($students as $student)
+                                        @foreach ($courses as $course)
                                         <p>{{ $student->student_no }}</p>
                                         <p> {{ $student->first_name }} {{ $student->last_name }}</p>
-                                        <p>{{ $student->course_id }}</p>
+                                        <p>{{ $course->course_name }}</p>
                 
+                                        @endforeach
                                         @endforeach
                                     </div>
                                 </div>
