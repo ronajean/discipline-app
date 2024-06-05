@@ -85,4 +85,15 @@ class StaffController extends Controller
             
         ]);
     }
+
+    public function gmcrequest()
+    {
+        $userId = Auth::user()->id;
+        $employees = Employee::where('id', $userId)->get();
+
+        return view('staff.gmcrequest', [
+            'employees' => $employees,
+            
+        ]);
+    }
 }

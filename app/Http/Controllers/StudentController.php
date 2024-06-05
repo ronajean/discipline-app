@@ -39,7 +39,6 @@ class StudentController extends Controller
         return view('student.dashboard', [
             'students' => $students,
             'courses' => $courses,
-            'colleges' => $college,
         ]);
     }
     

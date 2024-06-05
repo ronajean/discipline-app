@@ -105,6 +105,7 @@
                 <p class="hidden lg:block">Case Records</p>
                 <p class="lg:hidden text-xs">Records</p>
             </button>
+            
             <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2">
                 <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                     <path fill-rule="evenodd" d="m54,10v40h-4l-20-10h-4l4,16h-10l-4-16c-4.94,0-8-3.06-8-8v-4c0-4.94,3.06-8,8-8h14l20-10h4Z" clip-rule="evenodd"></path>
@@ -131,55 +132,66 @@
                 <p class="text-xs font-thin text-indigo-300">Discipline Module</p>
             </div>
         </aside>
-        <div class="col-span-5 bg-white">
-            <div class="p-4">
-                <!-- Filter and Search Section -->
-                <div class="flex flex-col md:flex-row md:space-x-4 mb-4">
-                    <input type="text" id="searchInput" placeholder="Search by Student No or Offense Type..." class="focus:outline-none rounded border border-indigo-500 text-xs p-2 placeholder:text-indigo-300 focus:border-indigo-800">
-                    <select id="collegeFilter" class="focus:outline-none rounded border border-indigo-500 text-xs p-2 focus:border-indigo-800">
-                        <option value="">All Colleges</option>
+        <div class="col-span-5 bg-white relative min-h-[90vh]">
+            <!-- Filter and Search Section -->
+            <div class="p-4 grid grid-cols-12 mt-2">
+                <p class="text-3xl font-thin tracking-widest col-span-4">Case Records</p>
+                <div class="col-start-6 col-span-4 w-full pr-6 flex items-center">
+                    <input type="text" id="searchInput" class="border border-indigo-300 placeholder:text-indigo-300 focus:outline-none focus:border-indigo-800 text-sm w-full font-light p-2" placeholder="Search by Student No or Offense Type..."/>
+                    <button class="p-2 border border-indigo-300 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200 active:border-amber-600 space-x-1 flex items-center" onclick="filterTable()">
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+                        </svg>
+                        <p class="text-xs font-thin">Filter</p>
+                    </button>
+                </div>
+                <div class="col-span-3 w-full space-x-4 flex justify-end">
+                    <select id="collegeFilter" class="rounded-md bg-indigo-50 text-xs p-2 pb-2.5 focus:outline-none border border-indigo-300 focus:border-indigo-800 cursor-pointer hover:bg-indigo-100">
+                        <option class="text-gray-200 bg-gray-700" selected disabled value="">All Colleges</option>
                         <option value="CISTM">CISTM</option>
                         <option value="CAS">CAS</option>
                         <option value="CE">CE</option>
                     </select>
-                    <select id="courseFilter" class="focus:outline-none rounded border border-indigo-500 text-xs p-2 focus:border-indigo-800">
-                        <option value="">All Courses</option>
+                    <select id="courseFilter" class="rounded-md bg-indigo-50 text-xs p-2 pb-2.5 focus:outline-none border border-indigo-300 focus:border-indigo-800 cursor-pointer hover:bg-indigo-100">
+                        <option class="text-gray-200 bg-gray-700" selected disabled value="">All Courses</option>
                         <option value="BSCS">BSCS</option>
                         <option value="BSIT">BSIT</option>
                         <option value="BSCE">BSCE</option>
                     </select>
-                    <button onclick="filterTable()" class="p-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-700 text-xs">Search</button>
                 </div>
-                <div class="scrollable-table-container">
-                    <table class="table table-fixed w-full">
-                        <thead class="bg-indigo-50 text-xs">
-                            <tr>
-                                <th>Student No</th>
-                                <th>Offense Type</th>
-                                <th>Date</th>
-                                <th>College</th>
-                                <th>Course</th>
-                            </tr>
-                        </thead>
-                        <tbody id="case-record" class="text-center text-sm font-thin">
-                            @foreach ($violations as $violation)
-                            <tr class="hover:bg-amber-50 hover:text-amber-600 cursor-pointer active:bg-amber-200 active:font-semibold selection:bg-transparent">
-                                <td>{{ $violation->student_id }}</td>
-                                <td>{{ $violation->offense }}</td>
-                                <td>{{ $violation->date_and_time}}</td>
-                                <td>{{ $violation->college }}</td>
-                                <td>{{ $violation->course }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-4">
-                    <button class="p-2 shadow shadow-indigo-500 rounded-md font-light text-sm hover:bg-amber-50 hover:text-amber-600 hover:shadow-amber-600 active:bg-amber-200 active:font-semibold" 
-                            onclick="location.href='{{ route('staff.addnewcase') }}'">
-                        <p>Add</p>
-                    </button>
-                </div>
+            </div>
+            <div class="scrollable-table-container">
+                <table class="table table-fixed w-full">
+                    <thead class="bg-indigo-50 text-xs">
+                        <tr>
+                            <th>Student No</th>
+                            <th>Offense Type</th>
+                            <th>Date</th>
+                            <th>College</th>
+                            <th>Course</th>
+                        </tr>
+                    </thead>
+                    <tbody id="case-record" class="text-center text-sm font-thin">
+                        @foreach ($violations as $violation)
+                        <tr class="hover:bg-amber-50 hover:text-amber-600 cursor-pointer active:bg-amber-200 active:font-semibold selection:bg-transparent">
+                            <td>{{ $violation->student_id }}</td>
+                            <td>{{ $violation->offense }}</td>
+                            <td>{{ $violation->date_and_time}}</td>
+                            <td>{{ $violation->college }}</td>
+                            <td>{{ $violation->course }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="absolute bottom-0 w-full bg-white"> 
+                <button class="p-2 py-4 font-light border-t border-indigo-800 hover:border-amber-600 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200 active:font-normal w-full flex justify-end items-center space-x-6" onclick="location.href='{{ route('staff.addnewcase') }}'">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" webcrx="">
+                        <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="12" x2="12" y1="19" y2="5"/>
+                        <line fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" x1="5" x2="19" y1="12" y2="12"/>
+                    </svg>
+                    <p>Add a New Case Record</p>
+                </button>
             </div>
         </div>
     </article>

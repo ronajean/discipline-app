@@ -98,7 +98,7 @@ Route::post('/gmc-process-payment-onsite', [GmcrequestController::class, 'proces
 
 
 
-Route::post('/complaints/store', [ComplaintController::class, 'store'])->name('complaints.store');
+
 
 
 
@@ -135,6 +135,7 @@ Route::get('staff/dashboard', [StaffController::class, 'dashboard'])->name('staf
 Route::get('staff/archive', [StaffController::class, 'archive'])->name('staff.archive');
 Route::get('staff/addnewcase', [StaffController::class, 'addnewcase'])->name('staff.addnewcase');
 Route::get('staff/caserecord', [StaffController::class, 'caserecord'])->name('staff.caserecord');
+Route::get('staff/gmcrequest', [StaffController::class, 'gmcrequest'])->name('staff.gmcrequest');
 Route::get('staff/search', [StaffController::class,'search' ])->name('staff.search');
 Route::get('/students/{student_id}', function ($student_id) {
     $students = Student::where('student_id', $student_id)->first();
@@ -146,6 +147,11 @@ Route::get('/archive-violations', [ArchiveViolationController::class, 'index'])-
 Route::post('/archive-violations/upload', [ArchiveViolationController::class, 'upload'])->name('archive-violations.upload');
 Route::get('/archive-violations/download/{id}', [ArchiveViolationController::class, 'download'])->name('archive-violations.download');
 Route::get('/archive-violations', [ArchiveViolationController::class, 'index'])->name('archive-violations.search');
+
+//staff gmc
+
+Route::get('/gmcrequest', [GmcrequestController::class, 'index'])->name('staff.gmcrequest');
+Route::post('/gmcrequest/update/{id}', [GmcrequestController::class, 'updateStatus'])->name('gmcrequest.updateStatus');
 
 
 //USO Views

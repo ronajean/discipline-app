@@ -107,4 +107,20 @@ class GmcrequestController extends Controller
 
     }
 
+    public function index()
+    {
+        // Fetch all GMC requests
+        $requests = Gmcrequest::all();
+        return view('gmcrequest', compact('requests'));
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        // Update the status of the specified GMC request
+        $gmcrequest = Gmcrequest::find($id);
+        $gmcrequest->request_status = $request->input('request_status');
+        $gmcrequest->save();
+
+        return redirect()->route('staff.gmcrequest')->with('success', 'Request status updated successfully');
+    }
 }

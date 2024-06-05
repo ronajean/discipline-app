@@ -159,6 +159,20 @@
                         <p class="hidden lg:block">Case Records</p>
                         <p class="lg:hidden text-xs">Records</p>
                     </button>
+                    <button class="bg-amber-300 text-amber-600 font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='osds-gmc-viewer.html'">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 48 48" webcrx="">
+                            <g>
+                                <rect width="48" height="48" fill="none"/>
+                                <rect width="48" height="48" fill="none"/>
+                            </g>
+                            <g>
+                                <path fill="currentColor" d="M46,24a12.9,12.9,0,0,0-4-9.4V7a2,2,0,0,0-2-2H4A2,2,0,0,0,2,7V41a2,2,0,0,0,2,2H26v1.6c0,2,2,3.1,3.3,1.8L33,43l3.7,3.4c1.3,1.3,3.3.2,3.3-1.8V34.9A12.9,12.9,0,0,0,46,24ZM33,15a9,9,0,1,1-9,9A9,9,0,0,1,33,15ZM12,14H24.7L23,15.7A11.4,11.4,0,0,0,21.5,18H12a2,2,0,0,1,0-4Zm0,8h8.2a6.5,6.5,0,0,0-.2,2,6.8,6.8,0,0,0,.2,2H12a2,2,0,0,1,0-4Zm0,12a2,2,0,0,1,0-4h9.5A11.4,11.4,0,0,0,23,32.3,13.7,13.7,0,0,0,24.7,34Z"/>
+                                <circle cx="33" cy="24" r="5" fill="currentColor"/>
+                            </g>
+                        </svg>
+                        <p class="hidden lg:block">GMC Requests</p>
+                        <p class="lg:hidden text-xs">GMC</p>
+                    </button>
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m54,10v40h-4l-20-10h-4l4,16h-10l-4-16c-4.94,0-8-3.06-8-8v-4c0-4.94,3.06-8,8-8h14l20-10h4Z" clip-rule="evenodd"></path>
