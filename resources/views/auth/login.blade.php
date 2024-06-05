@@ -19,7 +19,7 @@
                     <p class="text-red-500 text-base mt-2 font-bold">{{ Session::get('error') }}</p>
                 @endif
 
-                <form action="{{ url('login') }}" method="post">
+                <form action="{{ url('login') }}" method="  ">
                     @csrf
                     <p class="tracking-tight my-4 font-bold text-amber-600 text-4xl text-center">Pamantasan ng Lungsod ng Maynila</p>
                     <p class="my-4 font-medium text-xl text-indigo-800 text-center">The Office of Student Development and Services</p>

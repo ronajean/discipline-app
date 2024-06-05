@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
-        <title>College Dean Dashboard</title>
-        <script src="https:cdn.tailwindcss.com"></script>
+        <title>College Complaint Report</title>
+        <script src="https://cdn.tailwindcss.com"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
 
         <style>
             @font-face {
                 font-family: 'Aston Script';
-                src: {{asset('assets/aston-script.woff')}};
+                src: url("assets/aston-script.woff");
             }
             .custom-scroller {
                 &::-webkit-scrollbar {
@@ -26,21 +26,105 @@
                     background: rgb(0, 34, 100);
                 }
             }
-            .custom-scroller-small {
-                &::-webkit-scrollbar {
-                    width: 12px;
-                }
-                &::-webkit-scrollbar-track {
-                    box-shadow: inset 0 0 3px grey;
-                }
-                &::-webkit-scrollbar-thumb {
-                    background: rgb(114, 116, 243);
-                }
-                &::-webkit-scrollbar-thumb:hover {
-                    background: rgb(20, 47, 99);
-                }
+            input::-webkit-inner-spin-button,
+            input::-webkit-outer-spin-button,
+            input::-webkit-search-cancel-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            th {
+                padding: 6px;
+            }
+            td {
+                padding: 3px;
+            }
+            
+            :root {
+                --form-control-color: rgb(85, 39, 255);
+                --form-control-amber-color: #d3910d;
+            }
+
+            .form-control {
+                font-family: system-ui, sans-serif;
+                font-size: 2rem;
+                font-weight: bold;
+                line-height: 1.1;
+                display: grid;
+                grid-template-columns: 1em auto;
+            }
+            .form-control-amber {
+                font-family: system-ui, sans-serif;
+                font-size: 2rem;
+                font-weight: bold;
+                line-height: 1.1;
+                display: grid;
+                grid-template-columns: 1em auto;
+            }
+            
+            input[name="amber"] {
+                -webkit-appearance: none;
+                appearance: none;
+                background-color: var(--form-background);
+                margin: 0;
+                
+                font: inherit;
+                color: currentColor;
+                width: 0.95em;
+                height: 0.95em;
+                border: 0.09em solid rgb(0, 34, 100);
+                border-radius: 0.15em;
+                transform: translateY(-0.075em);
+                
+                display: grid;
+                place-content: center;
+                cursor: pointer;
+            }
+            input[name="indigo"] {
+                -webkit-appearance: none;
+                appearance: none;
+                background-color: var(--form-background);
+                margin: 0;
+                
+                font: inherit;
+                color: currentColor;
+                width: 0.65em;
+                height: 0.65em;
+                border: 0.05em solid rgb(0, 34, 100);
+                border-radius: 0.15em;
+                transform: translateY(-0.075em);
+                
+                display: grid;
+                place-content: center;
+                cursor: pointer;
+            }
+            
+            input[name="amber"]::before {
+                content: "";
+                width: 0.62em;
+                height: 0.60em;
+                transform: scale(0);
+                transform-origin: center;
+                transition: 20ms transform ease-in-out;
+                box-shadow: inset 1em 1em var(--form-control-amber-color);
+                background-color: CanvasText;
+            }
+            input[name="indigo"]::before {
+                content: "";
+                width: 0.42em;
+                height: 0.40em;
+                transform: scale(0);
+                transform-origin: center;
+                transition: 120ms transform ease-in-out;
+                box-shadow: inset 1em 1em var(--form-control-color);
+                background-color: CanvasText;
+            }
+            
+            input[type="checkbox"]:checked::before {
+                transform: scale(1);
             }
         </style>
+        
     </head>
     <body class="selection:bg-amber-50 selection:text-amber-600 custom-scroller">
         <main class="tracking-wide min-h-screen bg-indigo-50 overflow-x-hidden cursor-default text-indigo-800">
@@ -97,8 +181,8 @@
                     updateDateTime();
                 </script>
             </header>
-            <article class="grid grid-cols-6">
-                <aside class="bg-indigo-800 custom-scroller text-white h-screen relative">
+            <article class="grid grid-cols-6 overflow-y-hidden">
+                <aside class="bg-indigo-800 text-white relative">
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('chair.dashboard') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m56,34h-7v20h-12v-16h-10v16h-12v-20h-7v-4L32,6l9,9v-7h8v15l7,7v4Z" clip-rule="evenodd"></path>
@@ -140,97 +224,54 @@
                     </div>
                 </aside>
                 <div class="col-span-5">
-                    <div class="bg-white border-b border-indigo-800 py-6 px-4">
-                        <p class="text-center text-3xl font-thin tracking-widest">Welcome</p>
-                        
-                        <div class="text-xs lg:text-sm tracking-widest mt-6 flex justify-center space-x-20">
-                                <div class="text-sm text-amber-600 selection:text-indigo-600 selection:bg-indigo-50">
-                                
-                                    <p>Dean Name:</p>
-                                    <p>Role: </p>
-                                    <p>College:</p>
-                                
-                                </div>
-                                <div class="font-light">
-                                    @foreach ($employees as $employee )
-                                    <p class="text"> {{ $employee->first_name }} {{ $employee->last_name }}</p>
-                                    <p> {{ $employee->designation }}</p>
-                                    <p> {{ $employee->department }}</p>
-                                    @endforeach
-                                </div>
-                        </div>
-                    </div>
-                     <div style="animation-name:slide-in; animation-duration:1s;" class="bg-white min-h-96 border-y border-indigo-800 mt-6 p-6">
-                        <div class="flex tracking-widest justify-between mb-6">
-                            <div>
-                                <p class="text-xl font-sans font-light">Complaints List</p>
-                                <p class="text-xs font-sans font-thin">Hover table to inspect the complaint</p>
+                    <div class="bg-white pb-20">
+                        <form action="{{ route('complaints.store') }}" method="POST" class="p-8">
+                        @csrf
+                            <div class="flex flex-row justify-between items-end border-b border-indigo-200 pb-2">
+                                <p class="text-3xl font-thin">File a Complaint</p>
+                                <p class="text-xl font-thin">
+                                    <span class="text-xs font-thin">[This is auto-generated]</span>
+                                    0000-0000-0000
+                                </p>
                             </div>
-                            <div class="mr-20 flex items-center">
-                                <input id="searchField" type="search" placeholder="Search students..." class="w-64 placeholder:text-indigo-300 h-full text-amber-600 selection:text-indigo-50 selection:text-indigo-800 focus:outline-none border border-indigo-300 focus:border-indigo-800 px-2 placeholder:text-xs placeholder:tracking-widest text-xs"/>
-                                <button id="searchButton" class="p-3 h-full border border-indigo-300 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200" onclick="filterCases()">
-                                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
-                                    </svg>                                      
-                                </button>
+                            <div class="p-6 space-y-3">
+                                <div class="grid grid-cols-4 items-center relative">
+                                    <p>Complainant ID:</p>
+                                    <p>:</p>
+                                    <div class="relative col-span-2">
+                                        <input name="complanant_id" type="text" placeholder="Enter complainant ID" class="w-full h-10 pl-2 pr-10 text-sm font-light shadow border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible"/>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-indigo-100 w-11/12 mx-auto" style="padding:0.5px;"></div>
+                                <div class="grid grid-cols-4">
+                                    <p>Complainee ID</p>
+                                    <p>:</p>
+                                    <div class="relative col-span-2">
+                                        <input name="complainee_id" type="text" placeholder="Enter complainee ID" class="w-full h-10 pl-2 pr-10 text-sm font-light shadow border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible"/>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-indigo-100 w-11/12 mx-auto" style="padding:0.5px;"></div>
+                                <div class="flex flex-row justify-end space-x-4 py-8 items-center">
+                                    <p class="text-xs">Date Submitted</p>
+                                    <input name="submission_date" type="date"class="text-lg font-thin border border-indigo-400 focus:border-amber-800 focus:outline-none p-2 rounded" id="dateSubmitted">
+                                </div>
+                                
+                                <div class="space-y-3">
+                                    <p class="text-2xl font-thin">Nature and Cause of Allegation</p>
+                                    <textarea name="nature_and_case" id="allegation" maxlength="500" class="w-full max-h-40 h-24 custom-scroller text-sm font-light p-2 shadow-lg border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible" placeholder="max of 500 characters"></textarea>
+                                </div>
+                                <div class="flex justify-end py-6 space-x-6">
+                                    <button id="fileReportButton" type="submit" class="p-3 bg-white shadow border-slate-300 border-2 rounded-md hover:border-amber-600 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200 active:font-semibold">
+                                        <p class="text-sm lg:text-lg">File Report</p>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="custom-scroller-small max-h-96 overflow-y-auto">
-                            <label class="bg-indigo-600 text-white grid grid-cols-5 m-0">
-                                <p class="p-1 text-center">Complaint ID</p>
-                                <p class="p-1 text-center">Complainant ID</p>
-                                <p class="p-1 text-center">Complainant Name</p>
-                                <p class="p-1 text-center">Nature and Cause</p>
-                                <p class="p-1 text-center">Submission Date</p>
-                            </label>
-                            <table class="table table-fixed w-full border border-indigo-300 text-sm font-thin text-indigo-800">
-                                <tbody class="text-center">
-                                    @foreach($complaints as $complaint)
-                                                <tr class="odd:bg-white even:bg-indigo-200 hover:bg-amber-50 cursor-pointer hover:text-amber-600" 
-                                                title="Click to see details"
-                                                data-complaint-id="{{ $complaint->complaint_id }}"
-                                                data-complainant-id="{{ $complaint->complainant_id }}"
-                                                data-complainant-name="{{ $complaint->complainant_name }}"
-                                                data-complainee-id="{{ $complaint->complainee_id }}"
-                                                data-complainee-name="{{ $complaint->complainee_name }}"
-                                                data-apprehension-date="{{ $complaint->apprehension_date }}"
-                                                data-apprehension-time="{{ $complaint->apprehension_time }}"
-                                                data-location="{{ $complaint->location }}"
-                                                data-nature-and-cause="{{ $complaint->nature_and_cause }}"
-                                                data-submission-date="{{ $complaint->submission_date }}"
-                                                data-status="{{ $complaint->status }}"
-                                                onclick="showComplaintDetails(this)">
-                                            <td>{{ $complaint->complaint_id }}</td>
-                                            <td>{{ $complaint->complainant_id }}</td>
-                                            <td>{{ $complaint->complainant_name }}</td>
-                                            <td>{{ $complaint->nature_and_cause }}</td>
-                                            <td>{{ $complaint->submission_date }}</td>
-                                        </tr>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        </form>
                     </div>
-                </article>
-            </main>
-            <div class="modal fade" id="complaintModal" tabindex="-1" role="dialog" aria-labelledby="complaintModalLabel" aria-hidden="true" class="border border-amber-600 selection:text-indigo-800 text-amber-600 selection:bg-indigo-50 text-sm">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="complaintModalLabel" class="text-2xl font-thin tracking-widest">Complaint Details</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body grid grid-cols-2">
-                      <!-- Complaint details will go here -->
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary border border-amber-600 hover:border-indigo-800 hover:bg-indigo-50 hover:text-indigo-800 active:bg-indigo-200 active:font-semibold p-1.5" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
                 </div>
-              </div>
-        </body>
-    </html>
+            </article>
+        </main>
+    </body>
+</html>

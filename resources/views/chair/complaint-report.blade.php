@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
-        <title>College Dean Dashboard</title>
+        <title>College Complaint Report</title>
         <script src="https:cdn.tailwindcss.com"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
 
@@ -140,7 +140,6 @@
                             document.querySelector('#complainantId').textContent = data.complainant_id;
                             document.querySelector('#complaineeName').textContent = data.complainee_name;
                             document.querySelector('#complaineeId').textContent = data.complainee_id;
-                            document.querySelector('#apprehensionDate').textContent = data.apprehension_date;
                             document.querySelector('#submissionDate').textContent = data.submission_date;
                             document.querySelector('#allegation').value = data.nature_and_cause;
                         });
@@ -150,34 +149,43 @@
     </head>
     <body class="selection:bg-amber-50 selection:text-amber-600 custom-scroller">
         <main class="tracking-wide min-h-screen bg-indigo-50 overflow-x-hidden cursor-default text-indigo-800">
-            <header class="flex flex-row bg-white grid grid-cols-12 items-center border-b border-indigo-800 pl-1 pr-6">
+            <header class="flex flex-row bg-white items-center border-b border-indigo-800 pl-1 pr-6">
                 <!-- Menubar -->
-                <div class="ml-6 col-span-2">
-                    <button class="hover:bg-amber-50 p-2 rounded hover:text-amber-600 active:bg-amber-300">
-                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
-                        </svg>                      
+                <div class="flex flex-row  w-1/6">
+                    <button class="transition-colors duration-300 transform rounded-full border-4 border-transparent hover:border-4 text-indigo-500 hover:text-amber-600 hover:border-amber-300 hover:bg-amber-300 focus:outline-none">
+                        <svg class="w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                          </svg>                          
                     </button>
+                    @foreach ($employees as $employee)
+                    <div class="truncate text-indigo-800 max-w-40 w-40">
+                        <p class="text-md font-semibold">{{$employee->first_name}} {{$employee->last_name}}</p>
+                        <p class="text-sm">{{$employee->designation}}</p>
+                    </div>
+                    @endforeach
+                    
                 </div>
                 <!-- PLM -->
-                <div class="border-l border-indigo-300 pl-4 py-1.5 lg:col-span-3">
-                    <img class="hidden lg:block h-12 w-auto selection:bg-transparent" alt="PLM Logo" src="{{ asset('assets/plm-logo--with-header.png') }}"/>
-                    <img class="lg:hidden block h-8 w-8" src="{{ asset('assets/plm-logo.png') }}"/>
+                <div class="border-l border-indigo-300 pl-4 py-2.5 w-1/6">
                 </div>
-                <div class="flex flex-row items-center space-x-2 col-span-7 lg:col-span-5 pr-4 lg:px-0 text-center lg:space-x-2 space-x-6">
+                <div class="flex flex-row items-center space-x-2 w-2/6 pr-4 lg:px-0 text-center lg:space-x-2 space-x-6">
                     <!-- OSDS -->
-                    <img class="hidden lg:block h-12 w-12" src="{{ asset('assets/osdslogo.png') }}" title="OSDS Logo"/>
-                    <h1 class="text-sm lg:text-xl font-light">The Office of Student Development and Services</h1>
-                    <img class="lg:hidden h-8 w-8" src="{{ asset('assets/osdslogo.png') }}"/>
+                    <img class=" lg:block h-10 w-10" src="assets/osdslogo.png"/>
+                    <div class="flex flex-col">
+                        <h1 class="text-sm font-light">The Office of Student Development and Services</h1>
+                    </div>
+                    <img class="lg:block h-10 w-10"src="assets/plm-logo--with-header.png"/>
                 </div>
-                <div class="text-xs lg:text-sm font-light text-right border-l border-indigo-300 col-span-2">
+                <div class="flex flex-row justify-end space-x-4 items-end w-1/6">
+                    
+                </div>
+                <div class="text-xs lg:text-sm font-light text-right border-l border-indigo-300 w-1/6">
                     <!-- Date and Time -->
                     <p id="weekday"></p>
                     <p id="date"></p>
                     <p id="time"></p>
                 </div>
-
-                <!-- Date and Time Script -->
+        
                 <script>
                     function updateDateTime() {
                         var currentDateTime = new Date();
@@ -190,14 +198,8 @@
                         document.getElementById("date").innerHTML = dateString;
                         document.getElementById("time").innerHTML = timeString;
                     }
-                    setInterval(updateDateTime,1000);
+                    setInterval(updateDateTime, 1000);
                     updateDateTime();
-
-                    function toggleMenu() {
-                        var menu = document.querySelector("aside");
-                        menu.classList.toggle("hidden");
-                    }
-
                 </script>
             </header>
             <article class="grid grid-cols-6 overflow-y-hidden">
@@ -209,10 +211,17 @@
                         <p class="text-xs lg:text-base">Home</p>
                     </button>
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('chair.file-complaint') }}'">
-                        <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
-                            <path fill-rule="evenodd" d="m54,10v40h-4l-20-10h-4l4,16h-10l-4-16c-4.94,0-8-3.06-8-8v-4c0-4.94,3.06-8,8-8h14l20-10h4Z" clip-rule="evenodd"></path>
+                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M9 2.2V7H4.2l.4-.5 3.9-4 .5-.3Zm2-.2v5a2 2 0 0 1-2 2H4v11c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7ZM8 16c0-.6.4-1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1-5a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"></path>
                         </svg>
                         <p class="hidden lg:block">File a Complaint</p>
+                        <p class="lg:hidden text-xs">File</p>
+                    </button>
+                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('chair.complaint-report') }}'">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" webcrx="">
+                            <path d="M6 14.4623H16.1909C17.6066 14.4623 18.472 12.7739 17.7261 11.4671L17.2365 10.6092C16.7547 9.76504 16.7547 8.69728 17.2365 7.85309L17.7261 6.99524C18.472 5.68842 17.6066 4 16.1909 4L6 4L6 14.4623ZM6 14.4623L6 20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <p class="hidden lg:block">Complaint Report</p>
                         <p class="lg:hidden text-xs">Report</p>
                     </button>
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('chair.inbox') }}'">
@@ -236,8 +245,8 @@
                     </div>
                 </aside>
                 <div class="col-span-5">
-                    <div class="border-y border-indigo-800 flex flex-row justify-between">
-                        <p class="text-xl ml-20 font-thin py-2">Students</p>
+                    <div class="border-y border-indigo-800 flex flex-row justify-end">
+                        <!-- <p class="text-xl ml-20 font-thin py-2">Complaint Report</p> -->
                         <div class="mr-20 flex items-center">
                             <input id="searchField" type="search" placeholder="Search students..." class="w-64 placeholder:text-indigo-300 h-full text-amber-600 selection:text-indigo-50 selection:text-indigo-800 focus:outline-none border border-indigo-300 focus:border-indigo-800 px-2 placeholder:text-xs placeholder:tracking-widest text-xs"/>
                             <button id="searchButton" class="p-3 h-full border border-indigo-300 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200">
@@ -247,71 +256,65 @@
                             </button>
                         </div>
                     </div>
-                    <div class="bg-white py-6">
-                        <div class="flex flex-row justify-evenly items-center text-center">
-                            <img class="h-8 w-8 lg:h-14 lg:w-14" src="{{ asset('assets/plm-logo.png') }}"/>
-                            <div class="text-xs lg:text-sm">
-                                <p class="font-semibold lg:text-lg">PAMANTASAN NG LUNGSOD NG MAYNILA</p>
-                                <p class="italic">(University of the City of Manila)</p>
-                                <p class="font-medium">Intramuros, Manila</p>
+                    <div class="bg-white pb-20">
+                        <form class="p-8">
+                            <div class="flex flex-row justify-between items-end border-b border-indigo-200 pb-2">
+                                <p class="text-lg font-thin">Complaint Report</p>
+                                <p id="complaintId" class="text-3xl font-thin">
+                                  
+                                    0000-0000-0000
+                                </p>
                             </div>
-                            <img class="h-8 w-8 lg:h-14 lg:w-14" src="{{ asset('assets/osdslogo.png') }}"/>
-                        </div>
-                        <div class="flex flex-col items-center mt-10">
-                            <p style="font-family:Aston Script;" class="text-xs md:text-sm lg:text-base">Office of Student Development and Services</p>
-                            <p class="text-sm md:text-md lg:text-xl font-bold mt-4">COMPLAINT REPORT FORM</p>
-                        </div>
-                        <div class="mt-8">
-                            <p class="ml-4 lg:ml-20 text-xs lg:text-base font-medium">Complaint Information:</p>
-                        </div>
-                        <form class="mx-6 lg:mx-20">
-                            <div class="mt-4 text-sm">
-                                <div class="grid grid-cols-3 w-full gap-y-2">
-                                    <p class="cursor-default">Complaint ID:</p>
-                                    <div class="col-span-2">
-                                        <p id="complaintId" class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
-                                    </div>
-                                    <p class="cursor-default">Complainant Name:</p>
-                                    <div class="col-span-2">
-                                        <p id="complainantName" class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
-                                    </div>
-                                    <p class="cursor-default">Complainant ID:</p>
-                                    <div class="col-span-2">
-                                        <p id="complainantId" class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
-                                    </div>
-                                    <p class="cursor-default">Complainee:</p>
-                                    <div class="col-span-2">
-                                        <p id="complaineeName" class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
-                                    </div>
-                                    <p class="cursor-default">Comlainee ID:</p>
-                                    <div class="col-span-2">
-                                        <p id="complaineeId" class="w-96 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
-                                    </div>
-                                    <p class="cursor-default">Apprehension Date:</p>
-                                    <div class="col-span-2">
-                                        <p id="apprehensionDate" class="w-96 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
-                                    </div>
-                                    <p class="cursor-default">Submission Date</p>
-                                    <div class="col-span-2">
-                                        <p id="submissionDate" class="w-96 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
-                                    </div>
-                                    <div class="col-span-3 mt-6">
-                                        <p class="text-center text-xs lg:text-sm tracking-widest font-light cursor-default border-x border-t border-indigo-800 p-1">Nature and Cause of Allegation</p>
-                                        <textarea id="allegation" maxlength="500" class="w-full max-h-40 h-24 custom-scroller text-sm font-light px-2 shadow border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible" placeholder="max of 500 characters"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="bg-white">
+                            <div class="p-6 space-y-3">
+                                <div class="grid grid-cols-4">
+                                    <p>Complainant ID</p>
+                                    <p>:</p>
+                                    <p id="complainantId" type="text" class="col-span-2 text-sm font-light text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">
+                                        Complainant ID
                         
-                            <div class="flex justify-end mr-20 py-6 space-x-3">
-                                <button type="button" class="p-2 shadow shadow-indigo-500 rounded-md hover:shadow-amber-600 hover:text-amber-600 hover:bg-amber-50 active:bg-amber-200 active:font-semibold" onclick="location.href='{{ route('cdean.dashboard') }}'">
-                                    <p class="text-sm font-light">Escalate</p>
-                                </button>
-                                <button type="button" class="p-2 shadow shadow-indigo-500 rounded-md hover:shadow-amber-600 hover:text-amber-600 hover:bg-amber-50 active:bg-amber-200 active:font-semibold" onclick="location.href='{{ route('cdean.dashboard') }}'">
-                                    <p class="text-sm font-light">Resolve</p>
-                                </button>
+                                    </p>
+                                </div>
+                                <div class="grid grid-cols-4">
+                                    <p>Complainant Name</p>
+                                    <p>:</p>
+                                    <p id="complainantName" type="text" class="col-span-2 text-sm font-light text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">
+                                        Complainant Name
+                                
+                                    </p>
+                                </div>
+                                <div class="bg-indigo-100 w-11/12 mx-auto" style="padding:0.5px;"></div>
+                                <div class="grid grid-cols-4">
+                                    <p>Complainee ID</p>
+                                    <p>:</p>
+                                    <p id="complaineeId" type="text" class="col-span-2 text-sm font-light text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">
+                                        Complainee ID
+                                    </p>
+                                </div>
+                                <div class="grid grid-cols-4">
+                                    <p>Complainee Name</p>
+                                    <p>:</p>
+                                    <p id="complaineeName" type="text" class="col-span-2 text-sm font-light text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">
+                                        Complainee Name
+                                    </p>
+                                </div>
+                                <div class="bg-indigo-100 w-11/12 mx-auto" style="padding:0.5px;"></div>
+                                <div class="flex flex-row justify-end space-x-20 py-8 items-end">
+                                    <p class="text-xs">Date Submitted</p>
+                                    <p id="submissionDate" class="text-lg font-thin">MM/DD/YYYY</p>
+                                </div>
+                                <div class="space-y-3">
+                                    <p class="text-2xl font-thin">Nature and Cause of Allegation</p>
+                                    <p id="allegation" class="text-right text-sm text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">This is the full description of the Nature and Cause of Allegation based on the inputted students</p>
+                                </div>
+
+                                <div class="flex justify-end mr-20 py-6 space-x-3">
+                                    <button type="button" class="p-2 shadow shadow-indigo-500 rounded-md hover:shadow-amber-600 hover:text-amber-600 hover:bg-amber-50 active:bg-amber-200 active:font-semibold" onclick="location.href='{{ route('cdean.dashboard') }}'">
+                                        <p class="text-sm font-light">Escalate</p>
+                                    </button>
+                                    <button type="button" class="p-2 shadow shadow-indigo-500 rounded-md hover:shadow-amber-600 hover:text-amber-600 hover:bg-amber-50 active:bg-amber-200 active:font-semibold" onclick="location.href='{{ route('cdean.dashboard') }}'">
+                                        <p class="text-sm font-light">Resolve</p>
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>

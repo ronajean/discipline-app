@@ -130,36 +130,43 @@
     </head>
     <body class="selection:bg-amber-50 selection:text-amber-600 custom-scroller">
         <main class="tracking-wide min-h-screen bg-indigo-50 overflow-x-hidden cursor-default text-indigo-800">
-            <header class="flex flex-row bg-white grid grid-cols-12 items-center border-b border-indigo-800 pl-1 pr-6">
+            <header class="flex flex-row bg-white items-center border-b border-indigo-800 pl-1 pr-6">
                 <!-- Menubar -->
-                <div class="ml-6 col-span-2">
-                    <button class="hover:bg-amber-50 p-2 rounded hover:text-amber-600 active:bg-amber-300">
-                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
-                        </svg>                      
+                <div class="flex flex-row  w-1/6">
+                    <button class="transition-colors duration-300 transform rounded-full border-4 border-transparent hover:border-4 text-indigo-500 hover:text-amber-600 hover:border-amber-300 hover:bg-amber-300 focus:outline-none">
+                        <svg class="w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                          </svg>                          
                     </button>
+                    @foreach ($employees as $employee)
+                    <div class="truncate text-indigo-800 max-w-40 w-40">
+                        <p class="text-md font-semibold">{{$employee->first_name}} {{$employee->last_name}}</p>
+                        <p class="text-sm">{{$employee->designation}}</p>
+                    </div>
+                    @endforeach
+                    
                 </div>
                 <!-- PLM -->
-                <div class="border-l border-indigo-300 pl-4 py-1.5 lg:col-span-3">
-                    <img class="hidden lg:block h-12 w-auto selection:bg-transparent" alt="PLM Logo" src="{{ asset('assets/plm-logo--with-header.png') }}"/>
-                    <img class="lg:hidden block h-8 w-8" src="{{ asset('assets/plm-logo.png') }}"/>
+                <div class="border-l border-indigo-300 pl-4 py-2.5 w-1/6">
                 </div>
-                <div class="flex flex-row items-center space-x-2 col-span-7 lg:col-span-5 pr-4 lg:px-0 text-center lg:space-x-2 space-x-6">
+                <div class="flex flex-row items-center space-x-2 w-2/6 pr-4 lg:px-0 text-center lg:space-x-2 space-x-6">
                     <!-- OSDS -->
-                    <img class="hidden lg:block h-12 w-12" src="{{ asset('assets/osdslogo.png') }}
-" title="OSDS Logo"/>
-                    <h1 class="text-sm lg:text-xl font-light">The Office of Student Development and Services</h1>
-                    <img class="lg:hidden h-8 w-8" src="{{ asset('assets/osdslogo.png') }}
-"/>
+                    <img class=" lg:block h-10 w-10" src="assets/osdslogo.png"/>
+                    <div class="flex flex-col">
+                        <h1 class="text-sm font-light">The Office of Student Development and Services</h1>
+                    </div>
+                    <img class="lg:block h-10 w-10"src="assets/plm-logo--with-header.png"/>
                 </div>
-                <div class="text-xs lg:text-sm font-light text-right border-l border-indigo-300 col-span-2">
+                <div class="flex flex-row justify-end space-x-4 items-end w-1/6">
+                    
+                </div>
+                <div class="text-xs lg:text-sm font-light text-right border-l border-indigo-300 w-1/6">
                     <!-- Date and Time -->
                     <p id="weekday"></p>
                     <p id="date"></p>
                     <p id="time"></p>
                 </div>
-
-                <!-- Date and Time Script -->
+        
                 <script>
                     function updateDateTime() {
                         var currentDateTime = new Date();
@@ -172,7 +179,7 @@
                         document.getElementById("date").innerHTML = dateString;
                         document.getElementById("time").innerHTML = timeString;
                     }
-                    setInterval(updateDateTime,1000);
+                    setInterval(updateDateTime, 1000);
                     updateDateTime();
                 </script>
             </header>
@@ -185,10 +192,17 @@
                         <p class="text-xs lg:text-base">Home</p>
                     </button>
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('chair.file-complaint') }}'">
-                        <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
-                            <path fill-rule="evenodd" d="m54,10v40h-4l-20-10h-4l4,16h-10l-4-16c-4.94,0-8-3.06-8-8v-4c0-4.94,3.06-8,8-8h14l20-10h4Z" clip-rule="evenodd"></path>
+                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M9 2.2V7H4.2l.4-.5 3.9-4 .5-.3Zm2-.2v5a2 2 0 0 1-2 2H4v11c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7ZM8 16c0-.6.4-1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1-5a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"></path>
                         </svg>
                         <p class="hidden lg:block">File a Complaint</p>
+                        <p class="lg:hidden text-xs">File</p>
+                    </button>
+                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('chair.complaint-report') }}'">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" webcrx="">
+                            <path d="M6 14.4623H16.1909C17.6066 14.4623 18.472 12.7739 17.7261 11.4671L17.2365 10.6092C16.7547 9.76504 16.7547 8.69728 17.2365 7.85309L17.7261 6.99524C18.472 5.68842 17.6066 4 16.1909 4L6 4L6 14.4623ZM6 14.4623L6 20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <p class="hidden lg:block">Complaint Report</p>
                         <p class="lg:hidden text-xs">Report</p>
                     </button>
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('chair.inbox') }}'">

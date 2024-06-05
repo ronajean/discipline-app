@@ -8,16 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Complaint extends Model
 {
     use HasFactory;
-    
 
+    protected $fillable = [
+        'complainant_id',
+        'complainee_id',
+        'nature_and_case',
+        'submission_date',
+    ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function complainant()
-    {
-        return $this->belongsTo(Complainant::class);
-    }
+    protected $casts = [
+        'submission_date' => 'datetime',
+    ];
 }
