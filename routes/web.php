@@ -11,6 +11,9 @@ use App\Http\Controllers\CDeanController;
 use App\Http\Controllers\USOController;
 use App\Http\Controllers\ViolationsController;
 use App\Http\Controllers\NewCaseController;
+use App\Http\Controllers\ComplaintController;
+use App\Http\Controllers\ArchiveViolationController;
+use App\Http\Controllers\NotificationController;
 use App\Models\Complaint;
 use App\Models\Student;
 
@@ -96,6 +99,7 @@ Route::get('chair/inbox', [ChairController::class, 'inbox'])->name('chair.inbox'
 Route::get('chair/file-complaint', [ChairController::class, 'fileComplaint'])->name('chair.file-complaint');
 Route::get('chair/complaint-report', [ChairController::class, 'complaintReport'])->name('chair.complaint-report');
 
+Route::post('/complaints/store', [ComplaintController::class, 'store'])->name('complaints.store');
 
 
 //College Dean Views
@@ -119,6 +123,7 @@ Route::get('/students/{student_id}', function ($student_id) {
 
 //Staff Views
 Route::get('staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
+Route::get('staff/archive', [StaffController::class, 'archive'])->name('staff.archive');
 Route::get('staff/addnewcase', [StaffController::class, 'addnewcase'])->name('staff.addnewcase');
 Route::get('staff/caserecord', [StaffController::class, 'caserecord'])->name('staff.caserecord');
 Route::get('staff/search', [StaffController::class,'search' ])->name('staff.search');
@@ -126,6 +131,13 @@ Route::get('/students/{student_id}', function ($student_id) {
     $students = Student::where('student_id', $student_id)->first();
     return response()->json($students);
 });
+
+//staff archive
+Route::get('/archive-violations', [ArchiveViolationController::class, 'index'])->name('archive-violations.index');
+Route::post('/archive-violations/upload', [ArchiveViolationController::class, 'upload'])->name('archive-violations.upload');
+Route::get('/archive-violations/download/{id}', [ArchiveViolationController::class, 'download'])->name('archive-violations.download');
+Route::get('/archive-violations', [ArchiveViolationController::class, 'index'])->name('archive-violations.search');
+
 
 //USO Views
 Route::get('uso/dashboard', [USOController::class, 'dashboard'])->name('uso.dashboard');

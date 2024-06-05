@@ -163,7 +163,7 @@
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m54,10v40h-4l-20-10h-4l4,16h-10l-4-16c-4.94,0-8-3.06-8-8v-4c0-4.94,3.06-8,8-8h14l20-10h4Z" clip-rule="evenodd"></path>
                         </svg>
-                        <p>Reports</p>
+                        <p>Archive</p>
                     </button>
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
@@ -197,7 +197,7 @@
                             </button>
                         </div>
                     </div>
-                    <form id="caseForm">
+                    <form id="caseForm" method="POST" action="{{ route('violations.store') }}" enctype="multipart/form-data"> 
                         @csrf
                         <aside class="relative p-4 text-sm tracking-wider border-b border-indigo-800 pb-1.5 grid grid-cols-12 ">
                             <div id="edit-case" class="hidden absolute z-10 w-full h-full bg-amber-900 backdrop-blur-[1px] bg-opacity-5">
@@ -218,11 +218,11 @@
                                 <p>:</p>
                             </div>
                             <div id="text-boost" class="text-amber-600 selection:bg-indigo-50 selection:text-indigo-800 col-span-9 flex flex-col justify-between">
-                                <input id="studentNumber">
-                                <input id="studentName">
-                                <input id="yearAndBlock">
-                                <input id="collegeName">
-                                <input id="courseId">
+                                <input name="student_id" id="studentNumber">
+                                <input  id="studentName">
+                                <input name="year_and_block" id="yearAndBlock">
+                                <input name="college" id="collegeName">
+                                <input name="course" id="courseId">
                             </div>
                         </aside>
                     <script>
@@ -247,40 +247,40 @@
                                     <p class="underline tracking-widest">A. LIGHT OFFENSES</p>
                                     <div class="grid grid-cols-12 gap-1" x-data="{isOpen4:false}">
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Non-wearing of face mask" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Non-wearing of face mask</p>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Loitering" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Loitering</p>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Noise disturbance" name="offense[]"  name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Noise disturbance</p>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Non-wearing of ID card" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Non-wearing of ID card</p>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Refusal to present the ID card" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Refusal to present the ID card</p>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Refusal to present the Registration Form" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Refusal to present the Registration Form</p>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Wearing civilian attire w/ academic subjects" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Wearing civilian attire w/ academic subjects</p>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Wearing P.E. uniform w/ academic subjects" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Wearing P.E. uniform w/ academic subjects</p>
                                     
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Wearing of improper civilian attire" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Wearing of improper civilian attire<span @click="isOpen4 = !isOpen4" class="text-xs font-light underline cursor-pointer hover:text-amber-600">[see here]</span></p>
                                         <div x-show="isOpen4" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 bg-black bg-opacity-50 selection:text-indigo-800">
@@ -308,7 +308,7 @@
                                     <p class="underline tracking-widest">B. LESS GRAVE OFFENSES</p>
                                     <div class="grid grid-cols-12 gap-1" x-data="{isOpen5:false, isOpen6:false, isOpen7:false, isOpen8:false, isOpen9:false, isOpen10:false}">
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Cheating" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Cheating<span @click="isOpen5 = !isOpen5" class="text-xs underline cursor-pointer hover:text-amber-600">[see here]</span></p>
                                         <div x-show="isOpen5" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 bg-black bg-opacity-50 selection:text-indigo-800">
@@ -330,7 +330,7 @@
                                             </div>
                                         </div>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Gambling" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Gambling<span @click="isOpen6 = !isOpen6" class="text-xs underline cursor-pointer hover:text-amber-600">[see here]</span></p>
                                         <div x-show="isOpen6" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 bg-black bg-opacity-50 selection:text-indigo-800">
@@ -347,7 +347,7 @@
                                             </div>
                                         </div>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value=">Unauthorized passage/entry" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Unauthorized passage/entry<span @click="isOpen7 = !isOpen7" class="text-xs underline hover:text-amber-600 cursor-pointer">[see here]</span></p>
                                         <div x-show="isOpen7" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 bg-black bg-opacity-50 selection:text-indigo-800">
@@ -366,7 +366,7 @@
                                             </div>
                                         </div>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Damage within University premises" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Damage within University premises<span @click="isOpen8 = !isOpen8" class="text-xs underline hover:text-amber-600 cursor-pointer">[see here]</span></p>
                                         <div x-show="isOpen8" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 bg-black bg-opacity-50 selection:text-indigo-800">
@@ -385,7 +385,7 @@
                                             </div>
                                         </div>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value ="Unauthorized use of University property" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Unauthorized use of University property<span @click="isOpen9 = !isOpen9" class="text-xs underline hover:text-amber-600 cursor-pointer">[see here]</span></p>
                                         <div x-show="isOpen9" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 bg-black bg-opacity-50 selection:text-indigo-800">
@@ -403,11 +403,11 @@
                                             </div>
                                         </div>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Bullying" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Bullying <span class="text-xs font-thin">(R.A 10627, Anti-Bullying Act of 2013)</span></p>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Other immoral acts" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Other immoral acts<span @click="isOpen10 = !isOpen10" class="text-xs underline hover:text-amber-600 cursor-pointer">[see here]</span></p>
                                         <div x-show="isOpen10" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 bg-black bg-opacity-50 selection:text-indigo-800">
@@ -432,11 +432,11 @@
                                     <p class="underline tracking-widest">C. GRAVE OFFENSES</p>
                                     <div class="grid grid-cols-12 gap-1" x-data="{isOpen11:false, isOpen12:false, isOpen13:false, isOpen14:false}">
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Fourth(4th) and subsequent commission of the same less grave offense" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Fourth(4th) and subsequent commission of the same less grave offense</p>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Falsification, fraud and misleading" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Falsification, fraud and misleading<span @click="isOpen11 = !isOpen11" class="text-xs font-light hover:text-amber-600 cursor-pointer underline">[see here]</span></p>
                                         <div x-show="isOpen11" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 bg-black bg-opacity-50 selection:text-indigo-800">
@@ -459,7 +459,7 @@
                                             </div>
                                         </div>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Intentional and reckless act" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Intentional and reckless act<span @click="isOpen12 = !isOpen12" class="text-xs underline font-thin hover:text-amber-600 cursor-pointer">[see here]</span></p>
                                         <div x-show="isOpen12" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800 bg-black bg-opacity-50">
@@ -485,7 +485,7 @@
                                             </div>
                                         </div>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Other malicious acts" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Other malicious acts<span @click="isOpen13 = !isOpen13" class="text-xs underline font-thin hover:text-amber-600 cursor-pointer">[see here]</span></p>
                                         <div x-show="isOpen13" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800 bg-black bg-opacity-50">
@@ -507,7 +507,7 @@
                                             </div>
                                         </div>
                                         <label class="text-lg">
-                                            <input type="checkbox" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
+                                            <input type="checkbox" value="Misuse of funds or property" name="offense[]" name="indigo" class="focus:outline-none hover:lg:bg-indigo-50"/>
                                         </label>
                                         <p class="text-sm col-span-11">Misuse of funds or property<span @click="isOpen14 = !isOpen14" class="text-xs underline font-thin hover:text-amber-600 cursor-pointer">[see here]</span></p>
                                         <div x-show="isOpen14" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800 bg-black bg-opacity-50">
@@ -536,7 +536,7 @@
                                     <p>Add Case</p>
                                 </button>
                             </div>
-                            
+                        </form>
                         
                     </article>
                 </div>

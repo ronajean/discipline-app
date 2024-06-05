@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 Use App\Models\Employee;
 use App\Models\Complaint;
+use App\Models\Student;
 class ChairController extends Controller
 {
     public function dashboard()
@@ -27,14 +28,21 @@ class ChairController extends Controller
     }
 
     public function inbox(){
-        return view('chair.inbox');
+        $userId = Auth::user()->id;
+        $employees = Employee::where('id', $userId)->get();
+        return view('chair.inbox',[
+            'employees' => $employees,
+        ]);
     }
 
     public function fileComplaint()
     {
-        $complaints = Complaint::all();
+        $userId = Auth::user()->id;
+        $employees = Employee::where('id', $userId)->get();
+        $students = Student::all();
         return view('chair.file-complaint', [
-            'complaints' => $complaints,
+            'students' => $students,
+            'employees' => $employees,
             // 'courses' => $courses,
             // 'grades' => $grades,
             // etc.
@@ -43,9 +51,12 @@ class ChairController extends Controller
 
     public function complaintReport()
     {
+        $userId = Auth::user()->id;
+        $employees = Employee::where('id', $userId)->get();
         $complaints = Complaint::all();
         return view('chair.complaint-report', [
             'complaints' => $complaints,
+            'employees' => $employees,
             // 'courses' => $courses,
             // 'grades' => $grades,
             // etc.

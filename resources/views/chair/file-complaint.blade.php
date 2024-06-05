@@ -1,13 +1,10 @@
-Updates to keyboard shortcuts … 
-On Thursday, 1 August 2024, Drive keyboard shortcuts will be updated to give you first-letter navigation.Learn more
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <title>College Complaint Report</title>
-        <script src="https:cdn.tailwindcss.com"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
 
         <style>
@@ -37,10 +34,10 @@ On Thursday, 1 August 2024, Drive keyboard shortcuts will be updated to give you
             }
 
             th {
-                padding:6px;
+                padding: 6px;
             }
             td {
-                padding:3px;
+                padding: 3px;
             }
             
             :root {
@@ -49,117 +46,125 @@ On Thursday, 1 August 2024, Drive keyboard shortcuts will be updated to give you
             }
 
             .form-control {
-            font-family: system-ui, sans-serif;
-            font-size: 2rem;
-            font-weight: bold;
-            line-height: 1.1;
-            display: grid;
-            grid-template-columns: 1em auto;
+                font-family: system-ui, sans-serif;
+                font-size: 2rem;
+                font-weight: bold;
+                line-height: 1.1;
+                display: grid;
+                grid-template-columns: 1em auto;
             }
             .form-control-amber {
-            font-family: system-ui, sans-serif;
-            font-size: 2rem;
-            font-weight: bold;
-            line-height: 1.1;
-            display: grid;
-            grid-template-columns: 1em auto;
+                font-family: system-ui, sans-serif;
+                font-size: 2rem;
+                font-weight: bold;
+                line-height: 1.1;
+                display: grid;
+                grid-template-columns: 1em auto;
             }
             
             input[name="amber"] {
-            -webkit-appearance: none;
-            appearance: none;
-            background-color: var(--form-background);
-            margin: 0;
-            
-            font: inherit;
-            color: currentColor;
-            width: 0.95em;
-            height: 0.95em;
-            border: 0.09em solid rgb(0, 34, 100);
-            border-radius: 0.15em;
-            transform: translateY(-0.075em);
-            
-            display: grid;
-            place-content: center;
-            cursor: pointer;
+                -webkit-appearance: none;
+                appearance: none;
+                background-color: var(--form-background);
+                margin: 0;
+                
+                font: inherit;
+                color: currentColor;
+                width: 0.95em;
+                height: 0.95em;
+                border: 0.09em solid rgb(0, 34, 100);
+                border-radius: 0.15em;
+                transform: translateY(-0.075em);
+                
+                display: grid;
+                place-content: center;
+                cursor: pointer;
             }
             input[name="indigo"] {
-            -webkit-appearance: none;
-            appearance: none;
-            background-color: var(--form-background);
-            margin: 0;
-            
-            font: inherit;
-            color: currentColor;
-            width: 0.65em;
-            height: 0.65em;
-            border: 0.05em solid rgb(0, 34, 100);
-            border-radius: 0.15em;
-            transform: translateY(-0.075em);
-            
-            display: grid;
-            place-content: center;
-            cursor: pointer;
+                -webkit-appearance: none;
+                appearance: none;
+                background-color: var(--form-background);
+                margin: 0;
+                
+                font: inherit;
+                color: currentColor;
+                width: 0.65em;
+                height: 0.65em;
+                border: 0.05em solid rgb(0, 34, 100);
+                border-radius: 0.15em;
+                transform: translateY(-0.075em);
+                
+                display: grid;
+                place-content: center;
+                cursor: pointer;
             }
             
             input[name="amber"]::before {
-            content: "";
-            width: 0.62em;
-            height: 0.60em;
-            transform: scale(0);
-            transform-origin: center;
-            transition: 20ms transform ease-in-out;
-            box-shadow: inset 1em 1em var(--form-control-amber-color);
-            /* Windows High Contrast Mode */
-            background-color: CanvasText;
+                content: "";
+                width: 0.62em;
+                height: 0.60em;
+                transform: scale(0);
+                transform-origin: center;
+                transition: 20ms transform ease-in-out;
+                box-shadow: inset 1em 1em var(--form-control-amber-color);
+                background-color: CanvasText;
             }
             input[name="indigo"]::before {
-            content: "";
-            width: 0.42em;
-            height: 0.40em;
-            transform: scale(0);
-            transform-origin: center;
-            transition: 120ms transform ease-in-out;
-            box-shadow: inset 1em 1em var(--form-control-color);
-            /* Windows High Contrast Mode */
-            background-color: CanvasText;
+                content: "";
+                width: 0.42em;
+                height: 0.40em;
+                transform: scale(0);
+                transform-origin: center;
+                transition: 120ms transform ease-in-out;
+                box-shadow: inset 1em 1em var(--form-control-color);
+                background-color: CanvasText;
             }
             
             input[type="checkbox"]:checked::before {
-            transform: scale(1);
+                transform: scale(1);
             }
         </style>
+        
     </head>
     <body class="selection:bg-amber-50 selection:text-amber-600 custom-scroller">
         <main class="tracking-wide min-h-screen bg-indigo-50 overflow-x-hidden cursor-default text-indigo-800">
-            <header class="flex flex-row bg-white grid grid-cols-12 items-center border-b border-indigo-800 pl-1 pr-6">
+            <header class="flex flex-row bg-white items-center border-b border-indigo-800 pl-1 pr-6">
                 <!-- Menubar -->
-                <div class="ml-6 col-span-2">
-                    <button class="hover:bg-amber-50 p-2 rounded hover:text-amber-600 active:bg-amber-300">
-                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
-                        </svg>                      
+                <div class="flex flex-row  w-1/6">
+                    <button class="transition-colors duration-300 transform rounded-full border-4 border-transparent hover:border-4 text-indigo-500 hover:text-amber-600 hover:border-amber-300 hover:bg-amber-300 focus:outline-none">
+                        <svg class="w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                          </svg>                          
                     </button>
+                    @foreach ($employees as $employee)
+                    <div class="truncate text-indigo-800 max-w-40 w-40">
+                        <p class="text-md font-semibold">{{$employee->first_name}} {{$employee->last_name}}</p>
+                        <p class="text-sm">{{$employee->designation}}</p>
+                    </div>
+                    @endforeach
+                    
                 </div>
                 <!-- PLM -->
-                <div class="border-l border-indigo-300 pl-4 py-1.5 lg:col-span-3">
-                    <img class="hidden lg:block h-12 w-auto selection:bg-transparent" alt="PLM Logo" src="assets/plm-logo--with-header.png"/>
-                    <img class="lg:hidden block h-8 w-8" src="assets/plm-logo-hd.png"/>
+                <div class="border-l border-indigo-300 pl-4 py-2.5 w-1/6">
                 </div>
-                <div class="flex flex-row items-center space-x-2 col-span-7 lg:col-span-5 pr-4 lg:px-0 text-center lg:space-x-2 space-x-6">
+                <div class="flex flex-row items-center space-x-2 w-2/6 pr-4 lg:px-0 text-center lg:space-x-2 space-x-6">
                     <!-- OSDS -->
-                    <img class="hidden lg:block h-12 w-12" src="assets/osdslogo.png" title="OSDS Logo"/>
-                    <h1 class="text-sm lg:text-xl font-light">The Office of Student Development and Services</h1>
-                    <img class="lg:hidden h-8 w-8" src="assets/osdslogo.png"/>
+                    <img class=" lg:block h-10 w-10" src="assets/osdslogo.png"/>
+                    <div class="flex flex-col">
+                        <h1 class="text-sm font-light">The Office of Student Development and Services</h1>
+                    </div>
+                    <img class="lg:block h-10 w-10"src="assets/plm-logo--with-header.png"/>
                 </div>
-                <div class="text-xs lg:text-sm font-light text-right border-l border-indigo-300 col-span-2">
+                <div class="flex flex-row justify-end space-x-4 items-end w-1/6">
+                    
+                </div>
+                <div class="text-xs lg:text-sm font-light text-right border-l border-indigo-300 w-1/6">
                     <!-- Date and Time -->
                     <p id="weekday"></p>
                     <p id="date"></p>
                     <p id="time"></p>
                 </div>
-
-                <!-- Date and Time Script -->
+        
                 <script>
                     function updateDateTime() {
                         var currentDateTime = new Date();
@@ -172,7 +177,7 @@ On Thursday, 1 August 2024, Drive keyboard shortcuts will be updated to give you
                         document.getElementById("date").innerHTML = dateString;
                         document.getElementById("time").innerHTML = timeString;
                     }
-                    setInterval(updateDateTime,1000);
+                    setInterval(updateDateTime, 1000);
                     updateDateTime();
                 </script>
             </header>
@@ -220,7 +225,8 @@ On Thursday, 1 August 2024, Drive keyboard shortcuts will be updated to give you
                 </aside>
                 <div class="col-span-5">
                     <div class="bg-white pb-20">
-                        <form class="p-8">
+                        <form action="{{ route('complaints.store') }}" method="POST" class="p-8">
+                        @csrf
                             <div class="flex flex-row justify-between items-end border-b border-indigo-200 pb-2">
                                 <p class="text-3xl font-thin">File a Complaint</p>
                                 <p class="text-xl font-thin">
@@ -229,48 +235,36 @@ On Thursday, 1 August 2024, Drive keyboard shortcuts will be updated to give you
                                 </p>
                             </div>
                             <div class="p-6 space-y-3">
-                                <div class="grid grid-cols-4">
-                                    <p>Complainant ID</p>
+                                <div class="grid grid-cols-4 items-center relative">
+                                    <p>Complainant ID:</p>
                                     <p>:</p>
-                                    <input type="text" placeholder="Enter complainant ID" class="col-span-2 w-full h-10 text-sm font-light px-2 shadow border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible"/>
+                                    <div class="relative col-span-2">
+                                        <input name="complanant_id" type="text" placeholder="Enter complainant ID" class="w-full h-10 pl-2 pr-10 text-sm font-light shadow border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible"/>
+                                    </div>
                                 </div>
-                                <div class="grid grid-cols-4">
-                                    <p>Complainant Name</p>
-                                    <p>:</p>
-                                    <p type="text" class="col-span-2 text-sm font-light text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">
-                                        Complainant Name
-                                        <span>[This is auto-generated]</span>
-                                    </p>
-                                </div>
+                                
                                 <div class="bg-indigo-100 w-11/12 mx-auto" style="padding:0.5px;"></div>
                                 <div class="grid grid-cols-4">
                                     <p>Complainee ID</p>
                                     <p>:</p>
-                                    <input type="text" placeholder="Enter complainee ID" class="col-span-2 w-full h-10 text-sm font-light px-2 shadow border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible"/>
+                                    <div class="relative col-span-2">
+                                        <input name="complainee_id" type="text" placeholder="Enter complainee ID" class="w-full h-10 pl-2 pr-10 text-sm font-light shadow border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible"/>
+                                    </div>
                                 </div>
-                                <div class="grid grid-cols-4">
-                                    <p>Complainee Name</p>
-                                    <p>:</p>
-                                    <p type="text" class="col-span-2 text-sm font-light text-amber-600 selection:text-indigo-800 selection:bg-indigo-50">
-                                        Complainee Name
-                                        <span>[This is auto-generated]</span>
-                                    </p>
-                                </div>
+                                
                                 <div class="bg-indigo-100 w-11/12 mx-auto" style="padding:0.5px;"></div>
-                                <div class="flex flex-row justify-end space-x-20 py-8 items-end">
+                                <div class="flex flex-row justify-end space-x-4 py-8 items-center">
                                     <p class="text-xs">Date Submitted</p>
-                                    <p class="text-lg font-thin">MM/DD/YYYY</p>
+                                    <input name="submission_date" type="date"class="text-lg font-thin border border-indigo-400 focus:border-amber-800 focus:outline-none p-2 rounded" id="dateSubmitted">
                                 </div>
+                                
                                 <div class="space-y-3">
                                     <p class="text-2xl font-thin">Nature and Cause of Allegation</p>
-                                    <textarea id="allegation" maxlength="500" class="w-full max-h-40 h-24 custom-scroller text-sm font-light p-2 shadow-lg border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible" placeholder="max of 500 characters"></textarea>
+                                    <textarea name="nature_and_case" id="allegation" maxlength="500" class="w-full max-h-40 h-24 custom-scroller text-sm font-light p-2 shadow-lg border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible" placeholder="max of 500 characters"></textarea>
                                 </div>
                                 <div class="flex justify-end py-6 space-x-6">
-                                    <button type="button" class="p-2 shadow shadow-indigo-500 rounded-md hover:shadow-amber-600 hover:text-amber-600 hover:bg-amber-50 active:bg-amber-200 active:font-semibold" onclick="location.href='{{ route('cdean.dashboard') }}'">
-                                        <p class="text-sm font-light">Escalate</p>
-                                    </button>
-                                    <button type="button" class="p-2 shadow shadow-indigo-500 rounded-md hover:shadow-amber-600 hover:text-amber-600 hover:bg-amber-50 active:bg-amber-200 active:font-semibold" onclick="location.href='{{ route('cdean.dashboard') }}'">
-                                        <p class="text-sm font-light">Resolve</p>
+                                    <button id="fileReportButton" type="submit" class="p-3 bg-white shadow border-slate-300 border-2 rounded-md hover:border-amber-600 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200 active:font-semibold">
+                                        <p class="text-sm lg:text-lg">File Report</p>
                                     </button>
                                 </div>
                             </div>

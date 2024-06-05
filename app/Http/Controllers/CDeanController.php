@@ -35,9 +35,12 @@ class CDeanController extends Controller
 
     public function fileComplaint()
     {
+        $userId = Auth::user()->id;
+        $employees = Employee::where('id', $userId)->get();
         $complaints = Complaint::all();
         return view('cdean.complaint-report', [
             'complaints' => $complaints,
+            'employees' => $employees,
             // 'courses' => $courses,
             // 'grades' => $grades,
             // etc.

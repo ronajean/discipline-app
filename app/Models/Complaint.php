@@ -9,13 +9,16 @@ class Complaint extends Model
 {
     use HasFactory;
 
-    public function user()
-    {
-        return $this->belongsTo(Complaint::class);
-    }
 
-    public function complainant()
-{
-    return $this->belongsTo(Complainant::class, 'complainant_id');
-}
+
+    protected $fillable = [
+        'complainant_id',
+        'complainee_id',
+        'nature_and_case',
+        'submission_date',
+    ];
+
+    protected $casts = [
+        'submission_date' => 'datetime',
+    ];
 }
