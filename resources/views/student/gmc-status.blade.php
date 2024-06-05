@@ -220,6 +220,7 @@
                         <p class="text-xs font-thin text-indigo-300">Discipline Module</p>
                     </div>
                 </aside>
+                
                 <div class="col-span-5">
                     <header class="bg-white border-b border-indigo-300 px-4 pt-6 pb-1.5">
                         <div class="flex flex-row grid grid-cols-2 items-center">
@@ -230,11 +231,12 @@
                                 <p class="lg:hidden">Number:</p>
 
                                 <p class="text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">{{ $gmc_request->first()->transaction_no }}</p>
-                                @endforeach
+                                
                                 <p> </p>
                                 <p>Status:</p>
-                                <p class="text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">Pending</p>
+                                <p class="text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">{{ $gmc_request->first()->request_status }}</p>
                                 <p> </p>
+                                @endforeach
                             </div>
                             <div class="text-right">
                                 <p class="text-2xl font-light tracking-widest">GMC Status</p>
@@ -245,12 +247,28 @@
                         <div class="text-sm">
                             <p>Status:</p>
                         </div>
-                        <progress class="w-full" max="100" value="75" name="orange"></progress>
+                        @php
+                        
+
+                        $assignNum = [
+                            "GMC Request Sent" => 1,
+                            "Pending Payment" => 2,
+                            "Payment Successful" => 3,
+                            "Request Verified" => 4,
+                            "Processing of GMC Document" => 5,
+                            "Ready for Pick-up" => 6,                                        
+                        ];
+                        
+                        $currentStep = $assignNum[$gmc_request->request_status] ?? 0; // Use null coalescing to handle undefined status
+                        $progressPercentage = ($currentStep / 6) * 100;
+                        @endphp
+                        <progress class="w-full" max="100" value={{ $progressPercentage }} name="green"></progress>
+                        
                         <div class="grid grid-cols-12">
                             <div class="text-indigo-100">
                                 <label>
-                                    <input type="checkbox" class="peer hidden"/>
-                                    <div class="peer-checked:text-green-600" title="Step 1: Send GMC Request">
+                                    <input type="checkbox" class="peer hidden" {{ $assignNum[$gmc_request->request_status] >= 1 ? 'checked' : '' }} disabled/>
+                                    <div class="peer-checked:text-green-600" title="GMC Request Sent">
                                         <svg class="w-4 h-4 mx-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M12 6h.01M12 12h.01M12 18h.01"/>
                                         </svg>
@@ -260,8 +278,8 @@
                                     </div>
                                 </label>
                                 <label>
-                                    <input type="checkbox" class="peer hidden"/>
-                                    <div class="peer-checked:text-green-600" title="Step 2: OSDS will Verify your Request">
+                                    <input type="checkbox" class="peer hidden" {{ $assignNum[$gmc_request->request_status] >= 2 ? 'checked' : '' }} disabled/>
+                                    <div class="peer-checked:text-green-600" title="Pending Payment">
                                         <svg class="w-4 h-4 mx-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M12 6h.01M12 12h.01M12 18h.01"/>
                                         </svg>
@@ -271,8 +289,8 @@
                                     </div>
                                 </label>
                                 <label>
-                                    <input type="checkbox" class="peer hidden"/>
-                                    <div class="peer-checked:text-green-600" title="Step 3: Processing GMC Request">
+                                    <input type="checkbox" class="peer hidden" {{ $assignNum[$gmc_request->request_status] >= 3 ? 'checked' : '' }} disabled/>
+                                    <div class="peer-checked:text-green-600" title="Payment Successful">
                                         <svg class="w-4 h-4 mx-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M12 6h.01M12 12h.01M12 18h.01"/>
                                         </svg>
@@ -282,8 +300,8 @@
                                     </div>
                                 </label>
                                 <label>
-                                    <input type="checkbox" class="peer hidden"/>
-                                    <div class="peer-checked:text-green-600" title="Step 4: GMC Request Response">
+                                    <input type="checkbox" class="peer hidden" {{ $assignNum[$gmc_request->request_status] >= 4 ? 'checked' : '' }} disabled/>
+                                    <div class="peer-checked:text-green-600" title="Payment Successful">
                                         <svg class="w-4 h-4 mx-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M12 6h.01M12 12h.01M12 18h.01"/>
                                         </svg>
@@ -293,8 +311,8 @@
                                     </div>
                                 </label>
                                 <label>
-                                    <input type="checkbox" class="peer hidden"/>
-                                    <div class="peer-checked:text-green-600" title="Step 5: Waiting for Payment">
+                                    <input type="checkbox" class="peer hidden" {{ $assignNum[$gmc_request->request_status] >= 5 ? 'checked' : '' }} disabled/>
+                                    <div class="peer-checked:text-green-600" title="Processing of GMC Document">
                                         <svg class="w-4 h-4 mx-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M12 6h.01M12 12h.01M12 18h.01"/>
                                         </svg>
@@ -304,8 +322,8 @@
                                     </div>
                                 </label>
                                 <label>
-                                    <input type="checkbox" class="peer hidden"/>
-                                    <div class="peer-checked:text-green-600" title="Step 6: Processing GMC for Pick-up">
+                                    <input type="checkbox" class="peer hidden" {{ $assignNum[$gmc_request->request_status] >= 6 ? 'checked' : '' }} disabled/>
+                                    <div class="peer-checked:text-green-600" title="Ready for Pick-up">
                                         <svg class="w-4 h-4 mx-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M12 6h.01M12 12h.01M12 18h.01"/>
                                         </svg>
@@ -314,74 +332,64 @@
                                         </svg>
                                     </div>
                                 </label>
-                                <label>
-                                    <input type="checkbox" class="peer hidden"/>
-                                    <div class="peer-checked:text-green-600" title="Step 7: Ready for Pick-up">
-                                        <svg class="w-4 h-4 mx-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M12 6h.01M12 12h.01M12 18h.01"/>
-                                        </svg>
-                                        <svg class="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                            <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd"/>
-                                        </svg>
-                                    </div>
-                                </label>
+                                
                             </div>
+                            
+                            
                             <div class="col-span-5 space-y-6 mt-5 font-light">
                                 <p>GMC Request Sent</p>
                                 <p>Pending Payment</p>
                                 <p>Payment Successful</p>
-                                <p>Processing GMC for Pick-up</p>
+                                <p>Request Verified</p>
+                                <p>Processing of GMC Document</p>
                                 <p>Ready for Pick-up</p>    
                             </div>
                             <div class="hidden lg:block col-start-7 bg-indigo-200 mx-auto p-px"></div>
-                            <div class="col-span-6 lg:col-span-5 lg:mr-4">
+                            <div class="col-span-6 lg:col-span-5 lg:mr-4"> 
                                 <div class="flex justify-center space-x-4">
-                                    <label>
+                                    
+
+                                    
+                                    <!--<label>
                                         <input type="radio" class="peer hidden" name="gmc-step"/>
+                                        <p></p>
                                         <div class="p-3 rounded-full bg-indigo-50 hover:bg-amber-50 border border-indigo-800 transform transition-all origin-left duration-300 hover:border-amber-600 active:bg-amber-200 peer-checked:bg-amber-300 peer-checked:border-amber-600 cursor-pointer" title="GMC Request Approval: Page 1"></div>
                                         
-                                        <div x-show="purchased" id="thankYouMessage" class="fixed inset-0 z-10 bg-black bg-opacity-50 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">
-                                            <div class="relative top-20 bg-white mx-auto max-w-xl p-4 rounded shadow-md border border-amber-600">
-                                                <p class="font-thin text-2xl tracking-widest border-b border-amber-300">Thank you!</p>
-                                                <div class="space-y-8">
-                                                    <p class="font-light pt-6">
-                                                        <span class="font-normal">Your GMC Request has been successfully submitted.</span><br>
-                                                        <span class="text-sm">Kindly allow 10-15 business days for the processing of your document.</span><br>
-                                                        <span class="underline text-right font-thin hover:text-indigo-800">
-                                                            <a href="{{ route('student.gmc-status') }}">You can view the status of your request under GMC Certificate > View GMC Request Status</a>
-                                                        </span>
-                                                    </p>
-                                                    <p class="text-sm text-right">For inquires, please send email at<br>
-                                                        OSDS@plm.edu.ph<br>
-                                                        For follow-up, please text #09976017966
-                                                    </p>
-                                                    <p class="text-xs font-thin">Note: Claimant must present two(2) valid Identification Cards (IDs) while authorized representatives must bring with them of authorization aside from the two(2) valid IDs for purposes of filing and securing the GMC Certificate.</p>
-                                                </div>
-                                                <div class="w-full flex justify-end mt-6">
-                                                    <button type="button" onclick="hideThankYouMessage();" class="hover:text-indigo-800 p-2 text-sm font-light border border-amber-600 hover:border-indigo-800 hover:bg-indigo-50" onclick="location.href='{{ route('student.gmc-status') }}'">
-                                                        <p>Go back</p>
-                                                    </button>
-                                                </div>
-
-                                                
-                                            </div>
-
-                                            <script>
-                                                function hideThankYouMessage() {
-                                                    document.getElementById('thankYouMessage').style.display = 'none';
-                                                }
-                                            </script>
-                                        </div>
+                                        
                                     </label>
                                     <label>
                                         
                                     </label>
                                     <label>
                                         
-                                    </label>
+                                    </label>-->
+
+                                    
+
+
+                                    
                                 </div>
+                                <p  class=" mt-4 font-thin text-2xl tracking-widest border-b border-amber-300">Your GMC Request has been successfully submitted.</p>
+                                <p class="font-light pt-6">
+                                    <span class="font-normal">Kindly allow 10-15 business days for the processing of your document.</span><br>
+                                    <span class="text-sm"></span><br>
+                                    <span class="underline text-right font-thin hover:text-indigo-800">
+                                        <a href="{{ route('student.gmc-status') }}">You can view the status of your request under GMC Certificate > View GMC Request Status</a>
+                                    </span>
+                                </p>
+                                <span class="text-sm"></span><br>
+
+                                <p class="text-sm text-left">For inquires, please send email at<br>
+                                    OSDS@plm.edu.ph<br>
+                                    For follow-up, please text #09976017966
+                                </p>
+                                <p class="text-xs font-thin">Note: Claimant must present two(2) valid Identification Cards (IDs) while authorized representatives must bring with them of authorization aside from the two(2) valid IDs for purposes of filing and securing the GMC Certificate.</p>
+                            </div>
+
+                                
                             </div>
                          </div>
+                         
                     </article>
                     <div class="bg-white p-4 pb-16 justify-between flex border-b border-indigo-300">
                         

@@ -223,7 +223,7 @@
                                 </div>
                             @endif
                             
-                            <form action="{{ route('complaints.store') }}" method="POST" class="text-sm space-y-4">
+                            <form action="{{ route('student-complaints.store') }}" method="POST" class="text-sm space-y-4">
                                 @csrf
                                 <input type="hidden" name="student_no" value="{{ $student->student_no }}">
                                 <input type="hidden" name="first_name" value="{{ $student->first_name }}">
