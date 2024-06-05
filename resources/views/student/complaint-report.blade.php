@@ -180,18 +180,20 @@
                     </header>
                     <article class="bg-white pt-6 min-h-96 border-b border-indigo-800">
                         <div class="space-y-3">
-                            <div x-data="{isOpen3:false}">
-                                <div class="flex flex-row justify-between mx-4 hover:bg-amber-50 hover:ring hover:ring-8 hover:ring-amber-50 hover:rounded-xl cursor-pointer text-xs lg:text-base" title="Check complaint details" @click="isOpen3 = !isOpen3">
+                            @foreach($studentComplaints as $complaint)
+                            <div x-data="{isOpen{{ $complaint->id }}:false}">
+                                
+                                <div class="flex flex-row justify-between mx-4 hover:bg-amber-50 hover:ring hover:ring-8 hover:ring-amber-50 hover:rounded-xl cursor-pointer text-xs lg:text-base" title="Check complaint details" @click="isOpen{{ $complaint->id }} = !isOpen{{ $complaint->id }}">
                                     <div class="flex flex-row space-x-8 lg:space-x-20">
-                                        <div class="flex items-center justify-center rounded border border-indigo-800 bg-slate-300 max-w-20 w-20 max-h-20 h-20">
-                                            <p>icon</p>
+                                        <div class="flex items-center justify-center w-20 max-h-20 h-20">
+                                            <img src="{{ asset('assets/complaint.png') }}" alt="">
                                         </div>
                                         <div class="space-y-2 py-2">
-                                            <p class="font-semibold">Complaint ID</p>
+                                            <p class="font-semibold">Complaint No. {{$complaint->id}}</p>
                                             <div class="flex flex-row space-x-8 lg:space-x-20">
-                                                <p class="lg:hidden text-xs font-medium">Date:</p>
-                                                <p class="hidden lg:block text-sm font-medium">Date Sent:</p>
-                                                <p class="text-xs lg:text-sm text-indigo-500">Mar 10, 2020</p>
+                                                <p class="lg:hidden text-xs font-medium"> </p>
+                                                <p class="hidden lg:block text-sm font-medium">Date submitted: </p>
+                                                <p class="text-xs lg:text-sm text-indigo-500">{{$complaint->date_time_sent}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -199,25 +201,41 @@
                                         <p class="text-xs lg:text-sm font-semibold">Pending</p>
                                     </div>
                                 </div>
-                                <div x-show="isOpen3" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 bg-black bg-opacity-50 selection:text-indigo-800">
+                                
+                                <div style="padding:0.5px;" class="bg-slate-300 w-full"></div>
+                                
+                                <div x-show="isOpen{{ $complaint->id }}" id="popup{{ $complaint->id }}" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 bg-black bg-opacity-15 selection:text-indigo-800">
                                     <div class="relative top-16 bg-white pt-6 pb-1.5 mx-auto max-w-sm max-h-96 h-96 rounded shadow-md border border-amber-600">
                                         <div class=" border-b border-amber-300 text-sm">
-                                            <div class="absolute top-0 left-4 flex items-center rounded border border-amber-600 bg-amber-200 p-5 px-4">
+                                            <!--<div class="absolute top-0 left-4 flex items-center rounded border border-amber-600 bg-amber-200 p-5 px-4">
                                                 <p class="text-xs">icon</p>
-                                            </div>
+                                                <img src="{{ asset('complaint.png') }}" alt="">
+                                            </div>-->
                                             <div class="px-4 flex flex-row justify-end space-x-8">
-                                                <p>Complaint ID:</p>
-                                                <p class="text-indigo-800 selection:text-amber-600 selection:bg-amber-50">23743298742</p>
+                                                <p></p>
+                                                <p class="text-indigo-800 selection:text-amber-600 selection:bg-amber-50">Complaint No. {{$complaint->id}}</p>
                                             </div>
                                         </div>
                                         <div class="text-sm px-4 pb-10 space-y-3">
                                             <div class="flex flex-row justify-between pt-6 pb-1.5">
-                                                <p>Date Sent:</p>
-                                                <p>March 10, 2020</p>
+                                                <p class="font-bold">Date & Time Sent:</p>
+                                                <p>{{$complaint->date_time_sent}}</p>
                                             </div>
-                                            <p>Description:</p>
-                                            <div class="custom-scroller-small overflow-y-auto max-h-36">
-                                                <p class="text-right font-light">This is the description of the complaint report form. This is the description of the complaint report form. This is the description of the complaint report form. This is the description of the complaint report form. This is the description of the complaint report form. This is the description of the complaint report form. This is the description of the complaint report form. This is the description of the complaint report form. This is the description of the complaint report form. This is the description of the complaint report form. This is the description of the complaint report form. This is the description of the complaint report form. This is the description of the complaint report form. This is the description of the complaint report form. This is the description of the complaint report form. This is the description of the complaint report form. This is the description of the complaint report form. </p>
+                                            <p class="font-bold">Description:</p>
+                                            <div class="custom-scroller-small overflow-y-auto max-h-36 font-bold">
+                                                <p class="text-left font-light ml-4">{{$complaint->description}}</p>
+                                            </div>
+                                            <div class="flex flex-row pt-6 pb-0">
+                                                <p class="font-bold">Location:   </p>
+                                                <p class="ml-2">{{$complaint->location}}</p>
+                                            </div>
+                                            <div class="flex flex-row pt-0 pb-0">
+                                                <p class="font-bold">Apprehension Date:   </p>
+                                                <p class="ml-2">{{$complaint->apprehension_date}}</p>
+                                            </div>
+                                            <div class="flex flex-row pt-0 pb-1.5">
+                                                <p class="font-bold">Apprehension Time:   </p>
+                                                <p class="ml-2">{{$complaint->apprehension_time}}</p>
                                             </div>
                                         </div>
                                         
@@ -225,65 +243,18 @@
                                             <p class="text-xs font-semibold">Pending</p>
                                         </div>
                                         <div class="absolute right-2 bottom-2">
-                                            <button class="hover:text-indigo-800 p-1.5 py-2 rounded-xl border border-amber-600 hover:border-indigo-800 hover:bg-indigo-50" @click="isOpen3 = false">
+                                            <button class="hover:text-indigo-800 p-1.5 py-2 rounded-xl border border-amber-600 hover:border-indigo-800 hover:bg-indigo-50"@click="isOpen{{ $complaint->id }} = false">
                                                 <p class="text-sm">Go Back</p>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
+
+                                
                             </div>
-                            <div style="padding:0.5px;" class="bg-slate-300 w-full"></div>
-                            <div x-data="{isOpen3:false}">
-                                <div class="flex flex-row justify-between mx-4 hover:bg-amber-50 hover:ring hover:ring-8 hover:ring-amber-50 hover:rounded-xl cursor-pointer text-xs lg:text-base" title="Check complaint details" @click="isOpen3 = !isOpen3">
-                                    <div class="flex flex-row space-x-8 lg:space-x-20">
-                                        <div class="flex items-center justify-center rounded border border-indigo-800 bg-slate-300 max-w-20 w-20 max-h-20 h-20">
-                                            <p>icon</p>
-                                        </div>
-                                        <div class="space-y-2 py-2">
-                                            <p class="font-semibold">Complaint ID</p>
-                                            <div class="flex flex-row space-x-8 lg:space-x-20">
-                                                <p class="lg:hidden text-xs font-medium">Date:</p>
-                                                <p class="hidden lg:block text-sm font-medium">Date Sent:</p>
-                                                <p class="text-xs lg:text-sm text-indigo-500">Mar 10, 2020</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center justify-center rounded shadow shadow-green-500 bg-green-300 max-w-20 max-h-20 w-20 h-20 text-green-800">
-                                        <p class="text-xs lg:text-sm font-semibold">Resolved</p>
-                                    </div>
-                                </div>
-                                <div x-show="isOpen3" class="fixed inset-0 z-10 text-amber-600 selection:bg-indigo-50 bg-black bg-opacity-50 selection:text-indigo-800">
-                                    <div class="relative top-16 bg-white pt-6 mx-auto max-w-sm max-h-96 h-96 rounded shadow-md border border-amber-600">
-                                        <div class=" border-b border-amber-300 text-sm">
-                                            <div class="absolute top-0 left-4 flex items-center rounded border border-amber-600 bg-amber-200 p-5 px-4">
-                                                <p class="text-xs">icon</p>
-                                            </div>
-                                            <div class="px-4 flex flex-row justify-end space-x-8">
-                                                <p>Complaint ID:</p>
-                                                <p class="text-indigo-800 selection:text-amber-600 selection:bg-amber-50">23743298742</p>
-                                            </div>
-                                        </div>
-                                        <div class="text-sm px-4 space-y-3">
-                                            <div class="flex flex-row justify-between pt-8 pb-3">
-                                                <p>Date Sent:</p>
-                                                <p class="font-light">March 10, 2020</p>
-                                            </div>
-                                            <p>Description:</p>
-                                            <div class="custom-scroller-small overflow-y-auto max-h-36">
-                                                <p class="text-right font-light">This is the description of the complaint report form.</p>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="absolute left-2 bottom-2 flex items-center justify-center max-w-14 w-14 max-h-14 h-14 rounded shadow shadow-green-500 bg-green-300 text-green-800">
-                                            <p class="text-xs font-semibold">Resolved</p>
-                                        </div>
-                                        <div class="absolute right-2 bottom-2">
-                                            <button class="hover:text-indigo-800 p-1.5 py-2 rounded-xl border border-amber-600 hover:border-indigo-800 hover:bg-indigo-50" @click="isOpen3 = false">
-                                                <p class="text-sm">Go Back</p>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                            
+                            
                             </div>
                         </div>
                         <div>

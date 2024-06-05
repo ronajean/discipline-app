@@ -13,6 +13,7 @@ use App\Http\Controllers\ViolationsController;
 use App\Http\Controllers\NewCaseController;
 use App\Http\Controllers\ArchiveViolationController;
 use App\Http\Controllers\ComplaintController;
+use App\Http\Controllers\ComplaintinboxController;
 use App\Http\Controllers\GmcrequestController;
 use App\Models\Complaint;
 use App\Models\Student;
@@ -98,7 +99,7 @@ Route::post('/gmc-process-payment-onsite', [GmcrequestController::class, 'proces
 
 
 
-
+Route::post('/student-complaints/store', [ComplaintinboxController::class, 'storeStudentComplaint'])->name('student-complaints.store');
 
 
 

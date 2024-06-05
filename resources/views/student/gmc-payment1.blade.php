@@ -189,19 +189,17 @@
 
                     </script>
                     <article class="bg-white px-4 pt-6 h-screen">
-                        <div class="flex flex-col space-y-3">
+                        <div class="grid grid-cols-6">
                             
-                            <!-- G-Cash -->
                             <form action="{{ route('gmc-payment-gcash.process') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 
                                 <input type="hidden" name="student_no" value="{{ $gmc_request->transaction_no }}">
                                 <input type="hidden" name="request_status" value="Payment Successful">
                                 
-                                <p class="text-xs font-thin tracking-widest">Step 1</p>   
-                                
-                                <div class="grid grid-cols-5">
-                                    <!-- G-Cash -->
+                                <div class="flex flex-col space-y-3">
+                                    <p class="text-xs font-thin tracking-widest">Step 1</p>                                    
+                                    
                                     <label>
                                         <input type="radio" class="peer hidden" name="payment_method" value="G-Cash"/>
                                         <dt class="flex flex-row p-2 border border-indigo-800 items-center hover:bg-amber-50 hover:text-amber-600 hover:border-amber-600 space-x-2 peer-checked:border-amber-600 peer-checked:text-amber-600 peer-checked:bg-amber-200 peer-checked:font-semibold cursor-pointer" onclick="enterPasswordTab()">
@@ -223,13 +221,11 @@
                                             <p id="feeDisplay">₱140.00</p>
                                             <p class="text-xs">GMC Certificate</p>
                                         </div>
-                                        <div class="flex items-center justify-center">
-                                            <img src="{{ asset('assets/gcash-qr.jpg') }}" alt="Gcash QR Code" style="margin-bottom: 20px; width: 50%; height: auto;" >
-
-                                        </div>       
+                                        <img src="{{ asset('assets/gcash-qr.jpg') }}" alt="Gcash QR Code" style="margin-bottom: 20px; width: 50%; height: auto;" >
+        
                                         
         
-                                        <div class="flex items-center justify-center ">
+                                        <div class="relative flex w-full">
                                             <div class="flex justify-center lg:justify-end">
                                                 <div class="flex flex-col items-center lg:mr-20">
                                                     <div class="border-b border-indigo-800 w-96 flex justify-center pb-1.5">
@@ -266,16 +262,13 @@
                                         </div>
                                         
                                     </div>
-                                </div>
+                                
                             </form>
     
-                            <!-- Credit/ Debit Card -->
                             <form action="{{ route('gmc-payment-card.process') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="transaction_no" value="{{ $gmc_request->transaction_no }}">
                                 <input type="hidden" name="request_status" value="Payment Successful">
-                                <div class="grid grid-cols-5">
-
                                     <label>
                                         <input type="radio" class="peer hidden" name="payment_method" value="Card"/>
                                         <dt class="flex flex-row p-2 border border-indigo-800 items-center hover:bg-amber-50 hover:text-amber-600 hover:border-amber-600 space-x-2 peer-checked:border-amber-600 peer-checked:text-amber-600 peer-checked:bg-amber-200 peer-checked:font-semibold cursor-pointer" onclick="enterCardTab()">
@@ -326,10 +319,13 @@
                                                 <button type="submit"  onclick="showThankYouMessage();" class="border border-indigo-800 mt-3 p-2 rounded text-sm cursor-pointer hover:border-amber-600 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200 active:font-semibold" @click="purchased = !purchased">
                                                     <p>Confirm</p>
                                                 </button>
+                                                
+                                                
                                             </div>
                                         </div>
+                                        
                                     </div>
-                                </div>
+
                             </form>
 
                             
@@ -339,7 +335,7 @@
                                 
                                 <input type="hidden" name="transaction_no" value="{{ $gmc_request->transaction_no }}">  
                                 <input type="hidden" name="request_status" value="Payment Successful">                                                            
-                                <div class="grid grid-cols-5">
+                                
                                     <label class="pt-10">
                                         <input type="radio" class="peer hidden" name="payment_method" value="On-site"/>
                                         <dt class="flex flex-row p-2 border border-indigo-800 items-center hover:bg-amber-50 hover:text-amber-600 hover:border-amber-600 space-x-2 peer-checked:border-amber-600 peer-checked:text-amber-600 peer-checked:bg-amber-200 peer-checked:font-semibold cursor-pointer" onclick="enterORTab()">
@@ -360,7 +356,7 @@
                                             <p class="text-sm text-left">Paying<br>On-site</p>
                                         </dt>
                                     </label>
-                                    <div id="enter-OR-tab" style="animation-name:fade-in; animation-duration:0.5s;" class="hidden col-span-4 border-l border-indigo-200 pl-6 ml-10">
+                                    <div id="enter-OR-tab" style="animation-name:fade-in; animation-duration:0.5s;" class="hidden col-span-2 border-l border-indigo-200 pl-6 ml-10">
                                         <div class="flex justify-between text-xs font-thin tracking-widest">
                                             <p>Step 3</p>
                                             <p>Enter Official Receipt Number</p>
@@ -376,54 +372,61 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
                             </form>
                                     
-                        </div>
+                                </div>
 
-                        <div x-show="purchased" id="thankYouMessage" style="display: none"  class="fixed inset-0 z-10 bg-black bg-opacity-50 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">
+                                <div x-show="purchased" id="thankYouMessage" style="display: none"  class="fixed inset-0 z-10 bg-black bg-opacity-50 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">
+                                    
+                                                                                                 
+
+                                    <div class="relative top-20 bg-white mx-auto max-w-xl p-4 rounded shadow-md border border-amber-600">
+                                        <p class="font-thin text-2xl tracking-widest border-b border-amber-300">Thank you!</p>
+                                        <div class="space-y-8">
+                                            <p class="font-light pt-6">
+                                                <span class="font-normal">Your GMC Request has been successfully submitted.</span><br>
+                                                <span class="text-sm">Kindly allow 10-15 business days for the processing of your document.</span><br>
+                                                <span class="underline text-right font-thin hover:text-indigo-800">
+                                                    <a href="{{ route('student.gmc-status') }}">You can view the status of your request under GMC Certificate > View GMC Request Status</a>
+                                                </span>
+                                            </p>
+                                            <p class="text-sm text-right">For inquires, please send email at<br>
+                                                OSDS@plm.edu.ph<br>
+                                                For follow-up, please text #09976017966
+                                            </p>
+                                            <p class="text-xs font-thin">Note: Claimant must present two(2) valid Identification Cards (IDs) while authorized representatives must bring with them of authorization aside from the two(2) valid IDs for purposes of filing and securing the GMC Certificate.</p>
+                                        </div>
+                                        <div class="w-full flex justify-end mt-6">
+                                            <button type="button" onclick="hideThankYouMessage();" class="hover:text-indigo-800 p-2 text-sm font-light border border-amber-600 hover:border-indigo-800 hover:bg-indigo-50" onclick="location.href='{{ route('student.gmc-status') }}'">
+                                                <p>Confirm</p>
+                                            </button>
+                                        </div>
+
+                                        
+                                    </div>
                             
-                                                                                            
-
-                            <div class="relative top-20 bg-white mx-auto max-w-xl p-4 rounded shadow-md border border-amber-600">
-                                <p class="font-thin text-2xl tracking-widest border-b border-amber-300">Thank you!</p>
-                                <div class="space-y-8">
-                                    <p class="font-light pt-6">
-                                        <span class="font-normal">Your GMC Request has been successfully submitted.</span><br>
-                                        <span class="text-sm">Kindly allow 10-15 business days for the processing of your document.</span><br>
-                                        <span class="underline text-right font-thin hover:text-indigo-800">
-                                            <a href="{{ route('student.gmc-status') }}">You can view the status of your request under GMC Certificate > View GMC Request Status</a>
-                                        </span>
-                                    </p>
-                                    <p class="text-sm text-right">For inquires, please send email at<br>
-                                        OSDS@plm.edu.ph<br>
-                                        For follow-up, please text #09976017966
-                                    </p>
-                                    <p class="text-xs font-thin">Note: Claimant must present two(2) valid Identification Cards (IDs) while authorized representatives must bring with them of authorization aside from the two(2) valid IDs for purposes of filing and securing the GMC Certificate.</p>
+                                    
                                 </div>
-                                <div class="w-full flex justify-end mt-6">
-                                    <button type="button" onclick="hideThankYouMessage();" class="hover:text-indigo-800 p-2 text-sm font-light border border-amber-600 hover:border-indigo-800 hover:bg-indigo-50" onclick="location.href='{{ route('student.gmc-status') }}'">
-                                        <p>Confirm</p>
-                                    </button>
-                                </div>
-
+                                <script>
+                                    function hideThankYouMessage() {
+                                        document.getElementById('thankYouMessage').style.display = 'none';
+                                    }
+                                    function showThankYouMessage() {
+                                        document.getElementById('thankYouMessage').style.display = 'block';
+                                    }
+                                </script>
                                 
-                            </div>
-                    
+                                
+                                
+                                <!-- Step 3 -->
+                                
+    
+                                
+
+                            
                             
                         </div>
-                        <script>
-                            function hideThankYouMessage() {
-                                document.getElementById('thankYouMessage').style.display = 'none';
-                            }
-                            function showThankYouMessage() {
-                                document.getElementById('thankYouMessage').style.display = 'block';
-                            }
-                        </script>
-
-
-                        
                         
                         <script>
                             function enterPasswordTab() {

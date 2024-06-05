@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Gmrcrequest;
 use App\Models\Course;
 use App\Models\College;
+use App\Models\Complaintinbox;
 use App\Models\Gmcrequest;
+
 
 class StudentController extends Controller
 {
@@ -50,12 +52,16 @@ class StudentController extends Controller
 
     public function complaintReport()
     {
-        // Fetch data related to the student from the database
-        // For example, you might fetch the student's courses, grades, etc.
-        
+        $userId = Auth::user()->id;
+        $students = Student::where('id', $userId)->get();
+
+        foreach ($students as $student) {
+            $studentComplaints = Complaintinbox::where('student_no', $student->student_no)->get();
+        }
 
         // Then, pass the data to the view
         return view('student.complaint-report', [
+            'studentComplaints' => $studentComplaints,
             
             // 'courses' => $courses,
             // 'grades' => $grades,
