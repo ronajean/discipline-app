@@ -228,86 +228,61 @@
                         <p class="text-xs font-thin text-indigo-300">Discipline Module</p>
                     </div>
                 </aside>
-                <div class="col-span-5">
-                    <div class="border-y border-indigo-800 flex flex-row justify-between">
-                        <p class="text-xl ml-20 font-thin py-2">Students</p>
-                        <div class="mr-20 flex items-center">
-                            <input id="searchField" type="search" placeholder="Search students..." class="w-64 placeholder:text-indigo-300 h-full text-amber-600 selection:text-indigo-50 selection:text-indigo-800 focus:outline-none border border-indigo-300 focus:border-indigo-800 px-2 placeholder:text-xs placeholder:tracking-widest text-xs"/>
-                            <button id="searchButton" class="p-3 h-full border border-indigo-300 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200">
-                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
-                                </svg>                                      
-                            </button>
+                <div class="border-l border-b border-indigo-800 h-full bg-white col-span-5 py-4">
+                    <div class="flex flex-row justify-evenly flex items-center text-center">
+                        <img class="h-8 w-8 lg:h-14 lg:w-14" src="{{ asset('assets/plm-logo.png') }}"/>
+                        <div class="cursor-default">
+                            <p class="font-semibold text-xs lg:text-lg">PAMANTASAN NG LUNGSOD NG MAYNILA</p>
+                            <p class="text-xs lg:text-sm italic">(University of the City of Manila)</p>
+                            <p class="text-xs lg:text-sm font-medium">Intramuros, Manila</p>
                         </div>
+                        <img class="h-8 w-8 lg:h-14 lg:w-14" src="{{ asset('assets/osdslogo.png') }}"/>
                     </div>
-                    <div class="bg-white py-6">
-                        <div class="flex flex-row justify-evenly items-center text-center">
-                            <img class="h-8 w-8 lg:h-14 lg:w-14" src="{{ asset('assets/plm-logo.png') }}"/>
-                            <div class="text-xs lg:text-sm">
-                                <p class="font-semibold lg:text-lg">PAMANTASAN NG LUNGSOD NG MAYNILA</p>
-                                <p class="italic">(University of the City of Manila)</p>
-                                <p class="font-medium">Intramuros, Manila</p>
-                            </div>
-                            <img class="h-8 w-8 lg:h-14 lg:w-14" src="{{ asset('assets/osdslogo.png') }}"/>
-                        </div>
-                        <div class="flex flex-col items-center mt-10">
-                            <p style="font-family:Aston Script;" class="text-xs md:text-sm lg:text-base">Office of Student Development and Services</p>
-                            <p class="text-sm md:text-md lg:text-xl font-bold mt-4">COMPLAINT REPORT FORM</p>
-                        </div>
-                        <div class="mt-8">
-                            <p class="ml-4 lg:ml-20 text-xs lg:text-base font-medium">Complaint Information:</p>
-                        </div>
-                        <form class="mx-6 lg:mx-20">
-                            <div class="mt-4 text-sm">
-                                <div class="grid grid-cols-3 w-full gap-y-2">
-                                    <p class="cursor-default">Complaint ID:</p>
-                                    <div class="col-span-2">
-                                        <p id="complaintId" class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
-                                    </div>
-                                    <p class="cursor-default">Complainant Name:</p>
-                                    <div class="col-span-2">
-                                        <p id="complainantName" class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
-                                    </div>
-                                    <p class="cursor-default">Complainant ID:</p>
-                                    <div class="col-span-2">
-                                        <p id="complainantId" class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
-                                    </div>
-                                    <p class="cursor-default">Complainee:</p>
-                                    <div class="col-span-2">
-                                        <p id="complaineeName" class="text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
-                                    </div>
-                                    <p class="cursor-default">Comlainee ID:</p>
-                                    <div class="col-span-2">
-                                        <p id="complaineeId" class="w-96 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
-                                    </div>
-                                    <p class="cursor-default">Apprehension Date:</p>
-                                    <div class="col-span-2">
-                                        <p id="apprehensionDate" class="w-96 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
-                                    </div>
-                                    <p class="cursor-default">Submission Date</p>
-                                    <div class="col-span-2">
-                                        <p id="submissionDate" class="w-96 text-amber-600 selection:text-indigo-800 selection:bg-indigo-50"></p>
-                                    </div>
-                                    <div class="col-span-3 mt-6">
-                                        <p class="text-center text-xs lg:text-sm tracking-widest font-light cursor-default border-x border-t border-indigo-800 p-1">Nature and Cause of Allegation</p>
-                                        <textarea id="allegation" maxlength="500" class="w-full max-h-40 h-24 custom-scroller text-sm font-light px-2 shadow border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible" placeholder="max of 500 characters"></textarea>
-                                    </div>
+                    <div class="cursor-default flex flex-col items-center text-center">
+                        <p style="font-family: Aston Script;" class="mt-10 text-xs md:text-sm lg:text-base">Office of Student Development and Services</p>
+                        <p class="text-sm md:text-md lg:text-xl font-bold mt-4">COMPLAINT REPORT FORM</p>
+                    </div>
+                    <div class="mt-8">
+                        <p class="ml-4 lg:ml-20 text-xs lg:text-base font-medium cursor-default">Complaint Information:</p>
+                    </div>
+                    <form class="px-6 lg:px-20">
+                        <div class="mt-4">
+                            <div class="text-xs lg:text-sm space-y-2">
+                                <div class="flex flex-row justify-between items-center w-full">
+                                    <p class="cursor-default md:hidden">Stud Name:</p>
+                                    <p class="cursor-default hidden md:block">Student Name:</p>
+                                    <input type="number" class="lg:w-96 tracking-widest p-2 border border-indigo-300 px-2 focus:outline-none placeholder:text-indigo-300 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800" placeholder="Juan Luna"/>
+                                </div>
+                                <div class="flex flex-row justify-between items-center w-full">
+                                    <p class="cursor-default">Course:</p>
+                                    <input type="number" class="lg:w-96 tracking-widest p-2 border border-indigo-300 px-2 focus:outline-none placeholder:text-indigo-300 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800" placeholder="Computer Science"/>
+                                </div>
+                                <div class="flex flex-row justify-between items-center w-full">
+                                    <p class="cursor-default">College:</p>
+                                    <input type="number" class="lg:w-96 tracking-widest p-2 border border-indigo-300 px-2 focus:outline-none placeholder:text-indigo-300 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800" placeholder="College of Information Science, Technology and Management (CISTM)"/>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <div class="bg-white">
-                        
-                            <div class="flex justify-end mr-20 py-6 space-x-3">
-                                <button type="button" class="p-2 shadow shadow-indigo-500 rounded-md hover:shadow-amber-600 hover:text-amber-600 hover:bg-amber-50 active:bg-amber-200 active:font-semibold" onclick="location.href='{{ route('cdean.dashboard') }}'">
-                                    <p class="text-sm font-light">Escalate</p>
-                                </button>
-                                <button type="button" class="p-2 shadow shadow-indigo-500 rounded-md hover:shadow-amber-600 hover:text-amber-600 hover:bg-amber-50 active:bg-amber-200 active:font-semibold" onclick="location.href='{{ route('cdean.dashboard') }}'">
-                                    <p class="text-sm font-light">Resolve</p>
-                                </button>
+                            <div class="mt-2 text-xs lg:text-sm space-y-2">
+                                <div class="flex flex-row justify-between items-center w-full">
+                                    <p class="cursor-default md:hidden">Stud No:</p>
+                                    <p class="cursor-default hidden md:block">Student Number:</p>
+                                    <input type="number" class="lg:w-96 tracking-widest p-2 border border-indigo-300 px-2 focus:outline-none placeholder:text-indigo-300  text-amber-600 selection:bg-indigo-50 selection:text-indigo-800" placeholder="0000-00000"/>
+                                </div>
+                                <div class="flex flex-row justify-between items-center w-full">
+                                    <p class="cursor-default">Year & Block:</p>
+                                    <input type="number" class="lg:w-96 tracking-widest p-2 border border-indigo-300 px-2 focus:outline-none placeholder:text-indigo-300 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800" placeholder="1/2/3/4/5 - 1/2/3/4/5"/>
+                                </div>
+                                <div class="flex flex-row justify-between items-center w-full">
+                                    <p class="cursor-default">Date and Time:</p>
+                                    <input type="datetime" class="lg:w-96 tracking-widest p-2 border border-indigo-300 px-2 focus:outline-none placeholder:text-indigo-300 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800" placeholder="DD/MM/YYYY, 00:00 XX"/>
+                                </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="w-full mt-4">
+                            <p class="text-center text-xs lg:text-sm tracking-widest font-light cursor-default border-x border-t border-indigo-800 p-1">Nature and Cause of Allegation</p>
+                            <textarea maxlength="500" class="w-full max-h-40 h-24 custom-scroller text-sm font-light px-2 shadow border border-indigo-400 focus:border focus:border-amber-800 focus:outline-none placeholder:text-indigo-300 focus:placeholder:invisible" placeholder="max of 500 characters"></textarea>
+                        </div>
+                    </form>
                 </div>
             </article>
         </main>

@@ -9,8 +9,6 @@ class Complaint extends Model
 {
     use HasFactory;
 
-
-
     protected $fillable = [
         'complainant_id',
         'complainee_id',

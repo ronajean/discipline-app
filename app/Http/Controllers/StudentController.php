@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Gmrcrequest;
-
+use App\Models\Course;
+use App\Models\College;
+use App\Models\Gmcrequest;
 
 class StudentController extends Controller
 {
@@ -24,19 +26,38 @@ class StudentController extends Controller
         $userId = Auth::user()->id;
         $students = Student::where('id', $userId)->get();
 
+        foreach ($students as $student) {
+            $courses = Course::where('degree_program_id', $student->degree_program_id)->get();        
+
+            foreach ($courses as $course) {
+                $college = College::where('college_id', $course->college_id)->get();   
+            }   
+        }
+        
+
         // Then, pass the data to the view
         return view('student.dashboard', [
             'students' => $students,
+            'courses' => $courses,
+            'colleges' => $college,
         ]);
+    }
+    
+    public function search(Request $request)
+    {
+        $students = Student::where('name', 'like', '%' . $request->query . '%')->get();
+        return response()->json($students);
     }
 
     public function complaintReport()
     {
         // Fetch data related to the student from the database
         // For example, you might fetch the student's courses, grades, etc.
+        
 
         // Then, pass the data to the view
         return view('student.complaint-report', [
+            
             // 'courses' => $courses,
             // 'grades' => $grades,
             // etc.
@@ -47,9 +68,17 @@ class StudentController extends Controller
     {
         // Fetch data related to the student from the database
         // For example, you might fetch the student's courses, grades, etc.
+        $userId = Auth::user()->id;
+        $students = Student::where('id', $userId)->get();
+        foreach ($students as $student) {
+            $courses = Course::where('degree_program_id', $student->degree_program_id)->get();  
+        }
 
         // Then, pass the data to the view
         return view('student.complaint-form', [
+            'students' => $students,
+            'courses' => $courses,
+            
             // 'courses' => $courses,
             // 'grades' => $grades,
             // etc.
@@ -67,12 +96,33 @@ class StudentController extends Controller
 
     public function gmcStatus()
     {
-        return view('student.gmc-status', []);
+        $userId = Auth::user()->id;
+        $students = Student::where('id', $userId)->get();
+
+        foreach ($students as $student) {            
+            $gmc_request = Gmcrequest::where('student_no', $student->student_no)->get();  
+        }
+
+        return view('student.gmc-status', [
+            'gmc_request' => $gmc_request,
+        ]);
     }
 
     public function gmcPayment()
     {
-        return view('student.gmc-payment', []);
+        $userId = Auth::user()->id;
+        $students = Student::where('id', $userId)->get();
+
+        foreach ($students as $student) {            
+            $gmc_request = Gmcrequest::where('student_no', $student->student_no)->first();  
+            
+        }
+        
+
+        return view('student.gmc-payment', [
+            'gmc_request' => $gmc_request,
+
+        ]);
     }
 
     public function gmcRequest()
@@ -80,10 +130,20 @@ class StudentController extends Controller
 
         $userId = Auth::user()->id;
         $students = Student::where('id', $userId)->get();
+       
+        foreach ($students as $student) {
+            $courses = Course::where('degree_program_id', $student->degree_program_id)->get();        
+
+            foreach ($courses as $course) {
+                $college = College::where('college_id', $course->college_id)->get();   
+            }   
+        }
 
         // Then, pass the data to the view
         return view('student.gmc-request', [
             'students' => $students,
+            'courses' => $courses,
+            'colleges' => $college,
         ]);
     }
 
@@ -94,23 +154,7 @@ class StudentController extends Controller
 
     public function storeGmcRequest(Request $request)
     {
-        // Validate the incoming request data
-        $request->validate([
-            'date_of_request' => 'required|date',
-            'student_number' => 'required|string',
-            'student_name' => 'required|string',
-            'contact_number' => 'required|string',
-            'purpose' => 'required|string|max:500',
-        ]);
-
-        // Create a new GMC request record in the database
-        Gmrcrequest::create([
-            'date_of_request' => $request->date_of_request,
-            'student_number' => $request->student_number,
-            'student_name' => $request->student_name,
-            'contact_number' => $request->contact_number,
-            'purpose' => $request->purpose,
-        ]);
+        
 
         // Redirect back to the GMC status page with a success message
         return redirect()->route('student.gmc-status')->with('success', 'GMC request submitted successfully.');

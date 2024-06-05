@@ -151,7 +151,13 @@
                 </script>
             </header>
             <article class="grid grid-cols-6">
-                <aside class="bg-indigo-800 custom-scroller text-white h-screen relative">
+                <aside style="animation-name:slide-in; animation-duration:0.5s;" class="bg-indigo-800 custom-scroller text-white h-screen relative">
+                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('student.dashboard') }}'">
+                        <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
+                            <path fill-rule="evenodd" d="m56,34h-7v20h-12v-16h-10v16h-12v-20h-7v-4L32,6l9,9v-7h8v15l7,7v4Z" clip-rule="evenodd"></path>
+                        </svg>
+                        <p class="text-xs lg:text-base">Home</p>
+                    </button>
                     <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('student.complaint-report') }}'">
                         <svg class="h-6 w-6" viewBox="0 0 64 64" fill="currentColor">
                             <path fill-rule="evenodd" d="m54,10v40h-4l-20-10h-4l4,16h-10l-4-16c-4.94,0-8-3.06-8-8v-4c0-4.94,3.06-8,8-8h14l20-10h4Z" clip-rule="evenodd"></path>
@@ -166,13 +172,38 @@
                         <p class="hidden lg:block">Student Manual</p>
                         <p class="lg:hidden text-xs">Manual</p>
                     </button>
-                    <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" onclick="location.href='{{ route('student.gmc-status') }}'">
-                        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd" d="M9 2.2V7H4.2l.4-.5 3.9-4 .5-.3Zm2-.2v5a2 2 0 0 1-2 2H4v11c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7ZM8 16c0-.6.4-1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1-5a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"></path>
-                        </svg>
-                        <p class="hidden lg:block">GMC Certificate</p>
-                        <p class="lg:hidden text-xs">GMC</p>
-                    </button>
+                    <div x-data="{gmcOptions:false}">
+                        <button class="hover:bg-amber-50 hover:text-amber-600 active:bg-amber-300 active:font-semibold flex flex-row items-center justify-center w-full p-4 mt-6 space-x-2" @click="gmcOptions = !gmcOptions">
+                            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" d="M9 2.2V7H4.2l.4-.5 3.9-4 .5-.3Zm2-.2v5a2 2 0 0 1-2 2H4v11c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7ZM8 16c0-.6.4-1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1-5a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"></path>
+                            </svg>
+                            <p class="hidden lg:block">GMC Certificate</p>
+                            <p class="lg:hidden text-xs">GMC</p>
+                        </button>
+                        <div x-show="gmcOptions" class="fixed inset-0 z-10 bg-black bg-opacity-50 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800"  @click="gmcOptions = false">
+                            <div class="relative top-1/4 mx-auto flex flex-row justify-evenly">
+                                <button type="button" onclick="location.href='{{ route('student.gmc-request') }}'" class="bg-white p-20 rounded shadow-md border border-amber-600 hover:bg-amber-50 hover:text-indigo-600 active:text-indigo-800 active:bg-amber-200 active:border-indigo-800 active:font-normal text-2xl font-light space-y-4 items-center flex flex-col">
+                                    <p>Request for GMC Certificate</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="w-20 h-20" id="_x32_" viewBox="0 0 512 512" xml:space="preserve" webcrx="">
+                                        <g>
+                                            <rect x="114.087" y="148.892" fill="currentColor" width="157.906" height="26.318"/>
+                                            <rect x="114.087" y="245.39" fill="currentColor" width="157.906" height="26.318"/>
+                                            <rect x="114.087" y="341.888" fill="currentColor" width="96.498" height="26.318"/>
+                                            <path fill="currentColor" d="M454.95,86.619c-78.157,10.768-159.83,199.833-196.664,267.692c-9.252,17.049,12.264,31.278,21.786,14.958   c6.862-11.728,44.291-85.601,44.291-85.601c40.77,1.345,55.806-27.123,39.511-44.805c54.794,1.131,81.952-29.025,66.412-47.324   c16.345,5.175,30.498,1.713,51.521-9.749C526.664,157.321,524.573,75.421,454.95,86.619z"/>
+                                            <path fill="currentColor" d="M350.998,307.03V443.15c0,4.034-3.29,7.316-7.316,7.324H42.407c-4.027-0.008-7.308-3.29-7.316-7.324v-374.3   c0.009-4.036,3.29-7.316,7.316-7.325h301.275c4.027,0.009,7.316,3.29,7.316,7.325v67.961c11.48-15.463,23.147-29.144,35.09-40.504   V68.851c-0.018-23.431-18.967-42.398-42.407-42.416H42.407C18.976,26.453,0.009,45.42,0,68.851v374.3   c0.009,23.431,18.976,42.398,42.407,42.414h301.275c23.44-0.016,42.389-18.984,42.407-42.414V284.704   C377.967,295.404,365.87,303.114,350.998,307.03z"/>
+                                        </g>
+                                    </svg>
+                                </button>
+                                <button type="button" onclick="location.href='{{ route('student.gmc-status') }}'" class="bg-white p-20 rounded shadow-md border border-amber-600 hover:bg-amber-50 hover:text-indigo-600 active:text-indigo-800 active:bg-amber-200 active:border-indigo-800 active:font-normal text-2xl font-light space-y-4 items-center flex flex-col">
+                                    <p>View GMC Status</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20" viewBox="0 0 24 24" fill="none" webcrx="">
+                                        <circle cx="17" cy="8" r="4" fill="currentColor"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15 8C15 6.89543 15.8954 6 17 6C18.1046 6 19 6.89543 19 8H15ZM11 8C11 7.29873 11.1203 6.62556 11.3414 6H5C4.44772 6 4 6.44772 4 7C4 7.55228 4.44772 8 5 8H11ZM11.8027 11C12.2671 11.8028 12.9121 12.488 13.6822 13H5C4.44772 13 4 12.5523 4 12C4 11.4477 4.44772 11 5 11H11.8027ZM5 16C4.44772 16 4 16.4477 4 17C4 17.5523 4.44772 18 5 18H19C19.5523 18 20 17.5523 20 17C20 16.4477 19.5523 16 19 16H5Z" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
                     
                     <form action="/logout" method="POST">
@@ -194,8 +225,12 @@
                         <div class="flex flex-row grid grid-cols-2 items-center">
                             <div class="grid grid-cols-3 text-xs lg:text-sm">
                                 <p class="hidden lg:block">Transaction Number:</p>
+                                @foreach ($gmc_request as $gmc_request)
+                                    
                                 <p class="lg:hidden">Number:</p>
-                                <p class="text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">48130482389042839</p>
+
+                                <p class="text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">{{ $gmc_request->first()->transaction_no }}</p>
+                                @endforeach
                                 <p> </p>
                                 <p>Status:</p>
                                 <p class="text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">Pending</p>
@@ -210,7 +245,7 @@
                         <div class="text-sm">
                             <p>Status:</p>
                         </div>
-                        <progress class="w-full" max="100" value="20" name="orange"></progress>
+                        <progress class="w-full" max="100" value="75" name="orange"></progress>
                         <div class="grid grid-cols-12">
                             <div class="text-indigo-100">
                                 <label>
@@ -293,10 +328,8 @@
                             </div>
                             <div class="col-span-5 space-y-6 mt-5 font-light">
                                 <p>GMC Request Sent</p>
-                                <p>Request Verification</p>
-                                <p>Processing GMC Request</p>
-                                <p>GMC Request Response</p>
-                                <p>Waiting for Payment</p>
+                                <p>Pending Payment</p>
+                                <p>Payment Successful</p>
                                 <p>Processing GMC for Pick-up</p>
                                 <p>Ready for Pick-up</p>    
                             </div>
@@ -306,129 +339,52 @@
                                     <label>
                                         <input type="radio" class="peer hidden" name="gmc-step"/>
                                         <div class="p-3 rounded-full bg-indigo-50 hover:bg-amber-50 border border-indigo-800 transform transition-all origin-left duration-300 hover:border-amber-600 active:bg-amber-200 peer-checked:bg-amber-300 peer-checked:border-amber-600 cursor-pointer" title="GMC Request Approval: Page 1"></div>
-                                        <div class="hidden peer-checked:block">
-                                            <div class="font-light text-center mt-2">
-                                                <p class="text-base lg:text-lg">GMC Request Approval</p>
-                                                <p class="text-xs lg:text-sm">GMC Request Response</p>
-                                            </div>
-                                            <div class="pb-2 border-b border-indigo-300 flex flex-row mt-6 justify-between text-xs lg:text-sm">
-                                                <p>Status:</p>
-                                                <p class="text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">Pending</p>
-                                            </div>
-                                            <div class="mt-4 text-xs lg:text-sm">
-                                                <p>Description:</p>
-                                                <p class="text-right text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">The description will be displayed here about the response for GMC Request Approval</p>
-                                            </div>
-                                            <div class="flex justify-end mt-10" x-data="{isOpen16:false}">
-                                                <button class="p-2 border border-indigo-800 hover:bg-amber-50 hover:border-amber-600 hover:text-amber-600 active:bg-amber-200 active:font-semibold font-light rounded" @click="isOpen16 = !isOpen16">
-                                                    <p class="text-sm">Check</p>
-                                                </button>
-                                                <div x-show="isOpen16" class="fixed inset-0 z-10 bg-black bg-opacity-50 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">
-                                                    <div class="relative top-1/4 bg-white mx-auto max-w-sm p-4 rounded shadow-md border border-amber-600">
-                                                        <p class="font-thin text-2xl tracking-widest border-b border-amber-300">GMC Request Response</p>
-                                                        <div class="pb-3">
-                                                            <div class="py-4 max-h-64 custom-scroller-small overflow-y-auto space-y-2">
-                                                                <p>Description:</p>
-                                                                <p class="text-right text-sm font-light">The description will be displayed here about the response for GMC request approval.</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="absolute left-2 bottom-2 flex items-center justify-center max-w-14 w-14 max-h-14 h-14 rounded shadow shadow-orange-500 bg-orange-300 text-orange-800">
-                                                            <p class="text-xs font-semibold">Pending</p>
-                                                        </div>
-                                                        <div class="flex justify-end mt-3">
-                                                            <button @click="isOpen16 = false" class="border border-amber-600 hover:border-indigo-800 hover:text-indigo-800 hover:bg-indigo-50 active:bg-indigo-200 active:font-semibold p-1.5">
-                                                                <p class="text-sm">Go back</p>
-                                                            </button>
-                                                        </div>
-                                                    </div>
+                                        
+                                        <div x-show="purchased" id="thankYouMessage" class="fixed inset-0 z-10 bg-black bg-opacity-50 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">
+                                            <div class="relative top-20 bg-white mx-auto max-w-xl p-4 rounded shadow-md border border-amber-600">
+                                                <p class="font-thin text-2xl tracking-widest border-b border-amber-300">Thank you!</p>
+                                                <div class="space-y-8">
+                                                    <p class="font-light pt-6">
+                                                        <span class="font-normal">Your GMC Request has been successfully submitted.</span><br>
+                                                        <span class="text-sm">Kindly allow 10-15 business days for the processing of your document.</span><br>
+                                                        <span class="underline text-right font-thin hover:text-indigo-800">
+                                                            <a href="{{ route('student.gmc-status') }}">You can view the status of your request under GMC Certificate > View GMC Request Status</a>
+                                                        </span>
+                                                    </p>
+                                                    <p class="text-sm text-right">For inquires, please send email at<br>
+                                                        OSDS@plm.edu.ph<br>
+                                                        For follow-up, please text #09976017966
+                                                    </p>
+                                                    <p class="text-xs font-thin">Note: Claimant must present two(2) valid Identification Cards (IDs) while authorized representatives must bring with them of authorization aside from the two(2) valid IDs for purposes of filing and securing the GMC Certificate.</p>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </label>
-                                    <label>
-                                        <input type="radio" class="peer hidden" name="gmc-step"/>
-                                        <div class="p-3 rounded-full bg-indigo-50 hover:bg-amber-50 border border-indigo-800 hover:border-amber-600 transform transition-all origin-right duration-300 active:bg-amber-200 peer-checked:bg-amber-300 peer-checked:border-amber-600 cursor-pointer" title="GMC Request Approval: Page 2"></div>
-                                        <div class="hidden peer-checked:block">
-                                            <div class="font-light text-center mt-2">
-                                                <p class="text-base lg:text-lg">GMC Request Approval</p>
-                                                <p class="text-xs lg:text-sm">GMC Number of Copies</p>
-                                            </div>
-                                            <div class="mt-8">
-                                                <div class="relative">
-                                                    <input id="copies" type="number" class="focus:outline-none h-10 w-full border border-indigo-300 p-2 placeholder:text-sm tracking-widest placeholder:font-light placeholder:text-indigo-400 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800" placeholder="Number of copies (1-5)"/>
-                                                    <!-- Additional Button (OPTIONAL) -->
-                                                    <!-- <button class="absolute right-1 top-1.5 p-1.5 rounded border border-indigo-300 hover:border-amber-600 hover:bg-amber-50 hover:text-amber-600 active:bg-amber-200">
-                                                        <p class="text-xs">Confirm</p>
-                                                    </button> -->
+                                                <div class="w-full flex justify-end mt-6">
+                                                    <button type="button" onclick="hideThankYouMessage();" class="hover:text-indigo-800 p-2 text-sm font-light border border-amber-600 hover:border-indigo-800 hover:bg-indigo-50" onclick="location.href='{{ route('student.gmc-status') }}'">
+                                                        <p>Go back</p>
+                                                    </button>
                                                 </div>
-                                                <div class="selection:bg-indigo-50 selection:text-indigo-800">
-                                                    <p id="fee" class="text-sm font-thin tracking-widest text-right text-amber-600">₱000.00</p>
-                                                    <p class="font-light text-right tracking-widest text-amber-600">Proceed to Payment</p>
-                                                </div>
-                                                <div class="mt-8 text-xs font-light text-justify opacity-70">
-                                                    <p>Note:</p>
-                                                    <p>Claimant must present two(2) valid Identification Cards (IDs) while authorized representatives must bring with them of authorization aside from the two(2) valid IDs for purposes of filing and securing the GMC Certificate.</p>
-                                                </div>
+
+                                                
                                             </div>
 
                                             <script>
-                                                function updatePayment() {
-                                                    var number = document.getElementById("copies").value;
-
-                                                    if(isNaN(number)) {
-                                                        return;
-                                                    }
-
-                                                    /* Insert GMC Certificate Price here */
-                                                    var payment = number * 100;
-                                                    
-                                                    document.getElementById("fee").innerHTML = "₱" + payment.toFixed(2);
-
-                                                    sessionStorage.setItem("fee", payment.toFixed(2));
+                                                function hideThankYouMessage() {
+                                                    document.getElementById('thankYouMessage').style.display = 'none';
                                                 }
-                                                document.getElementById("copies").addEventListener("input", updatePayment);
-
-                                                updatePayment();
                                             </script>
                                         </div>
                                     </label>
                                     <label>
-                                        <input type="radio" class="peer hidden" name="gmc-step"/>
-                                        <div class="p-3 rounded-full bg-indigo-50 hover:bg-amber-50 border border-indigo-800 transform transition-all origin-left duration-300 hover:border-amber-600 active:bg-amber-200 peer-checked:bg-amber-300 peer-checked:border-amber-600 cursor-pointer" title="GMC Request Approval: Page 3"></div>
-                                        <div class="hidden peer-checked:block">
-                                            <div class="font-light text-center mt-2">
-                                                <p class="text-base lg:text-lg">GMC Request Approval</p>
-                                                <p class="text-xs lg:text-sm">GMC: After Payment</p>
-                                            </div>
-                                            <div class="grid grid-cols-2 text-sm w-full mt-6 gap-2">
-                                                <p>Payment Date:</p>
-                                                <p class="text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">DD/MM/YYYY</p>
-                                                <p>Official Receipt:</p>
-                                                <p class="text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">2384283748279</p>
-                                                <p>Amount Paid:</p>
-                                                <p class="text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">₱300.00</p>
-                                            </div>
-                                            <div class="mt-8 text-xs font-light text-justify opacity-70">
-                                                <p>Note:</p>
-                                                <p>1. Claimant must present two(2) valid Identification Cards (IDs) while authorized representatives must bring with them of authorization aside from the two(2) valid IDs for purposes of filing and securing the GMC Certificate.</p>
-                                                <div class="flex flex-row items-end">
-                                                    <p>2. The copy of GMC Certificate shall be released tentatively on</p>
-                                                    <span class="border-b border-slate-500 px-6 ml-2 text-amber-600 selection:bg-indigo-50 selection:text-indigo-800">DD/MM/YYYY</span>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
+                                    </label>
+                                    <label>
+                                        
                                     </label>
                                 </div>
                             </div>
                          </div>
                     </article>
                     <div class="bg-white p-4 pb-16 justify-between flex border-b border-indigo-300">
-                        <button id="proceed" type="button" class="p-2 disabled:cursor-not-allowed disabled:text-indigo-200 disabled:bg-indigo-50 disabled:font-light disabled:shadow-indigo-50 hover:bg-amber-50 hover:text-amber-600 rounded shadow-sm shadow-indigo-600 hover:shadow-amber-600 active:bg-amber-300 font-semibold" onclick="location.href='{{ route('student.gmc-payment') }}'" title="Payment for GMC Certificate">
-                            <p>Payment</p>
-                        </button>
-                        <button type="button" class="p-2 disabled:cursor-not-allowed disabled:text-indigo-200 disabled:bg-indigo-50 disabled:font-light disabled:shadow-indigo-50 hover:bg-amber-50 hover:text-amber-600 rounded shadow-sm shadow-indigo-600 hover:shadow-amber-600 active:bg-amber-300 font-semibold" onclick="location.href='{{ route('student.gmc-request') }}'" title="Request a GMC Certificate">
-                            <p>Request</p>
-                        </button>
+                        
                     </div>
                 </div>
             </article>

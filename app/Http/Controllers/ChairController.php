@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
-Use App\Models\Employee;
+use App\Models\Employee;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Complaint;
 use App\Models\Student;
 class ChairController extends Controller
@@ -13,12 +14,15 @@ class ChairController extends Controller
     {
         // Fetch data related to the student from the database
         // For example, you might fetch the student's courses, grades, etc.
+        $userId = Auth::user()->id;
+        $employees = Employee::where('id', $userId)->get();
+        $complaints = Complaint::all(); 
 
         // Then, pass the data to the view
         
-        $complaints = Complaint::all();
+        /*$complaints = Complaint::all();
         $userId = Auth::user()->id;
-        $employees = Employee::where('id', $userId)->get();
+        $employees = Employee::where('id', $userId)->get();*/
 
         // Then, pass the data to the view
         return view('chair.dashboard', [
